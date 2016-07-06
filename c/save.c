@@ -46,6 +46,9 @@
 #include <X11/Xaw/Dialog.h>
 #include <View.h>
 
+/* we need this for the definition of intptr_t */
+#include <stdint.h>
+
 #if HAVE_STRING_H
 #include <string.h>
 #elif HAVE_STRINGS_H
@@ -73,6 +76,7 @@ int	Save_Lights(FILE*);
 int	Save_Constraints(FILE*, ObjectInstancePtr);
 int Save_CSG_Trees(FILE*);
 int	Save_String(FILE*, char*);
+int Save_MainViewport(FILE *);
 
 extern Viewport	*view_list;
 extern String	*label_list;
@@ -94,7 +98,7 @@ Save_Dialog_Func(Widget w, XtPointer cl_data, XtPointer ca_data)
 	char	path_name[1024];
 	struct stat	stat_struct;
 
-	on_completion = (int)cl_data;
+	on_completion = (intptr_t)cl_data;
 
 	if ( ! io_file_name )
 	{

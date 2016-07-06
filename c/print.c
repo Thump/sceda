@@ -226,6 +226,7 @@ PrintSetMag(Widget w, XtPointer cl, XtPointer ca)
 	View_Update(&main_window,main_window.all_instances,CalcView);
 }
 
+void
 Print_Raytracer(Raytracer *type)
 {	switch (*type)
     {
@@ -240,6 +241,7 @@ Print_Raytracer(Raytracer *type)
 	}
 }
 
+void
 Print_GenericObj(GenericObject *gen)
 {	switch (*gen)
 	{
@@ -290,7 +292,7 @@ Get_String(char *prompt,char *val)
     int     n;
 
 	if ( prompt == NULL || val == NULL)
-		return;
+		return(NULL);
 
 	n = 0;
 	XtSetArg(args[n], XtNtitle, "Get_String");	n++;

@@ -32,6 +32,9 @@
 #include <select_point.h>
 #include <View.h>
 
+/* we need this for the definition of intptr_t */
+#include <stdint.h>
+
 static void	Edit_Calculate_Axes();
 static void	Calculate_Circle(Vertex pt, XArc *arc);
 
@@ -302,7 +305,7 @@ Edit_Select_1_Axis_Callback(int *ind, FeatureSpecType *spec)
 void
 Edit_Change_Axis_1_Callback(Widget widg, XtPointer cl, XtPointer ca)
 {
-	change_axis = (int)cl;
+	change_axis = (intptr_t)cl;
 	info = Edit_Get_Info();
 
 	if ( info->deleting )
@@ -355,7 +358,7 @@ Edit_Select_2_Axis_Callback(int *indices, FeatureSpecType *specs)
 void
 Edit_Change_Axis_2_Callback(Widget widg, XtPointer cl, XtPointer ca)
 {
-	change_axis = (int)cl;
+	change_axis = (intptr_t)cl;
 	info = Edit_Get_Info();
 
 	if ( info->deleting )

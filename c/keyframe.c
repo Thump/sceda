@@ -54,6 +54,8 @@ extern char *genray_path;
 extern char *genray_options;
 extern char *genscan_path;
 extern char *genscan_options;
+extern void Append_Instance_List(InstanceList *, InstanceList);
+extern InstanceList Delete_Element(InstanceList);
 
 extern Widget main_option_buttons[];
 
@@ -116,7 +118,7 @@ New_KeyFrame(int fnum, Boolean insert)
 	debug(FUNC_NAME,fprintf(stderr,"New_KeyFrame()\n"));
 
 	/* Check if we're allowed to be doing this at all... */
-	if ( ! XtIsSensitive(main_option_buttons[0]) ) return;
+	if ( ! XtIsSensitive(main_option_buttons[0]) ) return(FALSE);
 
 	changed_scene = TRUE;
 

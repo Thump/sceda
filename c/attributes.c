@@ -37,6 +37,9 @@
 #include <X11/Xaw/AsciiText.h>
 #include <X11/Xaw/Toggle.h>
 
+/* we need this for the definition of intptr_t */
+#include <stdint.h>
+
 /* From save.c */
 extern int	Save_String(FILE*, char*);
 
@@ -619,7 +622,8 @@ Update_Attribute_Strings(AttributePtr new_vals)
 
 	/* Set the None toggle. */
 	XtVaSetValues(none_button, XtNstate, ! new_vals->defined, NULL);
-	No_Attributes_Callback(NULL, NULL, (XtPointer)(! new_vals->defined));
+	No_Attributes_Callback(NULL, NULL, (XtPointer)(intptr_t)
+        (! new_vals->defined));
 }
 
 

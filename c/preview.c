@@ -475,8 +475,13 @@ Perform_Preview(WindowInfoPtr window, Raytracer target, InstanceList insts,
 
 	infilename = New(char, 24 + strlen(start_directory_name));
 	sprintf(infilename, "%s/previewXXXXXX", start_directory_name);
+
+    // get a FILE * from the file descriptor based on the template
+    outfile = fdopen(mkstemp(infilename), "w");
+
 	/* Get a temporary filename to use. */
-	if ( ! ( infilename = (char*)mktemp(infilename) ) )
+	/*
+    if ( ! ( infilename = (char*)mktemp(infilename) ) )
 	{
 		Popup_Error("Unable to create file name for preview",
 					window->shell, "Error");
@@ -491,6 +496,7 @@ Perform_Preview(WindowInfoPtr window, Raytracer target, InstanceList insts,
 		Popup_Error(prompt_string, window->shell, "Error");
 		return;
 	}
+    */
 
 	/* Store the filename for later deletion. */
 	Save_Temp_Filename(infilename);

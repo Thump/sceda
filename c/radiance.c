@@ -39,6 +39,9 @@
 #include <X11/Xaw/Label.h>
 #include <X11/Xaw/Toggle.h>
 
+/* we need this for the definition of intptr_t */
+#include <stdint.h>
+
 #define LOW 1
 #define MEDIUM 2
 #define HIGH 3
@@ -198,8 +201,9 @@ Export_Rad_File(FILE *outfile, char *scene_name, ScenePtr scene)
 
 	temp_p = XawToggleGetCurrent(zone_radio);
 	XtVaGetValues(zone_text, XtNstring, &temp_s, NULL);
-	fprintf(outfile, "ZONE = %s %s\n", ( (int)temp_p == INTERIOR ? "I" : "E" ),
-			temp_s);
+	fprintf(outfile, "ZONE = %s %s\n",
+        ( (intptr_t)temp_p == INTERIOR ? "I" : "E" ),
+		temp_s);
 
 	XtVaGetValues(exposure_text, XtNstring, &temp_s, NULL); 
 	if ( sscanf(temp_s, "%g", &temp_f) == 1 )
@@ -207,15 +211,15 @@ Export_Rad_File(FILE *outfile, char *scene_name, ScenePtr scene)
 
 	temp_p = XawToggleGetCurrent(var_radio);
 	fprintf(outfile, "VARIABILITY = ");
-	Print_Level((int)temp_p);
+	Print_Level((intptr_t)temp_p);
 
 	temp_p = XawToggleGetCurrent(det_radio);
 	fprintf(outfile, "DETAIL = ");
-	Print_Level((int)temp_p);
+	Print_Level((intptr_t)temp_p);
 
 	temp_p = XawToggleGetCurrent(qual_radio);
 	fprintf(outfile, "QUALITY = ");
-	Print_Level((int)temp_p);
+	Print_Level((intptr_t)temp_p);
 
 	XtVaGetValues(indirect_text, XtNstring, &temp_s, NULL); 
 	if ( sscanf(temp_s, "%d", &temp_i) == 1 )
@@ -1255,15 +1259,15 @@ Radiance_Save_Extras(FILE *outfile)
 	/* Get and save assorted support information from the dialog. */
 	temp_p = XawToggleGetCurrent(zone_radio);
 	XtVaGetValues(zone_text, XtNstring, &temp_s, NULL);
-	fprintf(outfile, "%d \"%s\" ", (int)temp_p, temp_s);
+	fprintf(outfile, "%d \"%s\" ", (intptr_t)temp_p, temp_s);
 	XtVaGetValues(exposure_text, XtNstring, &temp_s, NULL); 
 	fprintf(outfile, "\"%s\" ", temp_s);
 	temp_p = XawToggleGetCurrent(var_radio);
-	fprintf(outfile, "%d ", (int)temp_p);
+	fprintf(outfile, "%d ", (intptr_t)temp_p);
 	temp_p = XawToggleGetCurrent(det_radio);
-	fprintf(outfile, "%d ", (int)temp_p);
+	fprintf(outfile, "%d ", (intptr_t)temp_p);
 	temp_p = XawToggleGetCurrent(qual_radio);
-	fprintf(outfile, "%d ", (int)temp_p);
+	fprintf(outfile, "%d ", (intptr_t)temp_p);
 	XtVaGetValues(indirect_text, XtNstring, &temp_s, NULL); 
 	fprintf(outfile, "\"%s\"\n", temp_s);
 }
@@ -1276,12 +1280,12 @@ Radiance_Set_Extras(int zone_type, char *zone_string, char *exposure_string,
 	if ( ! radiance_export_shell )
 		Radiance_Create_Shell();
 
-	XawToggleSetCurrent(zone_radio, (XtPointer)zone_type);
+	XawToggleSetCurrent(zone_radio, (XtPointer)(intptr_t)zone_type);
 	XtVaSetValues(zone_text, XtNstring, zone_string, NULL);
 	XtVaSetValues(exposure_text, XtNstring, exposure_string, NULL);
-	XawToggleSetCurrent(var_radio, (XtPointer)var);
-	XawToggleSetCurrent(det_radio, (XtPointer)det);
-	XawToggleSetCurrent(qual_radio, (XtPointer)qual);
+	XawToggleSetCurrent(var_radio, (XtPointer)(intptr_t)var);
+	XawToggleSetCurrent(det_radio, (XtPointer)(intptr_t)det);
+	XawToggleSetCurrent(qual_radio, (XtPointer)(intptr_t)qual);
 	XtVaSetValues(indirect_text, XtNstring, indirect_string, NULL);
 }
 

@@ -39,6 +39,8 @@
 #if defined(SVR4) || defined(SYSV) || defined(USG)
 extern uid_t getuid();
 extern void qsort();
+#else
+extern void qsort();
 #endif /* defined(SVR4) || defined(SYSV) || defined(USG) */
 
 typedef struct {

@@ -41,6 +41,8 @@
 extern void Edit_Menu_Callback(Widget, XtPointer, XtPointer);
 extern BaseObjectList base_objects;
 extern int num_base_objects;
+extern void Close_CSG_Callback(Widget, XtPointer, XtPointer);
+extern void Help_Popup_Callback(Widget, XtPointer, XtPointer);
 
 extern char *rayshade_path;
 extern char *rayshade_options;

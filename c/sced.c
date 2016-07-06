@@ -333,11 +333,11 @@ main(int argc, char *argv[], char *envp[])
 			char	current_dir[MAXPATHLEN];
 			char	*temp;
 
-#if HAVE_GETWD
-			getwd(current_dir);
-#else
+            /* We used to support getwd() and getcwd(), but getwd() is a
+            ** security risk, and getcwd() has been around forever, so I'm
+            ** removing getwd()
+            */
 			getcwd(current_dir, MAXPATHLEN);
-#endif
 			temp = New(char, strlen(io_file_name) + strlen(current_dir) + 5);
 			sprintf(temp, "%s/%s", current_dir, io_file_name);
 			free(io_file_name);
@@ -476,14 +476,11 @@ Initialize_Sced(int argc, char *argv[], char *envp[])
 
 	/* Store the start directory, because SelFile tends to trash it, but
 	** preview needs it. */
-#if HAVE_GETWD
-	getwd(start_directory_name);
-#else
+    /* We used to support getwd() and getcwd(), but getwd() is a
+    ** security risk, and getcwd() has been around forever, so I'm
+    ** removing getwd()
+    */
 	getcwd(start_directory_name, MAXPATHLEN);
-#endif
-
-
-
 }
 
 

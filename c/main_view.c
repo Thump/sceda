@@ -881,55 +881,55 @@ Create_Animate_Menu()
 	animate_children[count] = XtCreateManagedWidget
 		("Next Key Frame",smeBSBObjectClass,animate_widget,NULL,0);
 	XtAddCallback
-		(animate_children[count],XtNcallback,Next_KeyFrame,NULL);
+		(animate_children[count],XtNcallback,(XtPointer)Next_KeyFrame,NULL);
 	count++;
 
 	animate_children[count] = XtCreateManagedWidget
 		("Prev Key Frame",smeBSBObjectClass,animate_widget,NULL,0);
 	XtAddCallback
-		(animate_children[count],XtNcallback,Prev_KeyFrame,NULL);
+		(animate_children[count],XtNcallback,(XtPointer)Prev_KeyFrame,NULL);
 	count++;
 
 	animate_children[count] = XtCreateManagedWidget
 		("Clone Key Frame",smeBSBObjectClass,animate_widget,NULL,0);
 	XtAddCallback
-		(animate_children[count],XtNcallback,Clone_KeyFrame,NULL);
+		(animate_children[count],XtNcallback,(XtPointer)Clone_KeyFrame,NULL);
 	count++;
 
 	animate_children[count] = XtCreateManagedWidget
 		("Remove Key Frame",smeBSBObjectClass,animate_widget,NULL,0);
 	XtAddCallback
-		(animate_children[count],XtNcallback,Remove_KeyFrame,NULL);
+		(animate_children[count],XtNcallback,(XtPointer)Remove_KeyFrame,NULL);
 	count++;
 
 	animate_children[count] = XtCreateManagedWidget
 		("Pump All Keyframes",smeBSBObjectClass,animate_widget,NULL,0);
 	XtAddCallback
-		(animate_children[count],XtNcallback,Pump_All,NULL);
+		(animate_children[count],XtNcallback,(XtPointer)Pump_All,NULL);
 	count++;
 
 	animate_children[count] = XtCreateManagedWidget
 		("Zero All Keyframes",smeBSBObjectClass,animate_widget,NULL,0);
 	XtAddCallback
-		(animate_children[count],XtNcallback,Zero_All,NULL);
+		(animate_children[count],XtNcallback,(XtPointer)Zero_All,NULL);
 	count++;
 
 	animate_children[count] = XtCreateManagedWidget
 		("Animate",smeBSBObjectClass,animate_widget,NULL,0);
 	XtAddCallback
-		(animate_children[count],XtNcallback,Animate,NULL);
+		(animate_children[count],XtNcallback,(XtPointer)Animate,NULL);
 	count++;
 
 	animate_children[count] = XtCreateManagedWidget
 		("Export Animation",smeBSBObjectClass,animate_widget,NULL,0);
 	XtAddCallback
-		(animate_children[count],XtNcallback,Export_Animation,NULL);
+		(animate_children[count],XtNcallback,(XtPointer)Export_Animation,NULL);
 	count++;
 
 	animate_children[count] = XtCreateManagedWidget
 		("Clone to All",smeBSBObjectClass,animate_widget,NULL,0);
 	XtAddCallback
-		(animate_children[count],XtNcallback,Clone_to_Keyframes,NULL);
+		(animate_children[count],XtNcallback,(XtPointer)Clone_to_Keyframes,NULL);
 	count++;
 }
 

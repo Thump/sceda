@@ -41,6 +41,8 @@
 extern void Edit_Menu_Callback(Widget, XtPointer, XtPointer);
 extern BaseObjectList base_objects;
 extern int num_base_objects;
+extern void Insert_Element(InstanceList *, ObjectInstancePtr);
+extern void Target_Callback(Widget, XtPointer, XtPointer);
 
 extern char *rayshade_path;
 extern char *rayshade_options;
@@ -911,37 +913,37 @@ Render_Command(Raytracer target, char *in, char *out, int width, int height)
 	{	case Genray:
 			if ( genray_path[0] == '\0' ) 
 			{	Popup_Error("Can't find Genray",main_window.shell,"Error");
-				return;
+				return(NULL);
 			}
 			break;
 		case Genscan:
 			if ( genscan_path[0] == '\0' ) 
 			{	Popup_Error("Can't find Genscan",main_window.shell,"Error");
-				return;
+				return(NULL);
 			}
 			break;
 		case POVray:
 			if ( povray_path[0] == '\0' )
 			{	Popup_Error("Can't find POVRay",main_window.shell,"Error");
-				return;
+				return(NULL);
 			}
 			break;
 		case Rayshade:
 			if ( rayshade_path[0] == '\0' )
 			{	Popup_Error("Can't find Rayshade",main_window.shell,"Error");
-				return;
+				return(NULL);
 			}
 			break;
 		case Radiance:
 			if ( radiance_path[0] == '\0' )
 			{	Popup_Error("Can't find Radiance",main_window.shell,"Error");
-				return;
+				return(NULL);
 			}
 			break;
 		case Renderman:
 			if ( renderman_path[0] == '\0' )
 			{	Popup_Error("Can't find RenderMan",main_window.shell,"Error");
-				return;
+				return(NULL);
 			}
 			break;
 		default:;

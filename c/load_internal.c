@@ -64,6 +64,8 @@
 
 extern void		CSG_Generate_Full_Wireframe(BaseObjectPtr);
 extern void		Radiance_Set_Extras(int, char*, char*, int, int, int, char*);
+extern void     Print_Token(int);
+extern void     Print_Token_Value(int, int, float);
 
 static int	Load_Layers();
 static int	Load_Basetypes();
@@ -77,6 +79,7 @@ static int	Load_Constraints(FeaturePtr*, short*, Boolean **);
 static int	Load_CSG_Trees();
 static int	Load_Wireframe(WireframePtr*, Boolean*);
 static int	Load_Wireframe_Attributes(AttributePtr*, int);
+       int Reset_NewFrame(int);
 
 static ObjectInstancePtr	Load_Instance(char*);
 static CSGNodePtr			Load_CSG_Tree(CSGNodePtr);

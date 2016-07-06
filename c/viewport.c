@@ -41,6 +41,9 @@
 #include <X11/Xaw/Form.h>
 #include <X11/Xaw/Toggle.h>
 
+/* we need this for the definition of intptr_t */
+#include <stdint.h>
+
 static WindowInfoPtr	draw_window;
 static Widget			draw_mode_shell = NULL;
 static Widget			draw_toggles;
@@ -340,7 +343,7 @@ Window_Draw_Mode_Callback(Widget w, XtPointer cl_data, XtPointer ca_data)
 		Create_Draw_Mode_Shell();
 
 	XawToggleSetCurrent(draw_toggles,
-						(XtPointer)draw_window->viewport.draw_mode);
+						(XtPointer)(intptr_t)draw_window->viewport.draw_mode);
 
 	SFpositionWidget(draw_mode_shell);
 	XtPopup(draw_mode_shell, XtGrabExclusive);
@@ -353,7 +356,7 @@ Draw_Mode_Toggle_Callback(Widget w, XtPointer cl_data, XtPointer ca_data)
 	if ( ca_data )
 	{
 		Window_Set_Draw_Mode(draw_window,
-							 (int)XawToggleGetCurrent(draw_toggles));
+							 (intptr_t)XawToggleGetCurrent(draw_toggles));
 		XtPopdown(draw_mode_shell);
 	}
 }

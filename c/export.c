@@ -53,6 +53,8 @@ extern int	Export_Radiance(FILE*, char*, ScenePtr, Boolean);
 extern int	Export_Genray(FILE*, ScenePtr);
 extern int	Export_Genscan(FILE*, ScenePtr);
 
+extern void Print_Raytracer(Raytracer *);
+
 static char		*export_file_name = NULL;
 
 
@@ -94,11 +96,7 @@ Export_Callback(Widget w, XtPointer cl_data, XtPointer ca_data)
 			if ( scene_path )
 				strcpy(path_name, scene_path);
 			else
-#if HAVE_GETWD
-				getwd(path_name);
-#else
 				getcwd(path_name, MAXPATHLEN);
-#endif
 				strcat(path_name, "*.");
 		}
 		switch ( camera.type )

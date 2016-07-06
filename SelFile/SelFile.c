@@ -46,7 +46,7 @@
 /* BSD 4.3 errno.h does not declare errno */
 extern int errno;
 extern int sys_nerr;
-extern char *sys_errlist[];
+extern const char * const sys_errlist[];
 
 #include <sys/param.h>
 #include <X11/cursorfont.h>
@@ -414,9 +414,9 @@ SFcreateWidgets(toplevel, prompt, ok, cancel)
 			scrollbarWidgetClass, selFileLists[n], arglist, i);
 
 		XtAddCallback(selFileVScrolls[n], XtNjumpProc,
-			SFvFloatSliderMovedCallback, (XtPointer) n);
+			SFvFloatSliderMovedCallback, (XtPointer)(intptr_t) n);
 		XtAddCallback(selFileVScrolls[n], XtNscrollProc,
-			SFvAreaSelectedCallback, (XtPointer) n);
+			SFvAreaSelectedCallback, (XtPointer)(intptr_t) n);
 
 		i = 0;
 
@@ -431,9 +431,9 @@ SFcreateWidgets(toplevel, prompt, ok, cancel)
 			scrollbarWidgetClass, selFileLists[n], arglist, i);
 
 		XtAddCallback(selFileHScrolls[n], XtNjumpProc,
-			SFhSliderMovedCallback, (XtPointer) n);
+			SFhSliderMovedCallback, (XtPointer)(intptr_t) n);
 		XtAddCallback(selFileHScrolls[n], XtNscrollProc,
-			SFhAreaSelectedCallback, (XtPointer) n);
+			SFhAreaSelectedCallback, (XtPointer)(intptr_t) n);
 	}
 
 	i = 0;
@@ -492,17 +492,17 @@ SFcreateWidgets(toplevel, prompt, ok, cancel)
 
 	for (n = 0; n < 3; n++) {
 		XtAddEventHandler(selFileLists[n], ExposureMask, True,
-			SFexposeList, (XtPointer) n);
+			SFexposeList, (XtPointer)(intptr_t) n);
 		XtAddEventHandler(selFileLists[n], EnterWindowMask, False,
-			SFenterList, (XtPointer) n);
+			SFenterList, (XtPointer)(intptr_t) n);
 		XtAddEventHandler(selFileLists[n], LeaveWindowMask, False,
-			SFleaveList, (XtPointer) n);
+			SFleaveList, (XtPointer)(intptr_t) n);
 		XtAddEventHandler(selFileLists[n], PointerMotionMask, False,
-			SFmotionList, (XtPointer) n);
+			SFmotionList, (XtPointer)(intptr_t) n);
 		XtAddEventHandler(selFileLists[n], ButtonPressMask, False,
-			SFbuttonPressList, (XtPointer) n);
+			SFbuttonPressList, (XtPointer)(intptr_t) n);
 		XtAddEventHandler(selFileLists[n], ButtonReleaseMask, False,
-			SFbuttonReleaseList, (XtPointer) n);
+			SFbuttonReleaseList, (XtPointer)(intptr_t) n);
 	}
 
 	XtAddEventHandler(selFileField, KeyPressMask, False,
@@ -563,19 +563,17 @@ SFopenFile(name, mode, prompt, failed)
     SFchdir(SFstartDir);
     if ((fp = fopen(name, mode)) == NULL) {
 	char *buf;
-	if (errno <= sys_nerr) {
-	    buf = XtMalloc(strlen(failed) + strlen(sys_errlist[errno]) + 
-			   strlen(prompt) + 2);
-	    strcpy(buf, failed);
-	    strcat(buf, sys_errlist[errno]);
-	    strcat(buf, "\n");
-	    strcat(buf, prompt);
-	} else {
-	    buf = XtMalloc(strlen(failed) + strlen(prompt) + 2);
-	    strcpy(buf, failed);
-	    strcat(buf, "\n");
-	    strcat(buf, prompt);
-	}
+
+    // compose the error message: because strerror() returns valid results
+    // for invalid errno values, we don't need to check errno against
+    // sys_nerr
+    buf = XtMalloc(strlen(failed) + strlen(strerror(errno)) + 
+        strlen(prompt) + 2);
+	strcpy(buf, failed);
+	strcat(buf, strerror(errno));
+	strcat(buf, "\n");
+	strcat(buf, prompt);
+
 	XtSetArg(args[0], XtNlabel, buf);
 	XtSetValues(selFilePrompt, args, ONE);
 	XtFree(buf);
@@ -686,12 +684,7 @@ XsraSelFile(toplevel, prompt, ok, cancel, failed,
 	SFpositionWidget(selFile);
 	XtMapWidget(selFile);
 
-#if !HAVE_GETWD
 	if (!getcwd(SFstartDir, MAXPATHLEN)) {
-#else
-	if (!getwd(SFstartDir)) {
-#endif
-
 		XtAppError(SFapp, "XsraSelFile: can't get current directory");
 	}
 	(void) strcat(SFstartDir, "/");
