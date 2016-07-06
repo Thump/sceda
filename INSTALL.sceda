@@ -1,0 +1,12 @@
+
+Compiling
+---------
+
+The animation patches don't change the way sceda is made or used.
+As with sced, all you have to do is run configure, and then make:
+
+   cd /usr/src/sceda-0.81
+   ./configure
+   make
+   ./sceda
+

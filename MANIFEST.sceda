@@ -1,0 +1,28 @@
+                                   
+                     Sceda: Scene Editor/Animator
+                     ----------------------------
+
+Original sced files
+-------------------
+
+  LICENCE        - GNU Copyleft licence
+  Makefile.in    - proto Makefile
+  SelFile/       - source directory for the file selector
+  c/             - source directory for sced
+  configure      - configure script
+  elk/           - source directory for elk, the scheme interpreter
+  h/             - include directory
+  docs/          - documentation directory
+  man/           - man page directory
+  tutorials/     - tutorial directory
+
+Sceda specific files
+--------------------
+
+CHANGES.sceda    - change log for sceda
+INSTALL.sceda    - install instructions for sceda
+MANIFEST.sceda   - all the sced/sceda files
+README.sceda     - sceda overview
+WHATSNEW.sceda   - short list of the new features in each release
+sceda.doc        - sceda instructions, including a short tutorial
+

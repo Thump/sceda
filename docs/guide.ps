@@ -1,0 +1,4098 @@
+%!PS-Adobe-2.0
+%%Version: 3.3.1
+%%DocumentFonts: (atend)
+%%Pages: (atend)
+%%EndComments
+%
+% Version 3.3.1 prologue for troff files.
+%
+
+/#copies 1 store
+/aspectratio 1 def
+/formsperpage 1 def
+/landscape false def
+/linewidth .3 def
+/magnification 1 def
+/margin 0 def
+/orientation 0 def
+/resolution 720 def
+/rotation 1 def
+/xoffset 0 def
+/yoffset 0 def
+
+/roundpage true def
+/useclippath true def
+/pagebbox [0 0 612 792] def
+
+/R  /Times-Roman def
+/I  /Times-Italic def
+/B  /Times-Bold def
+/BI /Times-BoldItalic def
+/H  /Helvetica def
+/HI /Helvetica-Oblique def
+/HB /Helvetica-Bold def
+/HX /Helvetica-BoldOblique def
+/CW /Courier def
+/CO /Courier def
+/CI /Courier-Oblique def
+/CB /Courier-Bold def
+/CX /Courier-BoldOblique def
+/PA /Palatino-Roman def
+/PI /Palatino-Italic def
+/PB /Palatino-Bold def
+/PX /Palatino-BoldItalic def
+/Hr /Helvetica-Narrow def
+/Hi /Helvetica-Narrow-Oblique def
+/Hb /Helvetica-Narrow-Bold def
+/Hx /Helvetica-Narrow-BoldOblique def
+/KR /Bookman-Light def
+/KI /Bookman-LightItalic def
+/KB /Bookman-Demi def
+/KX /Bookman-DemiItalic def
+/AR /AvantGarde-Book def
+/AI /AvantGarde-BookOblique def
+/AB /AvantGarde-Demi def
+/AX /AvantGarde-DemiOblique def
+/NR /NewCenturySchlbk-Roman def
+/NI /NewCenturySchlbk-Italic def
+/NB /NewCenturySchlbk-Bold def
+/NX /NewCenturySchlbk-BoldItalic def
+/ZD /ZapfDingbats def
+/ZI /ZapfChancery-MediumItalic def
+/S  /S def
+/S1 /S1 def
+/GR /Symbol def
+
+/inch {72 mul} bind def
+/min {2 copy gt {exch} if pop} bind def
+
+/setup {
+	counttomark 2 idiv {def} repeat pop
+
+	landscape {/orientation 90 orientation add def} if
+	/scaling 72 resolution div def
+	linewidth setlinewidth
+	1 setlinecap
+
+	pagedimensions
+	xcenter ycenter translate
+	orientation rotation mul rotate
+	width 2 div neg height 2 div translate
+	xoffset inch yoffset inch neg translate
+	margin 2 div dup neg translate
+	magnification dup aspectratio mul scale
+	scaling scaling scale
+
+	addmetrics
+	0 0 moveto
+} def
+
+/pagedimensions {
+	useclippath userdict /gotpagebbox known not and {
+		/pagebbox [clippath pathbbox newpath] def
+		roundpage currentdict /roundpagebbox known and {roundpagebbox} if
+	} if
+	pagebbox aload pop
+	4 -1 roll exch 4 1 roll 4 copy
+	landscape {4 2 roll} if
+	sub /width exch def
+	sub /height exch def
+	add 2 div /xcenter exch def
+	add 2 div /ycenter exch def
+	userdict /gotpagebbox true put
+} def
+
+/addmetrics {
+	/Symbol /S null Sdefs cf
+	/Times-Roman /S1 StandardEncoding dup length array copy S1defs cf
+} def
+
+/pagesetup {
+	/page exch def
+	currentdict /pagedict known currentdict page known and {
+		page load pagedict exch get cvx exec
+	} if
+} def
+
+/decodingdefs [
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg /y exch def counttomark 2 idiv {y moveto show} repeat}
+	{neg moveto {2 index stringwidth pop sub exch div 0 32 4 -1 roll widthshow} repeat}
+	{neg moveto {spacewidth sub 0.0 32 4 -1 roll widthshow} repeat}
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg setfunnytext}
+] def
+
+/setdecoding {/t decodingdefs 3 -1 roll get bind def} bind def
+
+/w {neg moveto show} bind def
+/m {neg dup /y exch def moveto} bind def
+/done {/lastpage where {pop lastpage} if} def
+
+/f {
+	dup /font exch def findfont exch
+	dup /ptsize exch def scaling div dup /size exch def scalefont setfont
+	linewidth ptsize mul scaling 10 mul div setlinewidth
+	/spacewidth ( ) stringwidth pop def
+} bind def
+
+/changefont {
+	/fontheight exch def
+	/fontslant exch def
+	currentfont [
+		1 0
+		fontheight ptsize div fontslant sin mul fontslant cos div
+		fontheight ptsize div
+		0 0
+	] makefont setfont
+} bind def
+
+/sf {f} bind def
+
+/cf {
+	dup length 2 idiv
+	/entries exch def
+	/chtab exch def
+	/newencoding exch def
+	/newfont exch def
+
+	findfont dup length 1 add dict
+	/newdict exch def
+	{1 index /FID ne {newdict 3 1 roll put}{pop pop} ifelse} forall
+
+	newencoding type /arraytype eq {newdict /Encoding newencoding put} if
+
+	newdict /Metrics entries dict put
+	newdict /Metrics get
+	begin
+		chtab aload pop
+		1 1 entries {pop def} for
+		newfont newdict definefont pop
+	end
+} bind def
+
+%
+% A few arrays used to adjust reference points and character widths in some
+% of the printer resident fonts. If square roots are too high try changing
+% the lines describing /radical and /radicalex to,
+%
+%	/radical	[0 -75 550 0]
+%	/radicalex	[-50 -75 500 0]
+%
+% Move braceleftbt a bit - default PostScript character is off a bit.
+%
+
+/Sdefs [
+	/bracketlefttp		[201 500]
+	/bracketleftbt		[201 500]
+	/bracketrighttp		[-81 380]
+	/bracketrightbt		[-83 380]
+	/braceleftbt		[203 490]
+	/bracketrightex		[220 -125 500 0]
+	/radical		[0 0 550 0]
+	/radicalex		[-50 0 500 0]
+	/parenleftex		[-20 -170 0 0]
+	/integral		[100 -50 500 0]
+	/infinity		[10 -75 730 0]
+] def
+
+/S1defs [
+	/underscore		[0 80 500 0]
+	/endash			[7 90 650 0]
+] def
+%%EndProlog
+%%BeginSetup
+mark
+/resolution 720 def
+setup
+2 setdecoding
+%%EndSetup
+%%Page: 1 1
+/saveobj save def
+mark
+1 pagesetup
+14 B f
+(Sced:)2717 1020 w
+(Constraint Based Scene Editing)3 1895 1 1932 1200 t
+(User's Guide)1 782 1 2489 1340 t
+13 I f
+(Stephen Chenney)1 896 1 2432 1550 t
+12 R f
+(Basser Department Of Computer Science, University of Sydney)7 3075 1 1342 1760 t
+11 B f
+(1. INTRODUCTION)1 1019 1 720 2180 t
+12 R f
+( scene \256les for a variety of rendering programs)8 2280(Sced is a program for creating and editing)7 2040 2 720 2390 t
+( used to position and)4 1000( are)1 178( Constraints)1 611(which runs in a UNIX and X windows environment.)8 2531 4 720 2530 t
+( be created and there is full support for)8 2094(shape objects. Simple primitive objects can)5 2226 2 720 2670 t
+( complex objects)2 829(Constructive Solid Geometry \(CSG\), which allows for the de\256nition of)9 3491 2 720 2810 t
+( simpler objects. Objects can be positioned in the scene, scaled,)10 3178(using set operations on)3 1142 2 720 2950 t
+( scene can be dynamically changed in)6 1831(rotated, copied, moved etc. The current view of the)8 2489 2 720 3090 t
+( may)1 246( Objects)1 436( a camera in the scene.)5 1131(all its parameters. There is support for lighting and)8 2507 4 720 3230 t
+( currently produces input \256les for)5 1651(be previewed using a chosen rendering program. Sced)7 2669 2 720 3370 t
+(the following programs:)2 1163 1 720 3510 t
+10 S f
+(\267)794 3720 w
+12 R f
+(POVRay: A freeware raytracer for various platforms.)6 2562 1 900 3720 t
+10 S f
+(\267)794 3930 w
+12 R f
+(Rayshade: Another freeware raytracer for UNIX platforms.)6 2847 1 900 3930 t
+10 S f
+(\267)794 4140 w
+12 R f
+(Genray: A fast and simple raytracer for UNIX platforms.)8 2737 1 900 4140 t
+10 S f
+(\267)794 4350 w
+12 R f
+(Radiance: A freeware radiosity program.)4 1963 1 900 4350 t
+10 S f
+(\267)794 4560 w
+12 R f
+(RenderMan)900 4560 w
+12 S f
+(\342)1466 4560 w
+12 R f
+(: Pixar's standard \256le format for scene descriptions.)7 2485 1 1561 4560 t
+10 S f
+(\267)794 4770 w
+12 R f
+(Genscan: A simple scanline rendering program.)5 2295 1 900 4770 t
+( polyhedral wireframe)2 1093(Sced may also be used to create OFF \256les, capable of describing)11 3227 2 720 4980 t
+(objects.)720 5120 w
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 1 1
+%%Page: 2 2
+/saveobj save def
+mark
+2 pagesetup
+12 R f
+(- 2 -)2 200 1 2780 560 t
+11 B f
+(2. PRELIMINARIES)1 1038 1 720 1120 t
+( Of The Window)3 789(2.1 Regions)1 567 2 720 1330 t
+12 R f
+( regions, depending on whether the Scheme)6 2277(The window consists of 5 or 6 distinct)7 2043 2 720 1540 t
+(command line interface was compiled in.)5 1983 1 720 1680 t
+( - the command buttons. Most of the program's)8 2467(On the left is a sequence of buttons)7 1853 2 720 1890 t
+( of the buttons are menu buttons - they)8 1937(functionality is invoked via these buttons. Some)6 2383 2 720 2030 t
+( left of the label,)4 832(pop up a menu when pushed. Such buttons have a small symbol to the)13 3488 2 720 2170 t
+( have)1 268(indicating a menu. Single command buttons \(those without menus attached\), may)10 4052 2 720 2310 t
+(rounded corners if that option was compiled in.)7 2277 1 720 2450 t
+( is the)2 338(The largest window area)3 1254 2 720 2660 t
+12 I f
+(view window,)1 679 1 2367 2660 t
+12 R f
+(in which the scene appears. You may)6 1939 1 3101 2660 t
+( size larger than the main window size, in which case the view)12 3166(request a view window)3 1154 2 720 2800 t
+(window will be contained within standard X Athena scrollbars.)8 3039 1 720 2940 t
+( another window will appear)4 1561(If the Scheme command line interface is available,)7 2759 2 720 3150 t
+( in this window,)3 898(immediately below the view window. A scheme interpreter runs)8 3422 2 720 3290 t
+(interfaced to the program as a whole. Read the section)9 2842 1 720 3430 t
+12 I f
+(The Scheme Command Line)3 1422 1 3618 3430 t
+(Interface)720 3570 w
+12 R f
+(for details.)1 515 1 1184 3570 t
+(In the bottom left corner of the main window is the)10 2478 1 720 3780 t
+12 I f
+(apply)3230 3780 w
+12 R f
+( various)1 387(button which is used in)4 1124 2 3529 3780 t
+( text shown in the)4 863(situations, but most often to apply the)6 1835 2 720 3920 t
+12 I f
+(text entry window)2 859 1 3450 3920 t
+12 R f
+(or to complete)2 699 1 4341 3920 t
+(an operation.)1 627 1 720 4060 t
+(The)720 4270 w
+12 I f
+(prompt label)1 626 1 944 4270 t
+12 R f
+( the bottom of the window, and generally)7 2045(is beside the apply button at)5 1387 2 1608 4270 t
+(gives some indication of what is currently displayed in the)9 2810 1 720 4410 t
+12 I f
+(text entry window)2 855 1 3560 4410 t
+12 R f
+(.)4425 4410 w
+(Finally, the)1 558 1 720 4620 t
+12 I f
+( window)1 414(text entry)1 460 2 1317 4620 t
+12 R f
+(runs across the bottom of the main window. It is used to)11 2809 1 2231 4620 t
+( is a standard Athena text widget, with all the)9 2285(obtain optional text where appropriate. It)5 2035 2 720 4760 t
+( however, that the return key has been)7 1952(editing functions that go along with that. Note,)7 2368 2 720 4900 t
+( button, so hitting return while in this window is the same as clicking)13 3336(mapped to the apply)3 984 2 720 5040 t
+( apply button. See Appendix A for a full list of the editing commands available in)15 4018(on the)1 302 2 720 5180 t
+(this window, or any other text entry area.)7 1978 1 720 5320 t
+11 B f
+( Button Functions)2 847(2.2 Command)1 689 2 720 5530 t
+12 R f
+( label. Those with)3 870(Command buttons are shown with or without a bitmap to the left of the)13 3450 2 720 5740 t
+( buttons)1 393(the bitmap \(lots of little parallel lines\) are menu buttons. In addition, non-menu)12 3927 2 720 5880 t
+(may have rounded corners.)3 1299 1 720 6020 t
+(The following functions are available \(listed according to the button they appear on.\))12 4082 1 720 6230 t
+10 S f
+(\267)794 6440 w
+12 B f
+(File:)900 6440 w
+12 R f
+(Load, Merge, Save, Export, Copyright, Quit)5 2121 1 1164 6440 t
+10 S f
+(\267)794 6650 w
+12 B f
+(CSG Window)1 711 1 900 6650 t
+10 S f
+(\267)794 6860 w
+12 B f
+(Wireframe:)900 6860 w
+12 R f
+(Load, Delete)1 619 1 1536 6860 t
+10 S f
+(\267)794 7070 w
+12 B f
+(Object:)900 7070 w
+12 R f
+( Wire, Thin Wire, Change)4 1325(New, Edit, Copy, Delete, Name, Attribs, Dense)6 2381 2 1334 7070 t
+(Base)900 7210 w
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 2 2
+%%Page: 3 3
+/saveobj save def
+mark
+3 pagesetup
+12 R f
+(- 3 -)2 200 1 2780 560 t
+10 S f
+(\267)794 1120 w
+12 B f
+(Lights:)900 1120 w
+12 R f
+(Point, Spot, Area, Ambient)3 1309 1 1298 1120 t
+10 S f
+(\267)794 1330 w
+12 B f
+(View:)900 1330 w
+12 R f
+(Viewpoint, Pan, Lookat, Lookup, Distance, Eye)5 2306 1 1229 1330 t
+10 S f
+(\267)794 1540 w
+12 B f
+(Window:)900 1540 w
+12 R f
+(Zoom, Image Size, Draw Mode, Save, Recall, Delete)7 2552 1 1404 1540 t
+10 S f
+(\267)794 1750 w
+12 B f
+(Layers:)900 1750 w
+12 R f
+(New, Add Objects, Merge, Display)4 1695 1 1323 1750 t
+10 S f
+(\267)794 1960 w
+12 B f
+(Target)900 1960 w
+10 S f
+(\267)794 2170 w
+12 B f
+(Camera)900 2170 w
+10 S f
+(\267)794 2380 w
+12 B f
+(Preview)900 2380 w
+10 S f
+(\267)794 2590 w
+12 B f
+(Clear:)900 2590 w
+12 R f
+(Clear Objects, Reset)2 984 1 1256 2590 t
+10 S f
+(\267)794 2800 w
+12 B f
+(Maintain)900 2800 w
+10 S f
+(\267)794 3010 w
+12 B f
+(Edit)900 3010 w
+11 B f
+(2.3 Selection)1 615 1 720 3220 t
+12 R f
+( selection is)2 585( Object)1 388( object selection and point selection.)5 1791(There are 2 forms of selection -)6 1556 4 720 3430 t
+( points are)2 517(used to choose objects for editing etc. Point selection is used when a speci\256c)13 3803 2 720 3570 t
+(needed, such as for the speci\256cation of constraints.)7 2446 1 720 3710 t
+12 I f
+( Selection)1 492(2.3.1 Object)1 620 2 720 3920 t
+12 R f
+(To select an object, drag over any of its edges while holding)11 3127 1 1913 3920 t
+( to dragging)2 585( deselect, use button 2. A single mouse click is equivalent)10 2809( To)1 196(down button 1.)2 730 4 720 4060 t
+(out a small rectangle centred on the pointer.)7 2110 1 720 4200 t
+( are)1 220(Selected objects are shown highlighted. They will remain selected until they)10 4100 2 720 4410 t
+( a layer)2 363(deselected or they become invisible for some reason \(such as through deletion or)12 3957 2 720 4550 t
+( any of the functions that)5 1339(display change\). Objects are generally NOT deselected by)7 2981 2 720 4690 t
+(manipulate them.)1 836 1 720 4830 t
+12 I f
+( Selection)1 476(2.3.2 Point)1 561 2 720 5040 t
+12 R f
+(When the program needs a point to be entered, a small red square)12 3217 1 1823 5040 t
+( the mouse. A mouse click in this square will)9 2192(will appear on the nearest available point to)7 2128 2 720 5180 t
+( no more points required, the)5 1419(select that point. Selected points appear in blue. If there are)10 2901 2 720 5320 t
+( a point a second time will deselect it.)8 1935(scene will return to its previous state. Selecting)7 2385 2 720 5460 t
+( can be cancelled by moving off)6 1588(Selection doesn't happen until the button is released, so)8 2732 2 720 5600 t
+(the highlighted point.)2 1034 1 720 5740 t
+( 1 will select the point by)6 1373(It matters which button you use to select a point. Button)10 2947 2 720 5950 t
+12 I f
+(reference,)720 6090 w
+12 R f
+(button 2 will select as an)5 1243 1 1243 6090 t
+12 I f
+(offset)2525 6090 w
+12 R f
+(and button 3 will select as an)6 1450 1 2826 6090 t
+12 I f
+(absolute)4315 6090 w
+12 R f
+(point.)4762 6090 w
+( use will only make a difference when selecting points for)10 2943(Currently which button you)3 1377 2 720 6230 t
+( be discussed in terms of the editing interface.)8 2224(constraints, hence the full implications will)5 2096 2 720 6370 t
+( to be)2 315(Suf\256ce to say here that button 1 will do for most purposes. If a point refuses)15 4005 2 720 6510 t
+( another button)2 732( Try)1 235( be that the button you are using has been masked out.)11 2625(selected it may)2 728 4 720 6650 t
+( refuse to be selected if they fail to suf\256ciently describe the)11 2941(in this case. Points will also)5 1379 2 720 6790 t
+(feature required. All this will be explained in more detail in terms of editing.)13 3686 1 720 6930 t
+( appear in the text entry box at the bottom of the)11 2376(If it is valid to do so, a prompt will also)10 1944 2 720 7140 t
+( the corresponding point in the)5 1513(screen. You can type in a 3-vector here which nominates)9 2807 2 720 7280 t
+( sequence of three real numbers in pretty much any useful number)11 3322(world. A vector is a)4 998 2 720 7420 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 3 3
+%%Page: 4 4
+/saveobj save def
+mark
+4 pagesetup
+12 R f
+(- 4 -)2 200 1 2780 560 t
+(format \(those accepted by sscanf\). When you have typed in the vector \(eg)12 3645 1 720 1120 t
+12 I f
+(1.0 -2.3 5.0)2 566 1 4404 1120 t
+12 R f
+(\),)4970 1120 w
+(either hit the return key or click in the)8 2024 1 720 1260 t
+12 I f
+(apply)2799 1260 w
+12 R f
+( enter the text. If an invalid)6 1462(button to)1 457 2 3121 1260 t
+( be ignored. If it is appropriate for the point to be an)12 2621(sequence was entered the text will)5 1699 2 720 1400 t
+( you to select the point type to use. If offset)10 2228(offset point, a dialog will appear allowing)6 2092 2 720 1540 t
+(points are invalid in this context, the point is selected as an)11 2835 1 720 1680 t
+12 I f
+(absolute)3585 1680 w
+12 R f
+(point.)4023 1680 w
+11 B f
+( Word on Text Entry)4 992(2.4 A)1 273 2 720 1890 t
+12 R f
+( return key mapped to the)5 1346(Some dialogs requiring text entry have the)6 2176 2 720 2100 t
+12 I f
+(Done)4295 2100 w
+12 R f
+(or)4607 2100 w
+12 I f
+(Apply)4760 2100 w
+12 R f
+( that a mouse click is not required. In general, such dialogs only require the)14 3829(button, so)1 491 2 720 2240 t
+( dialog. A beep will sound if)6 1396(entry of one piece of text. One example is the Ambient light)11 2924 2 720 2380 t
+( for other dialogs. The text entry window at)8 2100(the return key is used at an inappropriate time)8 2220 2 720 2520 t
+(the bottom has the return key mapped to the apply button.)10 2782 1 720 2660 t
+11 B f
+( Scene)1 296(2.5 Changed)1 617 2 720 2870 t
+12 R f
+( and attributes,)2 730(Anything that changes the properties of an object, including its geometry)10 3590 2 720 3080 t
+( from the)2 493(changes the scene as a whole. Also, functions that add or remove entities)12 3827 2 720 3220 t
+( such as CSG objects, change the scene. Conversely, view changes)10 3242(program environment,)1 1078 2 720 3360 t
+( scene, because they make no difference to the objects in the scene,)12 3419(do not change the)3 901 2 720 3500 t
+(only the view of them.)4 1085 1 720 3640 t
+( some sort,)2 589(If the scene has changed, certain functions will ask for con\256rmation of)11 3731 2 720 3850 t
+( or load operation)3 863(generally whether you wish to save the current scene \256rst. After a save)12 3457 2 720 3990 t
+(the scene is always considered unchanged.)5 2046 1 720 4130 t
+11 B f
+(2.6 Cancel)1 517 1 720 4340 t
+12 I f
+(Cancel)720 4550 w
+12 R f
+(buttons are provided for almost all dialogs. Choosing cancel will exit the dialog)12 3941 1 1099 4550 t
+(leaving the scene as unchanged as possible.)6 2091 1 720 4690 t
+11 B f
+(2.7 Colors)1 505 1 720 4900 t
+12 R f
+( compiled in defaults. All colors may be)7 2036(All the colors mentioned in this guide are the)8 2284 2 720 5110 t
+(changed through the appropriate X resource. See the section on X Resources for details.)13 4224 1 720 5250 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 4 4
+%%Page: 5 5
+/saveobj save def
+mark
+5 pagesetup
+12 R f
+(- 5 -)2 200 1 2780 560 t
+11 B f
+( FUNCTIONS)1 676(3. BASIC)1 476 2 720 1120 t
+( Functions)1 494(3.1 File)1 371 2 720 1330 t
+12 I f
+(3.1.1 Load)1 547 1 720 1540 t
+12 R f
+( save to)2 379(If the scene has changed, you will be prompted to save \256rst. Choose)12 3329 2 1332 1540 t
+(go to the save dialog, or load to get the load box.)11 2347 1 720 1680 t
+( entered at the)3 704(In any case, the load dialog will eventually appear. The \256le name may be)13 3616 2 720 1890 t
+( show the)2 472(top, or can be selected from those shown in the windows below. The windows)13 3848 2 720 2030 t
+( neighbour. To)2 716(\256les in 3 directories. Each directory is a subdirectory to it's immediate left)12 3604 2 720 2170 t
+( name)1 291(select a \256le, click on the \256lename. To view another directory, click on the directory)14 4029 2 720 2310 t
+( the window, a)3 724(\(shown with a / following its name\). If there are more \256les than will \256t in)15 3596 2 720 2450 t
+(scrollbar is available. Click on Load or hit)7 2031 1 720 2590 t
+12 I f
+(return)2781 2590 w
+12 R f
+(to load the \256le shown at the top.)7 1543 1 3112 2590 t
+(Any existing objects will be destroyed upon loading the \256le, as if the)12 3310 1 720 2800 t
+12 I f
+(Reset)4060 2800 w
+12 R f
+(command was)1 690 1 4350 2800 t
+(invoked.)720 2940 w
+( as compressed \256les, and automatically)5 1922(Load recognises \256lenames ending in .Z, .gz or .z)8 2398 2 720 3150 t
+( format \256les are also automatically recognised,)6 2326(uncompresses them as it loads. External)5 1994 2 720 3290 t
+(and will be loaded appropriately. See the)6 1965 1 720 3430 t
+12 I f
+(External File Format)2 1028 1 2715 3430 t
+12 R f
+(section for details.)2 886 1 3773 3430 t
+12 I f
+(3.1.2 Merge)1 613 1 720 3640 t
+12 R f
+( currently being edited,)3 1202(Merge adds the contents of a \256le to the scene)9 2417 2 1421 3640 t
+( CSG)1 284(without changing any existing features. It is most useful for loading prede\256ned)11 4036 2 720 3780 t
+(objects for use in the current scene.)6 1698 1 720 3920 t
+(The dialog for selecting a \256le to merge is identical to that for load.)13 3194 1 720 4130 t
+12 I f
+(3.1.3 Save)1 526 1 720 4340 t
+12 R f
+( load, will appear. See load above for details.)8 2173(A save dialog, similar to that for)6 1561 2 1306 4340 t
+( You WILL NOT be warned about overwriting)7 2267(Enter a \256lename at the top, or select a \256le.)9 2053 2 720 4480 t
+(an existing \256le. Choose Save or hit)6 1680 1 720 4620 t
+12 I f
+(return)2430 4620 w
+12 R f
+(to save to the named \256le.)5 1202 1 2761 4620 t
+( in a text format. Cameras, viewports, CSG trees and the like are all)13 3394(The scene is saved)3 926 2 720 4830 t
+(saved.)720 4970 w
+(If the)1 285 1 720 5180 t
+12 I f
+(Compress)1063 5180 w
+12 R f
+( in force, the actual name of the \256le saved may have an)12 2992(option is)1 447 2 1601 5180 t
+(extension added, such as .gz. See the Defaults File section for more details.)12 3618 1 720 5320 t
+12 I f
+(3.1.4 Export)1 627 1 720 5530 t
+12 R f
+( A)1 151( selected, you will be asked to select one.)8 2022(If no target raytracer has been)5 1456 3 1411 5530 t
+( \256le produced is suitable for use as)7 1673( The)1 247( load and save, will then appear.)6 1553(dialog box, as for)3 847 4 720 5670 t
+(an input \256le to the speci\256ed raytracer.)6 1819 1 720 5810 t
+12 I f
+(3.1.5 Copyright)1 788 1 720 6020 t
+12 R f
+(A copyright message is displayed.)4 1646 1 1568 6020 t
+12 I f
+(3.1.6 Quit)1 514 1 720 6230 t
+12 R f
+( a save prompt will be issued, otherwise the program)9 2564(If the scene has changed)4 1180 2 1296 6230 t
+(exits quietly.)1 623 1 720 6370 t
+11 B f
+( Window)1 427(3.2 CSG)1 421 2 720 6580 t
+12 R f
+( and all the selected)4 1008(The CSG Window is brought to the front \(or created if necessary\))11 3312 2 720 6790 t
+( objects removed in this way will)6 1597(objects are transferred to that window for use there. Any)9 2723 2 720 6930 t
+( edit list. Edit constraint references will be maintained between objects)10 3534(be taken off the)3 786 2 720 7070 t
+( they will converted to offsets or absolutes. This prevents)9 2950(that are selected, otherwise)3 1370 2 720 7210 t
+( CSG de\256ning)2 753(dependencies between objects in different windows, and ensures that)8 3567 2 720 7350 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 5 5
+%%Page: 6 6
+/saveobj save def
+mark
+6 pagesetup
+12 R f
+(- 6 -)2 200 1 2780 560 t
+(objects only have references within themselves.)5 2296 1 720 1120 t
+( CSG object interface, see the later section)7 2154(For a complete description of the)5 1668 2 720 1330 t
+12 I f
+(The CSG)1 452 1 4588 1330 t
+(Interface)720 1470 w
+12 R f
+(.)1154 1470 w
+11 B f
+(3.3 Wireframe)1 709 1 720 1680 t
+12 I f
+(3.3.1 Load)1 547 1 720 1890 t
+12 R f
+( may be loaded using this)5 1281(An ascii OFF \256le, describing a wireframe object,)7 2422 2 1337 1890 t
+( The)1 253( load dialog is presented, allowing you to select a \256le to load.)12 3030( standard)1 445(option. The)1 592 4 720 2030 t
+( object \(NOT the geometry \256le\). If the)7 1988(\256le you load should be the header \256le for the)9 2332 2 720 2170 t
+(global environment variable OBJ)3 1599 1 720 2310 t
+12 S f
+(_)2319 2310 w
+12 R f
+(PATH is set it will be the default path for the \256les.)11 2432 1 2379 2310 t
+( see Randi J. Rost "OFF - A 3D Object File)10 2337(For a description of the OFF standard,)6 1983 2 720 2520 t
+( with the off distribution, a copy of which)8 2031(Format" for details. This document is available)6 2289 2 720 2660 t
+(has been placed at ftp.cs.su.oz.au://stephen/off.tar.gz.)4 2566 1 720 2800 t
+( available as another basic object class, just like a completed)10 3019(The object loaded is made)4 1301 2 720 3010 t
+(CSG object. They are accessed via the)6 1842 1 720 3150 t
+12 I f
+(Wireframe)2592 3150 w
+12 R f
+(button in the New Object dialog box.)6 1785 1 3136 3150 t
+( the example)2 642(Wireframe objects should not in general be used in CSG objects. Most of)12 3678 2 720 3360 t
+( component in a)3 789(objects provided with the OFF distribution will cause errors if used as a)12 3531 2 720 3500 t
+( following properties may be used in)6 1889(CSG object. However, wireframes satisfying the)5 2431 2 720 3640 t
+(CSG:)720 3780 w
+10 S f
+(\267)794 3990 w
+12 R f
+(Each polygon in the wireframe must be planar and convex.)9 2834 1 900 3990 t
+10 S f
+(\267)794 4200 w
+12 R f
+(Polygons must intersect ONLY along complete edges or at single vertices.)10 3582 1 900 4200 t
+10 S f
+(\267)794 4410 w
+12 R f
+(The object must be closed.)4 1285 1 900 4410 t
+( example database fail on point 1 \(because of)8 2232(Note that the majority of objects in the off)8 2088 2 720 4550 t
+(numerical inaccuracy\) and on point 3.)5 1821 1 720 4690 t
+12 I f
+(3.3.2 Delete)1 613 1 720 4900 t
+12 R f
+( if wireframe objects have been loaded. A dialog)8 2393(This button is only active)4 1248 2 1399 4900 t
+( an object to)3 663(displaying the currently available wireframe objects is displayed. Select)8 3657 2 720 5040 t
+(delete, or cancel. Objects that have instances cannot be deleted.)9 3048 1 720 5180 t
+11 B f
+( Functions)1 494(3.4 Object)1 510 2 720 5390 t
+12 I f
+(3.4.1 New Object)2 893 1 720 5600 t
+12 R f
+( The)1 277( selecting a new primitive object.)5 1752(A dialog is presented for)4 1308 3 1703 5600 t
+( Cone, Square and Plane. To select on object)8 2147(objects available are Cube, Sphere, Cylinder,)5 2173 2 720 5740 t
+(click on its picture.)3 923 1 720 5880 t
+(Selecting the)1 630 1 720 6090 t
+12 I f
+(CSG Object)1 581 1 1385 6090 t
+12 R f
+(button within the New Object dialog will cause another dialog)9 3039 1 2001 6090 t
+( displayed, this time showing all the CSG objects currently de\256ned. Use the)12 4048(to be)1 272 2 720 6230 t
+( Object button will be)4 1061(scrollbars to view the range of objects available. Note that the CSG)11 3259 2 720 6370 t
+(insensitive if there are no CSG objects de\256ned.)7 2263 1 720 6510 t
+(The)720 6720 w
+12 I f
+(Wireframe)947 6720 w
+12 R f
+( currently loaded wireframe objects, which may also)7 2606(button displays the)2 932 2 1502 6720 t
+(be selected. This button is insensitive if no wireframe objects have been loaded.)12 3839 1 720 6860 t
+( object is placed at the origin of the world. It is also added to the list of objects)18 3899(The new)1 421 2 720 7070 t
+( and the number of)4 943(awaiting editing. It will have a name somehow indicative of its type)11 3377 2 720 7210 t
+(objects created so far. It has the default attributes. Note that if the World layer is not)16 4320 1 720 7350 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 6 6
+%%Page: 7 7
+/saveobj save def
+mark
+7 pagesetup
+12 R f
+(- 7 -)2 200 1 2780 560 t
+(being displayed, then the object will not be visible.)8 2453 1 720 1120 t
+12 I f
+(3.4.2 Edit)1 501 1 720 1330 t
+12 R f
+( the list of objects)4 869(This command places all the currently selected objects onto)8 2888 2 1283 1330 t
+( this context refers to the movement, scaling and rotating)9 2794(waiting to be edited. Editing in)5 1526 2 720 1470 t
+(of an object. If only one object is selected, it is immediately edited.)12 3232 1 720 1610 t
+12 I f
+(3.4.3 Copy)1 553 1 720 1820 t
+12 R f
+( is placed on the list of)6 1120(A copy is made of each object selected, and the copy)10 2583 2 1337 1820 t
+(objects ready for editing. The new object has a name pre\256xed by the object it was copied)16 4320 1 720 1960 t
+( new object will inherit everything from its parent, including the constraints.)11 3827(from. The)1 493 2 720 2100 t
+(Note that it inherits shape and location, so will appear directly on top of its source.)15 3972 1 720 2240 t
+12 I f
+(3.4.4 Delete)1 613 1 720 2450 t
+12 R f
+(You are prompted before all the selected objects are deleted.)9 2908 1 1393 2450 t
+12 I f
+(3.4.5 Name)1 579 1 720 2660 t
+12 R f
+( are prompted for a new name. The)7 1811(For each of the selected objects, you)6 1853 2 1376 2660 t
+( as a default. Names are for your bene\256t only. They are used to)13 3101(current name is provided)3 1219 2 720 2800 t
+( edit list, and are printed as comments in exported \256les, allowing)11 3232(refer to objects on the)4 1088 2 720 2940 t
+( raytrace input \256le. The program places no)7 2307(you to \256nd the actual instance in the)7 2013 2 720 3080 t
+(restrictions on uniqueness or any other aspect of names.)8 2687 1 720 3220 t
+12 I f
+( \(Attribs\))1 439(3.4.6 Attributes)1 776 2 720 3430 t
+12 R f
+(A dialog box for object attributes is presented. The defaults are)10 3044 1 1996 3430 t
+( selected objects. When completed, the)5 1997(those for the \256rst object found on the list of)9 2323 2 720 3570 t
+( objects on the list are changed. This is useful for changing the surface)13 3410(attributes of all the)3 910 2 720 3710 t
+( lights are among the objects selected,)6 1899( If)1 153(features of a large number of objects at once.)8 2268 3 720 3850 t
+(separate dialogs will be presented for them. See the section on Lights for details.)13 3877 1 720 3990 t
+(The simple surface attributes available are:)5 2067 1 720 4200 t
+(\320)720 4410 w
+12 I f
+(Color:)900 4410 w
+12 R f
+(Enter normalised values \( 0)4 1338 1 1255 4410 t
+12 S f
+(\243)2627 4410 w
+12 R f
+(x)2727 4410 w
+12 S f
+(\243)2821 4410 w
+12 R f
+( for red, green and blue components of)7 1895(1.0 \))1 224 2 2921 4410 t
+( any other effect is applied, ie all other)8 1997(the object's color. This is the color before)7 2143 2 900 4550 t
+(surface effects modify this color.)4 1586 1 900 4690 t
+(\320)720 4900 w
+12 I f
+(Diffuse Re\257ection:)1 923 1 900 4900 t
+12 R f
+( \256nal color models how)4 1239(The diffuse component of an object's)5 1923 2 1878 4900 t
+( from a source it radiates back in all directions. A value between 0 and 1)15 3611(much light)1 529 2 900 5040 t
+(should be entered here.)3 1113 1 900 5180 t
+(\320)720 5390 w
+12 I f
+(Specular Coef\256cient and Power:)3 1604 1 900 5390 t
+12 R f
+( to model the highlights)4 1193(These parameters are used)3 1302 2 2545 5390 t
+( an object's surface due to re\257ection of a light source. The coef\256cient)12 3440(that appear on)2 700 2 900 5530 t
+( is re\257ected in this manner. The power)7 1988(determines how much of the incident light)6 2152 2 900 5670 t
+( the smaller the power the larger but less)8 1990(determines how large the highlight will be -)7 2150 2 900 5810 t
+( can be)2 359(bright the highlight. The coef\256cient should be a normalised value, the power)11 3781 2 900 5950 t
+(anything positive.)1 863 1 900 6090 t
+(\320)720 6300 w
+12 I f
+(Re\257ection Coef\256cient)1 1042 1 900 6300 t
+12 R f
+( controls how much light from other objects is)8 2322(This parameter)1 735 2 1983 6300 t
+( normalised)1 565(re\257ected by object. It is re\257ection in the sense of mirror re\257ection. Enter a)13 3575 2 900 6440 t
+(value, but you should be aware that re\257ective objects take much more time to render.)14 4091 1 900 6580 t
+(\320)720 6790 w
+12 I f
+(Refractive coef\256cient:)1 1062 1 900 6790 t
+12 R f
+(This is the coef\256cient of refraction for transparent objects. For)9 3043 1 1997 6790 t
+( only have an effect if the object)7 1614(instance air is 1.0, glass is 1.5. This parameter will)9 2526 2 900 6930 t
+(has non-zero transparency.)2 1289 1 900 7070 t
+(\320)720 7280 w
+12 I f
+(Transparency:)900 7280 w
+12 R f
+( how much light passes through the object. A value of)10 2743(This controls)1 646 2 1651 7280 t
+( The light passing)3 904(1.0 means that the object is totally transparent, 0 means opaque.)10 3236 2 900 7420 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 7 7
+%%Page: 8 8
+/saveobj save def
+mark
+8 pagesetup
+12 R f
+(- 8 -)2 200 1 2780 560 t
+( object. Like re\257ection,)3 1166(through is refracted according to the refractive index of the)9 2974 2 900 1120 t
+(transparency dramatically increases the rendering time for an object.)8 3294 1 900 1260 t
+( the default, by clicking on the)6 1484(It is also possible to set all the attributes to)9 2071 2 720 1470 t
+12 I f
+(Default)4308 1470 w
+12 R f
+(button.)4702 1470 w
+(All attributes on the selected bodies may be removed by choosing)10 3165 1 720 1610 t
+12 I f
+(None)3915 1610 w
+12 R f
+(.)4168 1610 w
+( have been set, click on the)6 1321(When all the attributes)3 1102 2 720 1820 t
+12 I f
+(Done)3177 1820 w
+12 R f
+(button. The program attempts to)4 1570 1 3470 1820 t
+( If a given value could not be parsed the)9 1942(parse all the values entered and set the attributes.)8 2378 2 720 1960 t
+(value of that particular attribute will remain unchanged.)7 2685 1 720 2100 t
+( the)1 178(In addition to the simple surface attributes, it is possible to attach an attribute string to)15 4142 2 720 2310 t
+( it in\257uences the rendered object depends on)7 2194(object. The meaning of this string and how)7 2126 2 720 2450 t
+( used. To access such renderer speci\256c attributes, click on the)10 3065(the renderer being)2 893 2 720 2590 t
+12 I f
+(Target)4719 2590 w
+(Speci\256c)720 2730 w
+12 R f
+( the attributes dialog box. The results are dependent on the current)11 3437(button in)1 456 2 1147 2730 t
+(target renderer.)1 733 1 720 2870 t
+( box presented allows a "texture ..." string to be entered.)10 2794(POVray, Rayshade: The dialog)3 1526 2 720 3080 t
+( with the object description, so needs to be a complete, legal)11 2950(The string is exported)3 1070 2 1020 3220 t
+( Rayshade the string is exported)5 1754( For)1 270(POV or Rayshade texture description.)4 1996 3 1020 3360 t
+( simple attributes are still exported to)6 1938( The)1 270( transformation.)1 793(following the object)2 1019 4 1020 3500 t
+( set the color and surface attributes of the object. For)10 2724(Rayshade, so use these to)4 1296 2 1020 3640 t
+( will be ignored if speci\256c attributes are de\256ned and)9 2680(POV, the simple attributes)3 1340 2 1020 3780 t
+(active.)1020 3920 w
+(The)1020 4130 w
+12 I f
+(Transform Texture)1 919 1 1250 4130 t
+12 R f
+( texture is transformed)3 1131(toggle controls whether or not the)5 1696 2 2213 4130 t
+( object. If active, the same transformation that is applied to the object is)13 3615(with the)1 405 2 1020 4270 t
+( is exported before the transformation for POV, or)8 2420(applied to the texture \(the texture)5 1600 2 1020 4410 t
+(has a transformation applied in Rayshade\).)5 2056 1 1020 4550 t
+(The)1020 4760 w
+12 I f
+(Open)1237 4760 w
+12 R f
+( with this)2 453(toggle applies only to cylinders and cones. Cylinders and cones)9 3060 2 1527 4760 t
+( cones would)2 657(attribute set will appear without endcaps. Normally all cylinder and)9 3363 2 1020 4900 t
+(appear with endcaps.)2 1009 1 1020 5040 t
+12 I f
+(Includes)1020 5250 w
+12 R f
+( sequence of #include statements may be)6 2004(pops up a dialog box in which a)7 1573 2 1463 5250 t
+( appear at the top of the exported \256le, allowing textures)10 2760(entered. These statements)2 1260 2 1020 5390 t
+(declared within them to be used for object textures. You need only type the)13 4020 1 1020 5530 t
+( as a \256lename to)4 873(\256lenames, one per line, without quotes. Each line is exported)9 3147 2 1020 5670 t
+(#include. Beware of spaces before and after \256lenames on the line.)10 3160 1 1020 5810 t
+12 I f
+(Declarations)1020 6020 w
+12 R f
+( statements to be entered for POV,)6 1688(allows for any number of #declare)5 1670 2 1682 6020 t
+( are exported immediately after any)5 1852( These)1 375(or #de\256ne directives for Rayshade.)4 1793 3 1020 6160 t
+( texture declarations to be used on any object. You need to)11 3057(#includes, allowing)1 963 2 1020 6300 t
+(enter the complete declaration, such as)5 1862 1 1020 6440 t
+(#declare Red = pigment { color red 1.0 green 0.0 blue 0.0 } // A POV example)16 3780 1 1020 6580 t
+(The)1020 6790 w
+12 I f
+(Done)1244 6790 w
+12 R f
+( attributes)1 488( These)1 355( declaration of the speci\256c attributes.)5 1822(button completes)1 834 4 1541 6790 t
+( used in preference to any simple attributes that may have been declared.)12 3625(are then)1 395 2 1020 6930 t
+( Attributes dialog)2 847(Speci\256c attributes are only used if the Done button in the Speci\256c)11 3173 2 1020 7070 t
+( Done button in the Simple Attributes dialog causes simple)9 3081(is used. Using the)3 939 2 1020 7210 t
+(attributes to be reinstated.)3 1244 1 1020 7350 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 8 8
+%%Page: 9 9
+/saveobj save def
+mark
+9 pagesetup
+12 R f
+(- 9 -)2 200 1 2780 560 t
+(The)1020 1120 w
+12 I f
+(Simpli\256ed)1239 1120 w
+12 R f
+( Attributes dialog to be presented again. In)7 2078(button causes the Simple)3 1209 2 1753 1120 t
+(this situation any speci\256c attributes will not be used, although they will be saved)13 4020 1 1020 1260 t
+( wish to use this method to disable speci\256c attributes while)10 2915(for later use. You may)4 1105 2 1020 1400 t
+(previewing or test rendering.)3 1388 1 1020 1540 t
+12 I f
+(Cancel)1020 1750 w
+12 R f
+(leaves the speci\256c attributes of an object unchanged, although if any simple)11 3650 1 1390 1750 t
+(attributes had been adjusted they will remain adjusted.)7 2619 1 1020 1890 t
+( string)1 336( The)1 277( string is presented.)3 1029(Radiance: A dialog prompting for a single modi\256er)7 2678 4 720 2100 t
+(entered must be a legal Radiance modi\256er name. Use the)9 2861 1 1020 2240 t
+12 I f
+(Declarations)3924 2240 w
+12 R f
+(button to)1 445 1 4595 2240 t
+( modi\256er declarations may be entered. The contents of)8 2699(pop up a window in which)5 1321 2 1020 2380 t
+( exported as is at the start of the Radiance \256le, so all)12 2652(the Declaration window are)3 1368 2 1020 2520 t
+(modi\256ers should be declared within that window.)6 2380 1 1020 2660 t
+(The)1020 2870 w
+12 I f
+(Invert Normals)1 738 1 1243 2870 t
+12 R f
+( surface normals of the object to be inverted)8 2180(button causes the)2 842 2 2018 2870 t
+(as they are exported.)3 993 1 1020 3010 t
+(The)1020 3220 w
+12 I f
+(Open)1236 3220 w
+12 R f
+(button causes cylinders and cones to be exported without endcaps.)9 3189 1 1525 3220 t
+(The)1020 3430 w
+12 I f
+(Done, Simpli\256ed and Cancel)3 1509 1 1279 3430 t
+12 R f
+( or)1 174(buttons behave the same as for POV)6 2005 2 2861 3430 t
+(Rayshade. See the \256nal three paragraphs of the above section for information.)11 3739 1 1020 3570 t
+( to that for Radiance. However, the)6 1704(RenderMan: The Renderman dialog is identical)5 2296 2 720 3780 t
+12 I f
+(Invert)4753 3780 w
+(Normals)1020 3920 w
+12 R f
+( is exported immediately)3 1341(button has no effect. The string entered)6 2185 2 1514 3920 t
+(following a Surface statement in the exported \256le, before the object itself is)12 4020 1 1020 4060 t
+( statements, so the)3 955(exported. Each object is included within AttributeBegin/End)6 3065 2 1020 4200 t
+( de\256ne the object. A sample string)6 1652(Surface staement applies for as long as it takes to)9 2368 2 1020 4340 t
+( you need to include the quotes because the)8 2169(might be "matte" "Kd" 0.8. Note that)6 1851 2 1020 4480 t
+(RIB interface requires them.)3 1368 1 1020 4620 t
+( have no speci\256c attributes, so an error window)8 2327(Genray, Genscan, None: These renderers)4 1993 2 720 4830 t
+(is popped up. You are then returned to the simple attributes dialog.)11 3216 1 1020 4970 t
+12 I f
+( Wireframes)1 604(3.4.7 Dense)1 599 2 720 5180 t
+12 R f
+(The ruled objects \(cylinders and cones\) and spheres have the)9 3043 1 1997 5180 t
+( many generating lines,)3 1176(option for dense wireframes, which use progressively twice as)8 3144 2 720 5320 t
+( much better approximation to the true surface. Use this command to convert)12 3912(giving a)1 408 2 720 5460 t
+( option is essential for good)5 1374(selected objects to the next level of wireframe density. This)9 2946 2 720 5600 t
+(results using Radiance. See the "Renderer Speci\256c Notes" section for details. Note that)12 4320 1 720 5740 t
+( go back. These)3 818(version 0.61 only had one additional density level, and you couldn't)10 3502 2 720 5880 t
+(restrictions have been removed in subsequent versions.)6 2647 1 720 6020 t
+12 I f
+( Wireframes)1 614(3.4.8 Thin)1 521 2 720 6230 t
+12 R f
+(This is the inverse function to)5 1554 1 1939 6230 t
+12 I f
+(Dense Wireframe)1 867 1 3547 6230 t
+12 R f
+(. It makes a)3 626 1 4414 6230 t
+( dense. You cannot reduce below the)6 1870(cylinder cone or sphere wireframe one level less)7 2450 2 720 6370 t
+(initial density \(using 8 generators\).)4 1682 1 720 6510 t
+12 I f
+( Base)1 264(3.4.9 Change)1 673 2 720 6720 t
+12 R f
+(The)1718 6720 w
+12 I f
+(Change Base)1 637 1 1935 6720 t
+12 R f
+( base type of an object instance)6 1513(function allows the)2 924 2 2603 6720 t
+( The)1 268( change a cube to a cylinder.)6 1501(or instances to be changed. For example, you can)8 2551 3 720 6860 t
+( for adjusting the base type of CSG objects after modi\256cation of)11 3192(function is most useful)3 1128 2 720 7000 t
+(the original CSG type.)3 1082 1 720 7140 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 9 9
+%%Page: 10 10
+/saveobj save def
+mark
+10 pagesetup
+12 R f
+(- 10 -)2 260 1 2750 560 t
+( function is selected, the)4 1210(When the)1 473 2 720 1120 t
+12 I f
+(new Object)1 554 1 2444 1120 t
+12 R f
+( the new base)3 682( Select)1 365(dialog is presented.)2 954 3 3039 1120 t
+( a new object. When a new type is chosen, all the selected objects are)14 3397(type as if choosing)3 923 2 720 1260 t
+(adjusted to be of this new type. All that changes is the type. The same transformation is)16 4320 1 720 1400 t
+( visible change is a switch in)6 1407(applied, the same constraints are active and so on. The only)10 2913 2 720 1540 t
+( may appear to be in)5 1077(wireframes. Note that upon editing the Origin and Scaling point)9 3243 2 720 1680 t
+( the object, but this causes no problem for)8 2086(strange places not connected to any vertex of)7 2234 2 720 1820 t
+(the interface.)1 627 1 720 1960 t
+11 B f
+( Manipulation Functions)2 1167(3.5 Light)1 452 2 720 2170 t
+12 I f
+(3.5.1 Point)1 561 1 720 2380 t
+12 R f
+( is 1.0 in all)4 590(A point light source is created at the origin. Its default intensity)11 3104 2 1346 2380 t
+( editing like any other object. Note that rotating and)9 2510(colors. The light may be selected and)6 1810 2 720 2520 t
+(scaling a point light source has no meaning in the \256nal scene, although it may help)15 4320 1 720 2660 t
+(editing.)720 2800 w
+( the normal Object)3 970(The dialog to change a point light's intensity is accessed through)10 3350 2 720 3010 t
+( asks for three values between 0 and 1.0 representing RGB intensities.)11 3399(Attributes menu. It)2 921 2 720 3150 t
+(If only one value is entered it is taken as the value for all three of red, green and blue.)19 4107 1 720 3290 t
+12 I f
+(3.5.2 Spot)1 514 1 720 3500 t
+12 R f
+( located at the)3 731(A Spotlight light source is created. Initially the spotlight is)9 2996 2 1313 3500 t
+( position)1 428(origin, pointing in the negative Z direction. Editing the object controls both its)12 3892 2 720 3640 t
+( wireframe used is)3 980( The)1 278( direction of the "cone" of light emited.)7 2113(and the shape and)3 949 4 720 3780 t
+(indicative of this cone.)3 1096 1 720 3920 t
+( through the normal Object)4 1394(The dialog to change a spotlight's parameters is accessed)8 2926 2 720 4130 t
+(Attributes menu. Aside from RGB intensity values, it asks for several other things:)12 3983 1 720 4270 t
+12 I f
+(Outer Radius)1 647 1 720 4480 t
+12 R f
+( light intensity will)3 928( The)1 250(controls the falloff of light at the edge of the cone.)10 2461 3 1401 4480 t
+( at the edge of the cone indicated by the object wireframe, with a)13 3232(begin to decline)2 788 2 1020 4620 t
+(apex angle of)2 656 1 1020 4760 t
+12 I f
+(a)1711 4760 w
+12 R f
+( to 0 by)3 382(degrees. It will have completely fallen)5 1868 2 1806 4760 t
+12 I f
+(Outer Radius)1 650 1 4092 4760 t
+12 R f
+(times)4778 4760 w
+(this)1020 4900 w
+12 I f
+(apex)1233 4900 w
+12 R f
+( 1 for)2 274( setting a value of)4 887(angle. So)1 485 3 1497 4900 t
+12 I f
+(Outer Radius)1 651 1 3180 4900 t
+12 R f
+(means the light falls off)4 1172 1 3868 4900 t
+(immediately. A value of 1.5 indicates that the light takes some time to fall off.)14 4020 1 1020 5040 t
+(Note that values must always be greater than 1.)8 2272 1 1020 5180 t
+12 I f
+(Tightness)720 5390 w
+12 R f
+( the edge. Higher values give sharper)6 1819(controls how quickly the light falls off at)7 2004 2 1217 5390 t
+( be between 1 and 100. This parameter affects the)9 2683(falloffs. The value should)3 1337 2 1020 5530 t
+(fuzziness of edges.)2 910 1 1020 5670 t
+12 I f
+(Invert)720 5880 w
+12 R f
+( light to be inverted. that is, the area within the cone shown on)13 3099(causes the cone of)3 897 2 1044 5880 t
+( lit. This is how spotlight angles)6 1615(screen will be dark, and the area outside will be)9 2405 2 1020 6020 t
+(greater than 90 degrees are speci\256ed.)5 1779 1 1020 6160 t
+(Note that Genray and Genscan do not have Spotlight primitives.)9 3084 1 720 6370 t
+12 I f
+(3.5.3 Area)1 533 1 720 6580 t
+12 R f
+( light source is created. Initially it is located at the origin, with the)13 3330(An area)1 386 2 1324 6580 t
+( it and resize and reorient)5 1243(area lying in the X-Y plane. The object may be edited to move)12 3077 2 720 6720 t
+(the area. The square wireframe used indicates the size and location of the light.)13 3800 1 720 6860 t
+( is accessed through the normal Object)6 1970(The dialog to change an arealight's parameters)6 2350 2 720 7070 t
+(Attributes menu. Aside from RGB intensity values, it asks for several other things:)12 3983 1 720 7210 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 10 10
+%%Page: 11 11
+/saveobj save def
+mark
+11 pagesetup
+12 R f
+(- 11 -)2 260 1 2750 560 t
+12 I f
+(Xnum)720 1120 w
+12 R f
+(are the number of light sources in the X direction \(as the light is drawn initially\).)15 4003 1 1037 1120 t
+( only has meaning for POV and Rayshade, where an arealight is)11 3348(This attribute)1 672 2 1020 1260 t
+( result, but)2 604(approximated by lots of point lights. More lights give a better)10 3416 2 1020 1400 t
+(signi\256cantly increase rendering time.)3 1784 1 1020 1540 t
+12 I f
+(Ynum)720 1750 w
+12 R f
+(is the number of light sources in the Y direction.)9 2332 1 1023 1750 t
+12 I f
+(Jitter)720 1960 w
+12 R f
+( the point lights are jittered to give a better result. Jittering)11 3167(controls whether)1 836 2 1037 1960 t
+( time, but produces softer shadows and reduces banding in)9 3061(increases rendering)1 959 2 1020 2100 t
+(intensity.)1020 2240 w
+(Note that Genray and Genscan do not have Arealight primitives.)9 3095 1 720 2450 t
+12 I f
+(3.5.4 Ambient)1 700 1 720 2660 t
+12 R f
+( in the scene. The light color)6 1390(You are prompted for the ambient light level)7 2168 2 1482 2660 t
+( will diffusely light all)4 1143(should be entered as normalised RGB values. This light source)9 3177 2 720 2800 t
+( of whether or not they are in shadow. Note that POVRay is)12 2882(object in the scene, regardless)4 1438 2 720 2940 t
+( make full use of this feature, as it only allows for monochromatic ambient)13 3855(unable to)1 465 2 720 3080 t
+(light. If only one value is entered, the program will assume it is an intensity value, and)16 4320 1 720 3220 t
+(set each of the RGB values equally to that entered, giving white light.)12 3352 1 720 3360 t
+11 B f
+( Manipulation Functions)2 1167(3.6 View)1 431 2 720 3570 t
+12 R f
+( view of the scene. There are)6 1483(A range of functions are provided for manipulating your)8 2837 2 720 3780 t
+(several key viewing parameters:)3 1551 1 720 3920 t
+(\320)720 4130 w
+12 I f
+(Viewpoint:)900 4130 w
+12 R f
+( vector from the centre of the world out to the eye. In other words it)15 3400(is a)1 173 2 1467 4130 t
+(controls which direction you are looking from.)6 2247 1 900 4270 t
+(\320)720 4480 w
+12 I f
+(Look At:)1 417 1 900 4480 t
+12 R f
+(is a point in the world which is the centre of the world for viewing purposes.)15 3693 1 1347 4480 t
+(This point will always appear in the centre of the viewing window.)11 3216 1 900 4620 t
+(\320)720 4830 w
+12 I f
+(Look Up:)1 473 1 900 4830 t
+12 R f
+( which way is up. A line, parallel to this vector and)11 2651(is a vector de\256ning)3 969 2 1420 4830 t
+(passing through the)2 976 1 900 4970 t
+12 I f
+(Look At)1 394 1 1923 4970 t
+12 R f
+( to be vertical on the screen,)6 1447(point will always appear)3 1229 2 2364 4970 t
+(although it may be leaning into or out of the screen.)10 2488 1 900 5110 t
+(\320)720 5320 w
+12 I f
+(Distance:)900 5320 w
+12 R f
+(refers to the distance from the)5 1549 1 1419 5320 t
+12 I f
+(Look At)1 399 1 3020 5320 t
+12 R f
+(point to the abstract viewplane)4 1568 1 3472 5320 t
+( behind the viewplane will have strange)6 1914(window you are looking through. Points lying)6 2226 2 900 5460 t
+( become invisible. This distance also)5 2001(things happen to them, and most likely)6 2139 2 900 5600 t
+(in\257uences the apparent size of the scene.)6 1957 1 900 5740 t
+(\320)720 5950 w
+12 I f
+(Eye Distance:)1 678 1 900 5950 t
+12 R f
+( controls the amount)3 995(is the distance from the viewplane to the eye. This)9 2435 2 1610 5950 t
+( eye distances relative to viewplane distances give)7 2420(of perspective in the scene - shorter)6 1720 2 900 6090 t
+( parallel views, set this value to be something large relative to)11 3073(more perspective. For)2 1067 2 900 6230 t
+( size of the scene -)5 935(the viewplane distance. Eye distance also in\257uences the apparent)8 3205 2 900 6370 t
+(shorter eye distances make the scene appear smaller.)7 2528 1 900 6510 t
+12 I f
+(3.6.1 Viewpoint)1 788 1 720 6720 t
+12 R f
+(The program goes into change view mode, where most buttons are)10 3448 1 1592 6720 t
+( a sphere,)2 504(desensitized and the cursor is a cross. The cursor is theoretically lying on)12 3816 2 720 6860 t
+(centred on the)2 692 1 720 7000 t
+12 I f
+(Look At)1 383 1 1448 7000 t
+12 R f
+(point with poles in the)4 1101 1 1867 7000 t
+12 I f
+(Look Up)1 423 1 3004 7000 t
+12 R f
+(direction. The current viewpoint)3 1576 1 3464 7000 t
+( mouse moves the viewpoint on the sphere in the)9 2464(is a point on this sphere. Moving the)7 1856 2 720 7140 t
+(following way:)1 731 1 720 7280 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 11 11
+%%Page: 12 12
+/saveobj save def
+mark
+12 pagesetup
+12 R f
+(- 12 -)2 260 1 2750 560 t
+(\320)720 1120 w
+12 I f
+(Button 1 Motion:)2 845 1 900 1120 t
+12 R f
+(The viewpoint is free to move to any point on the sphere. Moving)12 3257 1 1783 1120 t
+( the world in the corresponding way, while moving)8 2683(the mouse up or down rolls)5 1457 2 900 1260 t
+( the world around the)4 1035(sideways rotates)1 792 2 900 1400 t
+12 I f
+(Look Up)1 418 1 2759 1400 t
+12 R f
+(vector. Moving the mouse all the way)6 1831 1 3209 1400 t
+(to the top of the window will give the impression of looking straight up the)14 3686 1 900 1540 t
+12 I f
+(Look Up)1 420 1 4620 1540 t
+12 R f
+( looking straight down)3 1113(vector, while moving all the way to the bottom will have you)11 3027 2 900 1680 t
+( one side of the window to the other will do a complete circuit about)14 3355(it. Moving from)2 785 2 900 1820 t
+( it easier ignore this description and learn by experimenting)9 2935(the world. You may \256nd)4 1205 2 900 1960 t
+(with the interface.)2 871 1 900 2100 t
+(\320)720 2310 w
+12 I f
+(Button 2 Motion)2 805 1 900 2310 t
+12 R f
+( down only allows for circling the)6 1683(Moving the mouse with button 2)5 1614 2 1743 2310 t
+(world, it prevents moving the view higher or lower in the the scene.)12 3257 1 900 2450 t
+(\320)720 2660 w
+12 I f
+(Button 3 Motion)2 789 1 900 2660 t
+12 R f
+(This allows only for apparent motion up or down in the scene.)11 2990 1 1719 2660 t
+( viewpoint is shown in the text entry window. You can specify a particular)13 3752(The current)1 568 2 720 2870 t
+( view)1 268(viewpoint \(in vector format\) here. If for some reason your text is unacceptable, the)13 4052 2 720 3010 t
+(will remain the same.)3 1036 1 720 3150 t
+(Click on the)2 602 1 720 3360 t
+12 I f
+(Apply)1359 3360 w
+12 R f
+( on)1 158( Clicking)1 483( changing session.)2 894(button to complete a viewpoint)4 1525 4 1676 3360 t
+12 I f
+(Undo)4774 3360 w
+12 R f
+(in the edit interface will also complete the view change.)9 2684 1 720 3500 t
+12 I f
+(3.6.2 Pan)1 493 1 720 3710 t
+12 R f
+( camera. It rotates the view around the current eye)9 2470(This is like panning a \256lm)5 1291 2 1279 3710 t
+( to slide past you. In other words, both the viewpoint and)11 2851(position, so the scene appears)4 1469 2 720 3850 t
+( are changing while the eye stays in the same position in the world. The)14 3679(look at point)2 641 2 720 3990 t
+(mouse buttons control constrained motion similar to a viewpoint change.)9 3509 1 720 4130 t
+12 I f
+( At)1 150(3.6.3 Look)1 540 2 720 4340 t
+12 R f
+( goes into)2 496(When this item is selected the program)6 1956 2 1483 4340 t
+12 I f
+(point selection)1 720 1 3979 4340 t
+12 R f
+(mode,)4743 4340 w
+( can type in an)4 800( You)1 292(where you may enter a new point for the centre of the world.)12 3228 3 720 4480 t
+( the text entry window is an offset point,)8 1955(arbitrary point if you wish. If the point entered in)9 2365 2 720 4620 t
+(the Look At point will be offset from its current location by the amount entered.)14 3851 1 720 4760 t
+12 I f
+( Up)1 177(3.6.4 Look)1 540 2 720 4970 t
+12 R f
+(The program goes into)3 1094 1 1498 4970 t
+12 I f
+(point selection)1 708 1 2623 4970 t
+12 R f
+(mode waiting for 2 points de\256ning)5 1677 1 3363 4970 t
+(the new up direction. The)4 1262 1 720 5110 t
+12 I f
+(Look Up)1 424 1 2020 5110 t
+12 R f
+(vector will be the one)4 1073 1 2482 5110 t
+12 I f
+(from)3593 5110 w
+12 R f
+(the \256rst point entered)3 1050 1 3858 5110 t
+12 I f
+(to)4946 5110 w
+12 R f
+( may not)2 445(the second point. Each point can be arbitrarily entered. The vector just chosen)12 3875 2 720 5250 t
+( being vertical, due to perspective effects, but a vector parallel in the)12 3411(necessarily end up)2 909 2 720 5390 t
+(world, passing through the)3 1282 1 720 5530 t
+12 I f
+(Look At)1 377 1 2032 5530 t
+12 R f
+(point, will be.)2 669 1 2439 5530 t
+12 I f
+(3.6.5 Distance)1 727 1 720 5740 t
+12 R f
+( the buttons are desensitized. The)5 1672(As with viewpoint changing, most of)5 1848 2 1520 5740 t
+( to)1 153(cursor changes to an arrow. Button down mouse motion will cause the distance)12 4167 2 720 5880 t
+( to the scene, while dragging down moves you)8 2407(change. Pushing up moves you closer)5 1913 2 720 6020 t
+( fast and 3)3 506(further away. Each button has a different speed - button 1 is medium, button 2)14 3814 2 720 6160 t
+( window. The apply button)4 1373(slow. You may also enter a new distance in the text entry)11 2947 2 720 6300 t
+(completes a session.)2 979 1 720 6440 t
+12 I f
+(3.6.6 Eye Distance)2 966 1 720 6650 t
+12 R f
+(Similar to distance, the eye distance is adjusted by pushing or)10 3264 1 1776 6650 t
+( moving the eye closer will appear to make the scene)10 2772(dragging the mouse. Note that)4 1548 2 720 6790 t
+( button)1 357(smaller due to perspective effects. Again you may enter a value and the apply)13 3963 2 720 6930 t
+( parameter taken)2 820(completes a session. Eye distance is synonymous with the focal length)10 3500 2 720 7070 t
+(by many renderers.)2 923 1 720 7210 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 12 12
+%%Page: 13 13
+/saveobj save def
+mark
+13 pagesetup
+12 R f
+(- 13 -)2 260 1 2750 560 t
+11 B f
+( Manipulation Functions)2 1167(3.7 Window)1 593 2 720 1120 t
+12 R f
+(Window functions act with the View functions to control the current view of the scene.)14 4187 1 720 1330 t
+(\320)720 1540 w
+12 I f
+(Zoom:)900 1540 w
+12 R f
+(controls the magni\256cation of the scene.)5 1890 1 1243 1540 t
+(\320)720 1750 w
+12 I f
+(Image Size:)1 573 1 900 1750 t
+12 R f
+(controls the size of the window in which the scene appears. This is the)13 3526 1 1514 1750 t
+( does not adjust the outer window)6 1646(window contained within scrollbars. The command)5 2494 2 900 1890 t
+( control the)2 570(size. Note that it is the image size values that are sent to the renderer to)15 3570 2 900 2030 t
+( image \(although POV ignores this option\). It is also the size used)12 3188(rendered size of the)3 952 2 900 2170 t
+( size has been speci\256ed, it defaults to the current)9 2411(in camera calculations. If no image)5 1729 2 900 2310 t
+(size of the view window.)4 1203 1 900 2450 t
+(\320)720 2660 w
+12 I f
+(Draw Mode:)1 616 1 900 2660 t
+12 R f
+(controls how back face edges are drawn.)6 1947 1 1546 2660 t
+(\320)720 2870 w
+12 I f
+(Save:)900 2870 w
+12 R f
+(Saves the current viewport for later recall.)6 2025 1 1196 2870 t
+(\320)720 3080 w
+12 I f
+(Recall:)900 3080 w
+12 R f
+(Recalls a viewport.)2 924 1 1277 3080 t
+(\320)720 3290 w
+12 I f
+(Delete:)900 3290 w
+12 R f
+(Deletes a saved viewport.)3 1233 1 1283 3290 t
+12 I f
+( \(Magni\256cation\) Function)2 1265(3.7.1 Zoom)1 573 2 720 3500 t
+12 R f
+(A dialog appears asking for the new zoom value.)8 2414 1 2626 3500 t
+( of the image on screen. Clicking on the)8 2079(This controls the apparent size)4 1553 2 720 3640 t
+12 I f
+(Apply)4402 3640 w
+12 R f
+(button)4732 3640 w
+(applies the new zoom without closing the dialog, whereas)8 2908 1 720 3780 t
+12 I f
+(Done)3674 3780 w
+12 R f
+( value and)2 527(applies the)1 534 2 3979 3780 t
+(closes the dialog.)2 836 1 720 3920 t
+12 I f
+(To Fit)1 300 1 1618 3920 t
+12 R f
+( to the largest value such that all)7 1561(causes the zoom value to adjust)5 1529 2 1950 3920 t
+( This is mostly useful for \256nding "lost" objects or)9 2545(the objects are visible in the scene.)6 1775 2 720 4060 t
+( the available space. The return key is mapped to the Done)11 2990(expanding the scene to \256ll)4 1330 2 720 4200 t
+(button.)720 4340 w
+12 I f
+( Size)1 234(3.7.2 Image)1 599 2 720 4550 t
+12 R f
+( asking for new width and height values for the)9 2364(A dialog box appears)3 1053 2 1623 4550 t
+12 I f
+(view window)1 632 1 720 4690 t
+12 R f
+( value, and choose)3 907( positive integers for each)4 1274(. Enter)1 358 3 1362 4690 t
+12 I f
+(Done.)3938 4690 w
+12 R f
+(Note that if the)3 746 1 4294 4690 t
+( the available area in the program window, you will)9 2554(image size you enter is smaller than)6 1766 2 720 4830 t
+( larger than you asked for. However when the \256le is exported the value will)14 3666(get a window)2 654 2 720 4970 t
+( big it actually is, resize the program window)8 2190( you want to see how)5 1021( If)1 141(be as you de\256ned it.)4 968 4 720 5110 t
+(until scrollbars appear around the view window.)6 2318 1 720 5250 t
+(The)720 5460 w
+12 I f
+(To Fit)1 298 1 936 5460 t
+12 R f
+(button sets the values to the current visible area, so there will be no scrollbars.)14 3761 1 1264 5460 t
+12 I f
+(Cancel)720 5670 w
+12 R f
+( dialog leaving the actual values unchanged, regardless of whether any of)11 3543(exits the)1 406 2 1091 5670 t
+(the values in the dialog have been modi\256ed.)7 2116 1 720 5810 t
+12 I f
+( Mode)1 314(3.7.3 Draw)1 573 2 720 6020 t
+12 R f
+( object)1 336(There are three ways in which Sced draws back facing edges)10 3026 2 1678 6020 t
+( may be drawn fully, dashed or not at all. The)10 2318(edges. they)1 583 2 720 6160 t
+12 I f
+(Draw Mode)1 589 1 3664 6160 t
+12 R f
+(item pops up a)3 744 1 4296 6160 t
+( the mode you wish to use. The current mode is shown)11 2666(dialog from which you may select)5 1654 2 720 6300 t
+(selected as a default.)3 994 1 720 6440 t
+12 I f
+(3.7.4 Save)1 526 1 720 6650 t
+12 R f
+( saved to be)3 585(You are prompted for a name for the current view, which is then)12 3145 2 1310 6650 t
+( aspects of the view are saved, including image)8 2361(available via the Recall menu item. All)6 1959 2 720 6790 t
+(size and zoom.)2 717 1 720 6930 t
+12 I f
+(3.7.5 Recall)1 607 1 720 7140 t
+12 R f
+( of currently de\256ned views is popped up. Choose the view you want)12 3372(A list)1 273 2 1395 7140 t
+( The stored view will be reinstated. Those views that appear in the)12 3438(by clicking on it.)3 882 2 720 7280 t
+( One special view, called)4 1251(defaults \256le will appear, as will any you have saved.)9 2611 2 720 7420 t
+12 I f
+(Camera)4624 7420 w
+12 R f
+(,)5010 7420 w
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 13 13
+%%Page: 14 14
+/saveobj save def
+mark
+14 pagesetup
+12 R f
+(- 14 -)2 260 1 2750 560 t
+( de\256ned camera, if it exists. Any views de\256ned in the)10 2586(sets the view to match the currently)6 1734 2 720 1120 t
+12 I f
+(Defaults File)1 632 1 720 1260 t
+12 R f
+(will appear here also.)3 1027 1 1382 1260 t
+12 I f
+(3.7.6 Delete)1 613 1 720 1470 t
+12 R f
+( Choose the one you)4 1012(A dialog appears with all the currently de\256ned views.)8 2628 2 1400 1470 t
+(wish to delete and it will be removed from the list.)10 2430 1 720 1610 t
+11 B f
+( Functions)1 494(3.8 Layer)1 474 2 720 1820 t
+12 R f
+( screen.)1 402(The Layer functions provide control over which objects are visible on the)11 3918 2 720 2030 t
+( to a layer. New objects belong to the)8 1943(Conceptually, each object belongs)3 1708 2 720 2170 t
+12 I f
+(World)4420 2170 w
+12 R f
+(layer,)4770 2170 w
+( have explicitly been added to another layer. At any given)10 2798(unless they were copied or they)5 1522 2 720 2310 t
+( displayed, and those objects which appear in the displayed layers)10 3230(time, a set of layers is)5 1090 2 720 2450 t
+(are visible. Objects in layers not displayed are not visible. Invisible objects are still)13 4320 1 720 2590 t
+(exported and saved. An object can only belong to one layer at a time.)13 3325 1 720 2730 t
+12 I f
+(3.8.1 New)1 513 1 720 2940 t
+12 R f
+( You are prompted for)4 1097(A new layer is created containing the selected objects.)8 2645 2 1298 2940 t
+(a name \(a default is provided\). The objects are removed from their previous layer, and the)15 4320 1 720 3080 t
+(new layer is displayed.)3 1101 1 720 3220 t
+12 I f
+( Objects)1 403(3.8.2 Add)1 493 2 720 3430 t
+12 R f
+( to select a layer, to which the selected objects will be)11 2661(You are asked)2 697 2 1682 3430 t
+( the destination layer. If the)5 1388(added. The objects just transferred take on the visibility of)9 2932 2 720 3570 t
+(new layer is not visible, they will also be removed from the edit or selection lists.)15 3914 1 720 3710 t
+12 I f
+(3.8.3 Merge)1 613 1 720 3920 t
+12 R f
+( the objects)2 568(You must select two layers. The \256rst chosen is deleted and all)11 3070 2 1402 3920 t
+( layer added to the second selected. If the)8 2048(from that)1 454 2 720 4060 t
+12 I f
+(World)3260 4060 w
+12 R f
+(layer is one chosen, the other)5 1441 1 3599 4060 t
+(will be deleted regardless of the order selected. The objects transferred take on the)13 4320 1 720 4200 t
+( layer. If the new layer is not visible, they will also be)12 2933(visibility of the destination)3 1387 2 720 4340 t
+(removed from the edit or selection lists.)6 1916 1 720 4480 t
+12 I f
+(3.8.4 Display)1 674 1 720 4690 t
+12 R f
+( layers is presented. Those displayed)5 1837(A popup containing all the de\256ned)5 1735 2 1468 4690 t
+( of that layer. When a)5 1040(are shown highlighted. Each label is a toggle controlling the display)10 3280 2 720 4830 t
+( redrawn immediately to re\257ect the change. Choose)7 2559(layer is toggled, the scene is)5 1411 2 720 4970 t
+12 I f
+(Finish)4732 4970 w
+12 R f
+( hidden will be removed from the)6 1771(when you are satis\256ed. Objects in layers that are)8 2549 2 720 5110 t
+(selection and edit lists.)3 1098 1 720 5250 t
+11 B f
+(3.9 Target)1 510 1 720 5460 t
+12 R f
+( This not only determines the)5 1502(This button allows for the choice of the target renderer.)9 2818 2 720 5670 t
+( presented for camera de\256nition and)5 1746(format of the exported \256le, it also changes the dialog)9 2574 2 720 5810 t
+(speci\256c attributes.)1 876 1 720 5950 t
+11 B f
+(3.10 Camera)1 625 1 720 6160 t
+12 R f
+( is presented. The actual parameters prompted for)7 2466(A dialog for the entry of camera data)7 1854 2 720 6370 t
+( target has been selected it is prompted for)8 2053(are dependent on the target raytracer, and if no)8 2267 2 720 6510 t
+(\256rst.)720 6650 w
+( each corresponds to a camera de\256nition element for the)9 2737(You can modify any parameter -)5 1583 2 720 6860 t
+(target renderer.)1 733 1 720 7000 t
+(Alternatively, you can use the)4 1506 1 720 7210 t
+12 I f
+(To Viewport)1 615 1 2273 7210 t
+12 R f
+( match the camera to the current)6 1656(button to)1 449 2 2935 7210 t
+(viewing speci\256cations. This is the easiest way to de\256ne a camera.)10 3150 1 720 7350 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 14 14
+%%Page: 15 15
+/saveobj save def
+mark
+15 pagesetup
+12 R f
+(- 15 -)2 260 1 2750 560 t
+(A)720 1120 w
+12 I f
+(Default)842 1120 w
+12 R f
+( settings for each of the renderers)6 1643(button is also provided, although the default)6 2158 2 1239 1120 t
+(are useless for anything other than the simplest scene.)8 2588 1 720 1260 t
+(When all is \256nished, choose the)5 1619 1 720 1470 t
+12 I f
+(Done)2387 1470 w
+12 R f
+( as de\256ned.)2 581(button, which will save the camera)5 1765 2 2694 1470 t
+12 I f
+(Cancel)720 1610 w
+12 R f
+(will close the dialog leaving the camera unchanged from its previous state.)11 3593 1 1090 1610 t
+11 B f
+(3.11 Preview)1 625 1 720 1820 t
+12 R f
+( popped up, allowing you to specify the parameters for the)10 3066(A preview dialog box is)4 1254 2 720 2030 t
+( Choose the renderer you wish to)6 1695(preview. The renderer options are shown at the top.)8 2625 2 720 2170 t
+( select a width and height for the preview image. The default)11 2955(preview with. You may also)4 1365 2 720 2310 t
+( current image window. Since only the window size is adjusted using)11 3478(is the size of the)4 842 2 720 2450 t
+( it is good to keep them in proportion to the current)11 2617(these parameters \(not the camera\),)4 1703 2 720 2590 t
+(image size. The)2 763 1 720 2730 t
+12 I f
+(Preview All)1 567 1 1516 2730 t
+12 R f
+( to be previewed, rather than the)6 1562(button causes all the objects)4 1362 2 2116 2730 t
+(default of just the selected objects. Choose)6 2054 1 720 2870 t
+12 I f
+(Go!)2804 2870 w
+12 R f
+(to proceed with the preview.)4 1370 1 3020 2870 t
+( de\256ned)1 390(If no lights have been de\256ned, a light located near the eye is used, otherwise the)15 3930 2 720 3080 t
+(lights are used.)2 725 1 720 3220 t
+( a renderer)2 550(The selected objects are exported to a temporary \256le then previewed using)11 3770 2 720 3430 t
+( up indicating the \256le)4 1043(chosen for the task. If the process fork succeeded a dialog will pop)12 3277 2 720 3570 t
+( to, and asking for recognition. If for some reason the)10 2653(that the renderer's output is going)5 1667 2 720 3710 t
+( forked, a message will inform)5 1494(preview \256le cannot be exported, or the renderer cannot be)9 2826 2 720 3850 t
+(you.)720 3990 w
+(The target renderer is not necessarily used because it may be unsuited to previewing)13 4320 1 720 4200 t
+( the picture being traced and POVRay is very)8 2220(\(Rayshade does not give a runtime view of)7 2100 2 720 4340 t
+( dynamic color view.\) The full pathname for each of the renderers needs)12 3530(slow but gives a)3 790 2 720 4480 t
+( compiled in. It is also possible to specify options for)10 2602(to be de\256ned in the defaults \256le, or)7 1718 2 720 4620 t
+(the preview within the defaults \256le.)5 1703 1 720 4760 t
+11 B f
+(3.12 Clear)1 510 1 720 4970 t
+12 R f
+(There are two variations of this function.)6 1966 1 720 5180 t
+12 I f
+(Clear Objects)1 684 1 720 5390 t
+12 R f
+( clears any edit)3 766( It)1 148(deletes all the objects in the Scene and CSG window.)9 2679 3 1447 5390 t
+(and selection lists also. It does not delete existing base objects.)10 3022 1 1020 5530 t
+12 I f
+(Reset)720 5740 w
+12 R f
+(performs a)1 539 1 1032 5740 t
+12 I f
+(Clear Objects)1 693 1 1623 5740 t
+12 R f
+( base objects that have been)5 1452(, and then deletes all the)5 1272 2 2316 5740 t
+( is any CSG and Wireframe objects. It also deletes any saved)11 3314(de\256ned - that)2 706 2 1020 5880 t
+(viewports and layers.)2 1024 1 1020 6020 t
+11 B f
+(3.13 Maintain)1 684 1 720 6230 t
+12 R f
+( If on,)2 334(The Maintain button is a toggle. It controls interactive constraint maintenance.)10 3986 2 720 6440 t
+( as objects are dragged and edited. If off,)8 2144(constraints will be interactively maintained)4 2176 2 720 6580 t
+( of each object edit session. On is the better)9 2117(constraints will only be maintained at the end)7 2203 2 720 6720 t
+( Turn maintenance off if the)5 1381(setting from almost all points of view, except refresh speed.)9 2939 2 720 6860 t
+(number of dependent objects is large and updating is much slower than usual.)12 3735 1 720 7000 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 15 15
+%%Page: 16 16
+/saveobj save def
+mark
+16 pagesetup
+12 R f
+(- 16 -)2 260 1 2750 560 t
+11 B f
+( INTERFACE)1 676(4. EDIT)1 409 2 720 1120 t
+(4.1 Overview)1 644 1 720 1330 t
+12 R f
+(Sced is a)2 437 1 720 1540 t
+12 I f
+(Constraint Based)1 844 1 1192 1540 t
+12 R f
+( are manipulated through constraints on)5 1937(editor, in that objects)3 1032 2 2071 1540 t
+( remove the 3rd)3 868(their location, shape and orientation. Constraints are also used to)9 3452 2 720 1680 t
+( of a 2D)3 455(dimension from the world for interaction, to allow meaningful interpretation)9 3865 2 720 1820 t
+(mouse point as a 3D world point. Constraints may also be)10 2852 1 720 1960 t
+12 I f
+(maintained)3609 1960 w
+12 R f
+(which means that)2 853 1 4187 1960 t
+(the relative position of objects may remain the same even when one of the objects is)15 4320 1 720 2100 t
+(moved.)720 2240 w
+(Sced works by constraining 3 features of each body:)8 2514 1 720 2450 t
+(\320)720 2660 w
+12 I f
+(The Origin)1 575 1 900 2660 t
+12 R f
+(controls the)1 609 1 1549 2660 t
+12 I f
+(position)2232 2660 w
+12 R f
+( Origin appears in Green)4 1366(of the object. The)3 979 2 2695 2660 t
+( origin point)2 604( the)1 182( Moving)1 446(somewhere in the scene, initially at the centre of the object.)10 2908 4 900 2800 t
+( space. The)2 546(moves the body with it, and constraining it constrains where the body is in)13 3594 2 900 2940 t
+( 2 other key functions. It the the centre for all rotation of the)13 3126(origin also performs)2 1014 2 900 3080 t
+( it. This)2 382(body. That is, the origin will stay in the same spot as the body rotates around)15 3758 2 900 3220 t
+( scaling the)2 564(lets you rotate about any point you like. The origin is also the centre for)14 3576 2 900 3360 t
+(object. That is, the origin stays where it is, regardless how you scale the object. This)15 4140 1 900 3500 t
+( object while scaling, or scale about one corner of the object.)11 2941(means you can move the)4 1199 2 900 3640 t
+( is that the origin stays where you put it, no matter what other)13 3012(The outcome of all this)4 1128 2 900 3780 t
+( you do have a great deal of choice of where you may)12 2619(operations you apply. However)3 1521 2 900 3920 t
+(de\256ne it to be.)3 688 1 900 4060 t
+(\320)720 4270 w
+12 I f
+(Axes)900 4270 w
+12 R f
+(control the orientation or)3 1209 1 1159 4270 t
+12 I f
+(alignment)2401 4270 w
+12 R f
+( red, green and)3 724(of the object. They appear as)5 1401 2 2915 4270 t
+(blue lines sticking out of the origin. The red, or)9 2347 1 900 4410 t
+12 I f
+(Major)3285 4410 w
+12 R f
+(axis is longer than the green,)5 1417 1 3623 4410 t
+(or)900 4550 w
+12 I f
+(Minor)1052 4550 w
+12 R f
+(axis. The blue,)2 751 1 1405 4550 t
+12 I f
+(Other)2208 4550 w
+12 R f
+( axis always takes)3 933(axis is the shortest. The Major)5 1567 2 2540 4550 t
+( doesn't control anything much.)4 1669(precedence over the Minor axis, and the Other)7 2471 2 900 4690 t
+(Scaling is along the axes. When the axes rotate, the body rotates with them.)13 3632 1 900 4830 t
+(\320)720 5040 w
+12 I f
+(The Scaling Point)2 882 1 900 5040 t
+12 R f
+(controls)1822 5040 w
+12 I f
+(scaling)2250 5040 w
+12 R f
+(of the object. It appears in Red on one vertex of)10 2401 1 2639 5040 t
+( point at the same)4 933(the body. When this point moves the object scales to keep the)11 3207 2 900 5180 t
+( body if)2 392(vertex. Scaling is about the Origin and along the Axes, so you can shear the)14 3748 2 900 5320 t
+(you want.)1 473 1 900 5460 t
+( the mouse is over. If the feature under)8 1890(The cursor will change depending on what feature)7 2430 2 720 5670 t
+( be)1 145(the mouse is not open to interaction, the cursor will be a closed circle. The cursor will)16 4175 2 720 5810 t
+( a diamond cross in the origin region and)8 1986( will be)2 363( It)1 135(a pair of arrows in the rotation region.)7 1836 4 720 5950 t
+(a sizing arrow in the scale point.)6 1559 1 720 6090 t
+( in various ways. The constraint types)6 1945(The features just described may be constrained)6 2375 2 720 6300 t
+( number in brackets is the number of points needed to de\256ne the)12 3264(available follow. The)2 1056 2 720 6440 t
+(constraint.)720 6580 w
+(\320)720 6790 w
+12 I f
+(Plane \(3\):)1 500 1 900 6790 t
+12 R f
+( lie in the given plane, de\256ned by 3 points on)10 2277(The point is constrained to)4 1323 2 1440 6790 t
+(the plane. The plane is represented by a large rectangle with a cross through it.)14 3776 1 900 6930 t
+(\320)720 7140 w
+12 I f
+(Line \(2\):)1 435 1 900 7140 t
+12 R f
+( by 2 other points on the line. A line is)10 1968(The point lies on a line as de\256ned)7 1696 2 1376 7140 t
+(represented by a line segment.)4 1458 1 900 7280 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 16 16
+%%Page: 17 17
+/saveobj save def
+mark
+17 pagesetup
+12 R f
+(- 17 -)2 260 1 2750 560 t
+(\320)720 1120 w
+12 I f
+(Point \(1\):)1 485 1 900 1120 t
+12 R f
+( around the)2 570(Completely de\256nes the location of a point. A circle is drawn)10 3041 2 1429 1120 t
+(point.)900 1260 w
+(\320)720 1470 w
+12 I f
+(Midplane \(2\):)1 700 1 900 1470 t
+12 R f
+( plane equidistant from 2 points. This is)7 2123(The point must lie on a)5 1258 2 1659 1470 t
+( plane, and)2 523(effectively a plane constraint, but with a different method of specifying the)11 3617 2 900 1610 t
+(is represented as a plane.)4 1197 1 900 1750 t
+(\320)720 1960 w
+12 I f
+(Midpoint \(2\):)1 652 1 900 1960 t
+12 R f
+(The constraint de\256ned is a point \320 the midpoint of the two selected.)12 3303 1 1582 1960 t
+(\320)720 2170 w
+12 I f
+(Origin Line or Plane \(1,2\):)4 1328 1 900 2170 t
+12 R f
+( a line or plane which passes)6 1404(The constraint that results is)4 1374 2 2262 2170 t
+( current origin point and the point\(s\) selected. The line or plane will)12 3563(through the)1 577 2 900 2310 t
+(follow the origin around as it changes.)6 1846 1 900 2450 t
+(\320)720 2660 w
+12 I f
+( Plane \(1,2\):)2 656(Scale Line or)2 685 2 900 2660 t
+12 R f
+(The constraint is a line or plane which always passes)9 2746 1 2294 2660 t
+(through the current scaling point and the points selected.)8 2722 1 900 2800 t
+(\320)720 3010 w
+12 I f
+(Axis \(2\):)1 429 1 900 3010 t
+12 R f
+( about, de\256ned to be parallel to a line joining 2 given)11 2688(An axis for rotating)3 981 2 1371 3010 t
+( sphere. The arc could be considered as the)8 2118(points. It appears as an arc on the arcball)8 2022 2 900 3150 t
+(edge of a disc with the de\256ned axis.)7 1721 1 900 3290 t
+(\320)720 3500 w
+12 I f
+(Axis Plane \(3\):)2 745 1 900 3500 t
+12 R f
+(A plane whose normal is used as a rotation. It essentially de\256nes an)12 3356 1 1684 3500 t
+(Axis in a different way, and is drawn as an axis.)10 2307 1 900 3640 t
+(\320)720 3850 w
+12 I f
+(Alignment Point \(1\):)2 1055 1 900 3850 t
+12 R f
+( current origin to another point which the)7 2197(A line from the)3 828 2 2015 3850 t
+(constrained axis will point along.)4 1601 1 900 3990 t
+(\320)720 4200 w
+12 I f
+(Alignment Line \(2\):)2 990 1 900 4200 t
+12 R f
+(A line joining two points which an axis is constrained to be)11 3098 1 1942 4200 t
+(parallel to.)1 515 1 900 4340 t
+(\320)720 4550 w
+12 I f
+(Alignment Plane \(3\):)2 1014 1 900 4550 t
+12 R f
+(A plane which an axis is constrained to be perpendicular to.)10 2872 1 1944 4550 t
+( then selecting points which)4 1371(Constraints are de\256ned by choosing the type off a menu and)10 2949 2 720 4760 t
+( choose 3 points you want the plane to pass)9 2295(de\256ne the constraint. To select a plane,)6 2025 2 720 4900 t
+(through. To choose a line, select 2 points that the line will pass through.)13 3461 1 720 5040 t
+(The type of point used to de\256ne a constraint determines how the constraint is maintained.)14 4298 1 720 5250 t
+12 I f
+(Reference Points)1 833 1 720 5460 t
+12 R f
+( the object they are)4 982( As)1 210( object.)1 371(\(button 1\) are attached to a particular)6 1878 4 1599 5460 t
+( this type of point to specify)6 1447( Use)1 262( de\256ning point.)2 764(attached to moves, so does the)5 1547 4 1020 5600 t
+( When choosing a)3 1019(relationships between objects that you want maintained.)6 3001 2 1020 5740 t
+( cause the object referenced to change color. If)8 2290(reference point, button 1 down will)5 1730 2 1020 5880 t
+( the object desired, move the mouse with the button down to cycle)12 3500(this is not)2 520 2 1020 6020 t
+( up inside the)3 663(through other objects which may be referenced by that point. Button)10 3357 2 1020 6160 t
+(point rectangle chooses the currently highlighted object.)6 2702 1 1020 6300 t
+12 I f
+(Offset Points)1 630 1 720 6510 t
+12 R f
+( object. Use these to)4 991(\(button 2\) stay in the same place relative to the current)10 2665 2 1384 6510 t
+( If offset)2 454(specify scaling constraints which relate to the body being edited only.)10 3566 2 1020 6650 t
+(points are entered via the text entry window, the vector entered is taken as the)14 4020 1 1020 6790 t
+( line)1 232( points are also useful as origin)6 1629( Offset)1 382(offset from the centre of the body.)6 1777 4 1020 6930 t
+(constraint speci\256ers, as they encode motion in a particular direction.)9 3283 1 1020 7070 t
+12 I f
+(Absolute Points)1 759 1 720 7280 t
+12 R f
+( position in space. Use them to position an object somewhere)10 2952(have a \256xed)2 579 2 1509 7280 t
+(where you don't want it to move from.)7 1862 1 1020 7420 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 17 17
+%%Page: 18 18
+/saveobj save def
+mark
+18 pagesetup
+12 R f
+(- 18 -)2 260 1 2750 560 t
+( allow the current object)4 1204(Reference points are the basis for constraint maintenance. They)8 3116 2 720 1120 t
+( to changes in the object it references. There are limitations on what can be used)15 3955(to react)1 365 2 720 1260 t
+( point. In particular, reference points cannot lead to cycles. The system will)12 3658(as a reference)2 662 2 720 1400 t
+( objects that depend on the current object. So you can't say object)12 3208(not allow references to)3 1112 2 720 1540 t
+( The)1 221(A is the same height as object B, and then say that object B is the same height as A.)19 4099 2 720 1680 t
+( from dependent objects, which are shown)6 2120(system will refuse to select reference points)6 2200 2 720 1820 t
+(dashed during editing.)2 1072 1 720 1960 t
+( associated with)2 802(The Origin and Scaling points both have a set of available constraints)11 3518 2 720 2170 t
+( available constraints.)2 1074(them. To actually constrain the point, choose one or more of the)11 3246 2 720 2310 t
+( than one constraint can be active at)7 1774( More)1 328(The selected constraints are said to be active.)7 2218 3 720 2450 t
+( for a resultant, which is like having all the selected)10 2545(any one time, and the system solves)6 1775 2 720 2590 t
+( of available)2 662(constraints active at the same time. Interactive rotation also has a set)11 3658 2 720 2730 t
+( meaningful to have one selected at a time. The Major and Minor)12 3127(constraints, but it is only)4 1193 2 720 2870 t
+( a constraint associated with them, but this constraint is chosen)10 3335(axis can each have)3 985 2 720 3010 t
+(explicitly. New constraints are added to the available lists, but not made active.)12 3811 1 720 3150 t
+( named for your convenience. When a new constraint is added you are)12 3579(Constraints are)1 741 2 720 3360 t
+( default is provided. Once again names need not be unique or)11 3106(prompted for a name. A)4 1214 2 720 3500 t
+(anything like that \(but you may have problems telling them apart\).)10 3198 1 720 3640 t
+(The whole system works by doing the following:)7 2360 1 720 3850 t
+( origin constraints. This will position the object)7 2646( the origin satisfy the)4 1221(\320 Make)1 453 3 720 4060 t
+(somewhere.)900 4200 w
+( the axes satisfy any alignment constraints. This will orient the object somehow.)12 3856(\320 Make)1 453 2 720 4410 t
+( the scaling object satisfy any scaling constraints. This will scale the object.)12 3636(\320 Make)1 453 2 720 4620 t
+( point is effectively Plane or Line constrained it may be moved with the mouse in)15 4143(If a)1 177 2 720 4830 t
+( constraint is maintained. To move a partly constrained point, push)10 3344(such a way that the)4 976 2 720 4970 t
+( down on the point and drag it to where you want it to go. If you drag the)18 3794(any button)1 526 2 720 5110 t
+( maintain the)2 643(Origin point the object will move with the mouse. It may also be scaled to)14 3677 2 720 5250 t
+( the object will be scaled, and the origin)8 1960(scaling constraints. If you drag the Scaling point)7 2360 2 720 5390 t
+(will stay where it is.)4 973 1 720 5530 t
+( a point, the special)4 1076(If constraints that cannot be mutually satis\256ed are chosen for)9 3244 2 720 5740 t
+( An)1 177(Inconsistent constraint results, and the point is \256xed until the constraints are adjusted.)12 4143 2 720 5880 t
+(inconsistently constrained point has a cross drawn through it.)8 2943 1 720 6020 t
+11 B f
+(4.2 Position)1 574 1 720 6230 t
+12 R f
+( in 2)2 250(It is the Origin that de\256nes the position of the object. The origin may be moved)15 4070 2 720 6440 t
+(ways:)720 6580 w
+( mouse by clicking any)4 1195( partially constrained it may be dragged around with the)9 2865(\320 If)1 260 3 720 6790 t
+(button down on the point and dragging it to its new location.)11 2913 1 900 6930 t
+( which, by forcing satisfaction, moves the origin to a)9 2688( constraint may be selected)4 1366(\320 A)1 266 3 720 7140 t
+( doing things, because it allows)5 1545(new location. This is actually a more de\256nite way of)9 2595 2 900 7280 t
+( MINIMUM amount to satisfy the)5 1645(for precise positioning. The object will move by the)8 2495 2 900 7420 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 18 18
+%%Page: 19 19
+/saveobj save def
+mark
+19 pagesetup
+12 R f
+(- 19 -)2 260 1 2750 560 t
+( point will move perpendicular to the)6 2006(new resulting constraint. This means the)5 2134 2 900 1120 t
+(constraint until it hits it.)4 1158 1 900 1260 t
+( Inconsistently-Constrained, or not constrained at all, it cannot be)9 3153(If the Origin is Point- or)5 1167 2 720 1400 t
+( move if something it depends on is moved, but more on)11 2757(moved interactively. It may still)4 1563 2 720 1540 t
+(that later.)1 455 1 720 1680 t
+11 B f
+(4.3 Scaling)1 538 1 720 1890 t
+12 R f
+( 2 ways just as for)5 896(The Scaling Point de\256nes the scaling of an object. It may be moved in)13 3424 2 720 2100 t
+(the Origin.)1 521 1 720 2240 t
+( can also be scaled in response to a Position or Rotation drag, if the drag results)16 3849(An object)1 471 2 720 2450 t
+( fact very)2 481(in the Scaling constraints being violated. This may seem dangerous but is in)12 3839 2 720 2590 t
+( to be put somewhere and then kept)7 1865(useful behaviour which allows a particular point)6 2455 2 720 2730 t
+(there.)720 2870 w
+( happens with respect to the Origin and the Axes. So scaling will never cause)14 3790(All scaling)1 530 2 720 3080 t
+( and is always relative to the Axes. If you don't change the axes this)14 3357(the Origin to move,)3 963 2 720 3220 t
+(means that scaling is always along the object's natural axes.)9 2885 1 720 3360 t
+( to the origin and the new distance to)8 1824(Scaling uses the ratio between the original distance)7 2496 2 720 3570 t
+( the original)2 642( If)1 170( each direction.)2 797(determine how much the object should be scaled in)8 2711 4 720 3710 t
+( then a constraint is automatically enforced to)7 2272(distance to the origin along any axis is 0,)8 2048 2 720 3850 t
+(stop you scaling in that direction. These are called forced constraints.)10 3332 1 720 3990 t
+11 B f
+(4.4 Rotation)1 603 1 720 4200 t
+12 R f
+( anywhere in)2 629( the button goes down)4 1077( If)1 144(Interactive rotation happens through a mouse drag.)6 2470 4 720 4410 t
+( a)1 84( If)1 141( rotation is taking place.)4 1164(the scene that isn't the Origin or Scaling Point, it is assumed)11 2931 4 720 4550 t
+( and around the)3 806(rotation constraint is active then the object will rotate about this axis)11 3514 2 720 4690 t
+(Origin. The interface is Shoemake's)4 1766 1 720 4830 t
+9 R f
+([1])2486 4782 w
+12 R f
+(Arcball interface. On the screen there is a dashed)8 2412 1 2628 4830 t
+( Origin point. This de\256nes the edge of an imaginary sphere centred in)12 3340(circle centred on the)3 980 2 720 4970 t
+( the mouse you are notionally)5 1476(the Origin and with the radius indicated. When you move)9 2844 2 720 5110 t
+( underneath. The interface works)4 1602(dragging it around on this sphere, and the object moves)9 2718 2 720 5250 t
+(best if the motion is constrained, when you should try to drag somewhere near the)14 4320 1 720 5390 t
+( is the same as rotating)5 1170(indicated arc. Dragging around the outside of the dashed circle)9 3150 2 720 5530 t
+( is)1 127(about an axis out of the screen, which may be useful. As rotation interfaces go this)15 4193 2 720 5670 t
+( time to play with it. For full details, implementation and all, see the)13 3461(good, so take the)3 859 2 720 5810 t
+(paper or the book "Graphics Gems 4".)6 1834 1 720 5950 t
+( are maintained at all times through a rotation, which can give)11 3177(The scaling constraints)2 1143 2 720 6160 t
+( particularly if the scaling constraint suddenly goes from)8 3064(some interesting results,)2 1256 2 720 6300 t
+(inconsistent to satis\256able. Undo will always get you back.)8 2792 1 720 6440 t
+11 B f
+(4.5 Alignment)1 689 1 720 6650 t
+12 R f
+( rotating the object so that one of the axes satis\256es some constraint.)12 3358(Alignment involves)1 962 2 720 6860 t
+(To align an axis, choose the type of constraint from the Major or Minor axis menus, and)16 4320 1 720 7000 t
+( it)1 102( constraint will remain active until you remove)7 2277( The)1 249(de\256ne the points for the constraint.)5 1692 4 720 7140 t
+( of)1 139(by selecting remove from the same menu. Axes can be temporarily aligned with one)13 4181 2 720 7280 t
+(the interactive rotation axes by choosing Temp Align off the axis menu.)11 3459 1 720 7420 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 19 19
+%%Page: 20 20
+/saveobj save def
+mark
+20 pagesetup
+12 R f
+(- 20 -)2 260 1 2750 560 t
+( will cause corresponding interactive rotation constraints to be)8 3225(Alignment constraints)1 1095 2 720 1120 t
+( constraints will be deactivated when the)6 1956(enforced to prevent breaking the constraints. The)6 2364 2 720 1260 t
+(alignment is removed.)2 1073 1 720 1400 t
+11 B f
+( Constraints)1 578(4.6 Default)1 541 2 720 1610 t
+12 R f
+(Three default constraints are provided for each of Position, Scale and Rotate. They are:)13 4186 1 720 1820 t
+(\320)720 2030 w
+12 I f
+(Position:)900 2030 w
+12 R f
+( with the world axis planes and passing through the)9 2620(Three planes aligned)2 1032 2 1388 2030 t
+( others)1 333( The)1 255( X\261Y Plane is the plane de\256ned by the world X and Y axes.)13 2982(Origin. The)1 570 4 900 2170 t
+(are the Y\261Z and Z\261X planes.)5 1391 1 900 2310 t
+(\320)720 2520 w
+12 I f
+(Scale:)900 2520 w
+12 R f
+( through the Reference Point and perpendicular to the)8 2743(Three planes passing)2 1047 2 1250 2520 t
+( planes are)2 539( The)1 259(Object Axes. Together they allow rectangular scaling of the object.)9 3342 3 900 2660 t
+(named after the axes that lie in them.)7 1777 1 900 2800 t
+(\320)720 3010 w
+12 I f
+(Rotate:)900 3010 w
+12 R f
+(Three axes aligned with the Object Axes.)6 1983 1 1284 3010 t
+( just)1 210(The defaults all move and change with the object in order to maintain the conditions)14 4110 2 720 3220 t
+(described.)720 3360 w
+11 B f
+( the Direction of Motion)4 1129(4.7 Controlling)1 739 2 720 3570 t
+12 R f
+( move to satisfy a constraint, you)6 1606(If you wish to control the direction in which a point will)11 2714 2 720 3780 t
+( Consider a situation where)4 1319(can do so through Origin or Scaling Line or Plane constraints.)10 3001 2 720 3920 t
+( along its axis line until it meets a plane which is not)12 2829(you want a cylinder to move)5 1491 2 720 4060 t
+(perpendicular to the origin. It you were to just choose the plane constraint, the cylinder)14 4320 1 720 4200 t
+( perpendicular to the plane, not its axis. To force it to move along its axis,)15 3713(would move)1 607 2 720 4340 t
+( the)1 194(add an Origin Line constraint passing through the Origin \(it must\) and parallel to)13 4126 2 720 4480 t
+( that the origin must remain on its)7 1665( effectively says)2 789( This)1 278(axis. Choose this constraint \256rst.)4 1588 4 720 4620 t
+( choose the plane constraint. The system will calculate where the)10 3220(current axis line. Now)3 1100 2 720 4760 t
+( move the origin there. If you think about it this is the)12 2710(axis line intersects the plane and)5 1610 2 720 4900 t
+(same as moving the cylinder along its axis until it meets the plane.)12 3200 1 720 5040 t
+( of)1 133(The same technique will work to control the direction of scaling, this time through use)14 4187 2 720 5250 t
+(a Scaling Line or Plane constraint.)5 1656 1 720 5390 t
+11 B f
+(4.8 Maintenance)1 804 1 720 5600 t
+12 R f
+( dependencies of one)3 1021(The network of reference points used to de\256ne constraints introduce)9 3299 2 720 5810 t
+(object upon another, which in turn may depend on some other object.)11 3333 1 720 5950 t
+( if the)2 361(Constraint dependencies are maintained whenever an object is manipulated,)8 3959 2 720 6160 t
+( current object)2 702(Maintain toggle is set, otherwise they will be adjusted when editing of the)12 3618 2 720 6300 t
+( on a plane \(by using the plane to)8 1643( if a block is de\256ned to lie)7 1288( So)1 192(is \256nished or suspended.)3 1197 4 720 6440 t
+( plane is subsequently moved up,)5 1606(de\256ne reference points for a position constraint\) and the)8 2714 2 720 6580 t
+( moved up to still lie on the plane. The block will move in the)14 3223(the block will also be)4 1097 2 720 6720 t
+(minimum amount to satisfy the constraint.)5 2042 1 720 6860 t
+( by)1 156(Dependent objects are shown dashed. These objects are the ones that may be affected)13 4164 2 720 7070 t
+( from among these)3 949(manipulating the current object. You cannot select reference points)8 3371 2 720 7210 t
+(objects because to do so would cause cycles.)7 2147 1 720 7350 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 20 20
+%%Page: 21 21
+/saveobj save def
+mark
+21 pagesetup
+12 R f
+(- 21 -)2 260 1 2750 560 t
+( a little while. All dependencies, whether active or)8 2456(The solving of dependencies may take)5 1864 2 720 1120 t
+( with an object. All de\256ned)5 1458(not, are updated, so don't keep unnecessary constraints)7 2862 2 720 1260 t
+(constraints are stored and saved with an object, so delete the ones you don't want any)15 4320 1 720 1400 t
+(more before \256nishing or suspending the edit object session.)8 2856 1 720 1540 t
+( de\256ne all position constraints as absolutes, all scaling)8 2613(If you don't want any maintenance,)5 1707 2 720 1750 t
+( the other. Alternatively, deselect all)5 1952(constraints as offsets and rotation as one or)7 2368 2 720 1890 t
+(constraints before you \256nish editing an object. INACTIVE CONSTRAINTS CANNOT)9 4320 1 720 2030 t
+(AFFECT THE OBJECT.)2 1207 1 720 2170 t
+( is)1 143(When an object is updated by the constraint maintenance algorithm, its position)11 4177 2 720 2380 t
+( the)1 211( is consistent with)3 972( This)1 309(updated \256rst, then its orientation and then its scaling.)8 2828 4 720 2520 t
+(interactive method outlined above.)3 1670 1 720 2660 t
+11 B f
+( Scaling Constraints)2 950(4.9 Forced)1 522 2 720 2870 t
+12 R f
+( Origin and Scaling Point both lie in one of the 3 planes de\256ned by the Object)16 3851(When the)1 469 2 720 3080 t
+( In this situation the program will)6 1649(Axes, scaling perpendicular to the plane is impossible.)7 2671 2 720 3220 t
+( You)1 267(enforce the corresponding default scaling constraint so violation is impossible.)9 4053 2 720 3360 t
+( to remove them is to change the Origin,)8 1940( only way)2 475( The)1 247(cannot deselect forced constraints.)3 1658 4 720 3500 t
+( program remembers which)3 1351(Scaling or Axes such that the situation no longer exists. The)10 2969 2 720 3640 t
+( selected while also being forced the program will)8 2523(constraints it enforced, but if one is)6 1797 2 720 3780 t
+(remember that you selected it, and leave it selected once the enforcement is unnecessary.)13 4274 1 720 3920 t
+( intention is)2 590( The)1 255(Rotation constraints are also forced if alignment constraints are active.)9 3475 3 720 4130 t
+( are)1 199( forced constraints)2 936( The)1 270(to prevent interactive rotation from destroying alignment.)6 2915 4 720 4270 t
+(removed if the alignment constraints are.)5 1971 1 720 4410 t
+11 B f
+( Dialog Box)2 546(4.10 The)1 433 2 720 4620 t
+12 R f
+( session begins on an object the Edit dialog box is popped up below the)14 3516(When an editing)2 804 2 720 4830 t
+( the dialog around at will, even)6 1516(window in which the editing is happening \(you can move)9 2804 2 720 4970 t
+( All the buttons in the main displays are deactivated. The dialog itself has)13 3691(minimise it\).)1 629 2 720 5110 t
+(lots of buttons, some of whose meaning should be intuitive from the previous discussion.)13 4288 1 720 5250 t
+(\320)720 5460 w
+12 I f
+(Finish:)900 5460 w
+12 R f
+(This \256nishes a session. Several things are done:)7 2291 1 1278 5460 t
+10 S f
+(\267)974 5670 w
+12 R f
+(The object is removed from the edit list.)7 1932 1 1080 5670 t
+10 S f
+(\267)974 5880 w
+12 R f
+(All objects depending on this one have their constraints updated and reworked.)11 3797 1 1080 5880 t
+10 S f
+(\267)974 6090 w
+12 R f
+(The screen is redrawn and all the main buttons resensitized.)9 2870 1 1080 6090 t
+(There is no return from a \256nish. An full undo should to be provided, but isn't.)15 3740 1 900 6230 t
+(\320)720 6440 w
+12 I f
+(Suspend:)900 6440 w
+12 R f
+( same as a \256nish, except that the object is not removed from the)13 3150(This is the)2 514 2 1376 6440 t
+(edit list. Use this it you intend to do more editing of the object in the near future.)17 3881 1 900 6580 t
+(\320)720 6790 w
+12 I f
+(Undo:)900 6790 w
+12 R f
+( of the current session. Everything)5 1699(Undo provides undo right back to the start)7 2096 2 1245 6790 t
+(can be undone, including constraint addition, removal, selection and all drags of any)12 4140 1 900 6930 t
+( winds the state back one step. Undo is also used to cancel point)13 3155(type. In effect, undo)3 985 2 900 7070 t
+(selection, cancel a view change and cancel constraint removal.)8 3007 1 900 7210 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 21 21
+%%Page: 22 22
+/saveobj save def
+mark
+22 pagesetup
+12 R f
+(- 22 -)2 260 1 2750 560 t
+(\320)720 1120 w
+12 I f
+(Redo:)900 1120 w
+12 R f
+(Undoes an Undo.)2 835 1 1216 1120 t
+(\320)720 1330 w
+12 I f
+(Origin:)900 1330 w
+12 R f
+(Allows the speci\256cation of a new Object Origin. The program goes into)11 3724 1 1316 1330 t
+( type one in.)3 600(select point mode waiting for a point. You are free to select any point, or)14 3540 2 900 1470 t
+( be moved if necessary)4 1112(It doesn't matter what type of point you select. The object will)11 3028 2 900 1610 t
+( satis\256es the Position constraints, and any scaling constraints)8 3038(so that the new origin)4 1102 2 900 1750 t
+( updated as a result of such a move. Rede\256ning the Origin is a good way to)16 3798(will be)1 342 2 900 1890 t
+( object. In the box on table example it is useful to have the origin on the)16 3713(move an)1 427 2 900 2030 t
+( can also cause scaling constraints)5 1674(bottom of the box somewhere. A change in Origin)8 2466 2 900 2170 t
+(to be forced.)2 603 1 900 2310 t
+(\320)720 2520 w
+12 I f
+(Scaling:)900 2520 w
+12 R f
+( de\256ned. The point chosen must be a point)8 2079(Allows a new Scaling Point to be)6 1626 2 1335 2520 t
+( doesn't matter which button you use to select it. The object will be)13 3253(on the body, but it)4 887 2 900 2660 t
+( change in Scaling may cause)5 1437( A)1 150(scaled if necessary to satisfy any scaling constraints.)7 2553 3 900 2800 t
+(scaling constraints to be forced.)4 1526 1 900 2940 t
+(\320)720 3150 w
+12 I f
+(Major:)900 3150 w
+12 R f
+(Allows access to all functions related to the Major Axis:)9 2709 1 1271 3150 t
+( point toward it.)3 781( 1: You choose a single point and the axis is rede\256ned to)12 2753(\320 Rede\256ne)1 606 3 900 3360 t
+(The object doesn't rotate, rather the axis is moved relative to the body.)12 3399 1 1080 3500 t
+( is de\256ned to be)4 861( 2: As above but you choose 2 points, and the axis)11 2673(\320 Rede\256ne)1 606 3 900 3710 t
+( line passing FROM the \256rst point TO the second. Direction)10 3228(parallel to the)2 732 2 1080 3850 t
+(matters.)1080 3990 w
+( is active.)2 468( Align: Aligns the axis with the current active rotation axis, if one)12 3212(\320 Temp)1 460 3 900 4200 t
+(It doesn't remember the constraint, hence is temporary.)7 2661 1 1080 4340 t
+( that it points toward a chosen point, This is a)10 2519( Pt: Align the axis so)5 1167(\320 Align)1 454 3 900 4550 t
+( type \(reference, absolute or)4 1415(maintained constraint, so be careful with the point)7 2545 2 1080 4690 t
+(offset\).)1080 4830 w
+( going from a \256rst selected)5 1361( Line: Align the axis to be parallel with a line)10 2325(\320 Align)1 454 3 900 5040 t
+( selected point. Again this constraint is maintained, and)8 2899(point toward another)2 1061 2 1080 5180 t
+(direction matters.)1 843 1 1080 5320 t
+( perpendicular to the given plane \(you enter 3)8 2276( Plane: Aligns the axis to be)6 1410(\320 Align)1 454 3 900 5530 t
+(points\). This one's maintained too.)4 1678 1 1080 5670 t
+( Removes any constraints that may be active.)7 2170(\320 Remove:)1 614 2 900 5880 t
+(There is a label at the bottom indicating whether or not the axis is constrained.)14 3771 1 900 6020 t
+(\320)720 6230 w
+12 I f
+(Minor:)900 6230 w
+12 R f
+( but with the Minor axis. There is one)8 1869(This does all the things outlined above)6 1894 2 1277 6230 t
+( axis must)2 507(other difference. Because the Major axis takes precedence, and the Minor)10 3633 2 900 6370 t
+( close)1 287(always be perpendicular to it, the rotations and alignments that result move as)12 3853 2 900 6510 t
+( the constraint you specify, but may not achieve it entirely. This may)12 3463(as possible to)2 677 2 900 6650 t
+(sound dif\256cult but is actually useful behaviour.)6 2269 1 900 6790 t
+(\320)720 7000 w
+12 I f
+(Remove:)900 7000 w
+12 R f
+( The cursor)2 568(Lets you remove a constraint from one of the constraint boxes.)10 3114 2 1358 7000 t
+( move. If you select an)5 1234(changes to a skull and the program waits for your next)10 2906 2 900 7140 t
+12 I f
+(inactive, non-default)1 1026 1 900 7280 t
+12 R f
+(constraint, that constraint will be deleted. Other constraints)7 3054 1 1986 7280 t
+( that the Uniform scale constraint is not a default for the)11 2938(cannot be deleted. Note)3 1202 2 900 7420 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 22 22
+%%Page: 23 23
+/saveobj save def
+mark
+23 pagesetup
+12 R f
+(- 23 -)2 260 1 2750 560 t
+(purposes of this function.)3 1223 1 900 1120 t
+(\320)720 1330 w
+12 I f
+(View)900 1330 w
+12 R f
+( session. You can change the)5 1421(Allows for view changing without exiting the edit)7 2443 2 1176 1330 t
+( This is a very good way to verify the)9 2041(viewpoint, the lookat point or the zoom.)6 2099 2 900 1470 t
+( orientation of a constraint. Use Apply or Undo to cancel)10 2812(position of an object or the)5 1328 2 900 1610 t
+(the operation.)1 661 1 900 1750 t
+(\320)720 1960 w
+12 I f
+(Position Box)1 644 1 900 1960 t
+12 R f
+(All the available Position constraints are displayed here. Each is a)10 3439 1 1601 1960 t
+( activate or)2 584(toggle showing whether or not that particular constraint is active. To)10 3556 2 900 2100 t
+( on the toggle. An Add menu is provided to add)10 2402(deactivate a constraint simply click)4 1738 2 900 2240 t
+(new position constraints to those available.)5 2072 1 900 2380 t
+(\320)720 2590 w
+12 I f
+(Scale Box)1 482 1 900 2590 t
+12 R f
+( Box. Everything works the same. Recall)6 2010(A similar concept to the Position)5 1612 2 1418 2590 t
+(that some constraints will be enforced by the program at certain times, and these)13 4140 1 900 2730 t
+(cannot be deselected.)2 1023 1 900 2870 t
+(\320)720 3080 w
+12 I f
+(Rotate Box)1 534 1 900 3080 t
+12 R f
+( Only one may be active at)6 1317(The available rotation axes are displayed here.)6 2255 2 1468 3080 t
+(any given time. Apart from that, it's the same as the Position Box.)12 3185 1 900 3220 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 23 23
+%%Page: 24 24
+/saveobj save def
+mark
+24 pagesetup
+12 R f
+(- 24 -)2 260 1 2750 560 t
+11 B f
+( CSG INTERFACE)2 931(5. THE)1 373 2 720 1120 t
+12 R f
+( separate window in which CSG objects are created and)9 2756(The CSG interface consists of a)5 1564 2 720 1330 t
+(edited. The window is accessed via the)6 1960 1 720 1470 t
+12 I f
+(CSG Window)1 665 1 2725 1470 t
+12 R f
+(button on the main display. The)5 1605 1 3435 1470 t
+( the same lines as the scene window, with the addition of)11 2814(window is divided much along)4 1506 2 720 1610 t
+( Window of a)3 731(an extra region below the View)5 1639 2 720 1750 t
+12 I f
+(CSG Tree Window)2 950 1 3145 1750 t
+12 R f
+(where the objects)2 890 1 4150 1750 t
+( a)1 122( are represented by small labelled buttons. Each button is)9 2826(currently being manipulated)2 1372 3 720 1890 t
+( functions will be)3 842(menu, allowing access to certain functions for that object. The available)10 3478 2 720 2030 t
+(discussed later.)1 735 1 720 2170 t
+( of the CSG Tree Window and CSG View Window can be changed by)13 3508(The relative size)2 812 2 720 2380 t
+( up or down. Scrollbars will appear in both)8 2083(dragging the small square on the dividing line)7 2237 2 720 2520 t
+(windows if required.)2 997 1 720 2660 t
+11 B f
+( Window Functions)2 921(5.1 CSG)1 421 2 720 2870 t
+12 R f
+( are identical to those in the Scene)7 1730(Many of the functions provided in the CSG window)8 2590 2 720 3080 t
+(Window. The full list of functions available is:)7 2253 1 720 3220 t
+10 S f
+(\267)794 3430 w
+12 B f
+(CSG:)900 3430 w
+12 R f
+(Modify Existing, Copy Existing, Save OFF, Delete Existing, Close)8 3227 1 1217 3430 t
+10 S f
+(\267)794 3640 w
+12 B f
+(Object:)900 3640 w
+12 R f
+(New, Edit, Name, Attribs, Dense Wire, Thin Wire, Change Base)9 3102 1 1317 3640 t
+10 S f
+(\267)794 3850 w
+12 B f
+(View:)900 3850 w
+12 R f
+(Viewpoint, Pan, Lookat, Lookup, Distance, Eye)5 2306 1 1229 3850 t
+10 S f
+(\267)794 4060 w
+12 B f
+(Window:)900 4060 w
+12 R f
+(Zoom, View Size, Draw Mode, Save, Recall, Delete)7 2511 1 1404 4060 t
+10 S f
+(\267)794 4270 w
+12 B f
+(Layers:)900 4270 w
+12 R f
+(New, Add Objects, Merge, Display)4 1695 1 1323 4270 t
+10 S f
+(\267)794 4480 w
+12 B f
+(Clear CSG)1 563 1 900 4480 t
+12 R f
+(In addition, there is an Edit button as with the Scene Window.)11 2988 1 720 4690 t
+( also de\256ned in the Scene Window, the behaviour is the)10 2832(For those functions which are)4 1488 2 720 4900 t
+(same except that it works on the CSG View Window and objects contained therein.)13 4009 1 720 5040 t
+(A word on attributes is required at this point. By default CSG objects have no attributes)15 4320 1 720 5250 t
+( attached to an instance of a CSG object will be used. However,)12 3072(attached. Hence attributes)2 1248 2 720 5390 t
+( attached to the components of a CSG object, those attributes will take)12 3563(if attributes are)2 757 2 720 5530 t
+( specify a window, and)4 1197(precedence over attributes attached to the instance. So if you)9 3123 2 720 5670 t
+( the glass but not the frame, you can specify a different frame color for)14 3428(attach attributes to)2 892 2 720 5810 t
+( other)1 279( In)1 162( glass will always be glass.)5 1306(each instance throught the instance attributes, but the)7 2573 4 720 5950 t
+(words the CSG objects inherit attributes from the instance, unless they themselves have)12 4320 1 720 6090 t
+(attributes attached.)1 909 1 720 6230 t
+11 B f
+( Existing)1 415(5.2 Modify)1 536 2 720 6440 t
+12 R f
+( of an existing CSG type, which is selected through)9 2569(This function allows for the editing)5 1751 2 720 6650 t
+( selection dialog \(like a new object\). There are some restrictions on the)12 3456(the general object)2 864 2 720 6790 t
+( If a CSG object has instances that appear in other CSG objects, then)13 3355(use of this function.)3 965 2 720 6930 t
+(that object cannot be modi\256ed. If there are any other instances \(that appear in the scene\),)15 4320 1 720 7070 t
+( have the option of marking)5 1372(they will be highlighted to indicate their presence. You then)9 2948 2 720 7210 t
+( for later modi\256cation, or copying the CSG object rather than modifying it.)12 3601(these instances)1 719 2 720 7350 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 24 24
+%%Page: 25 25
+/saveobj save def
+mark
+25 pagesetup
+12 R f
+(- 25 -)2 260 1 2750 560 t
+( objects are marked for modi\256cation, a)6 1865(If the)1 257 2 720 1120 t
+12 I f
+(Change Base)1 637 1 2873 1120 t
+12 R f
+(operation will be performed on)4 1499 1 3541 1120 t
+( of the CSG object is edited than)7 1622(them when the modi\256ed object is completed. If a copy)9 2698 2 720 1260 t
+(no changes will be made to existing objects.)7 2124 1 720 1400 t
+( that is being modi\256ed is stored with the tree during editing. If a modi\256ed)14 3547(The CSG object)2 773 2 720 1610 t
+( some other tree, the resulting tree is considered to be the modi\256ed)12 3263(tree is combined with)3 1057 2 720 1750 t
+(tree for the purpose of later)5 1311 1 720 1890 t
+12 I f
+(Change Base)1 636 1 2061 1890 t
+12 R f
+(operations on instances.)2 1152 1 2727 1890 t
+(This button will be unavailable if there are no CSG objects currently de\256ned.)12 3708 1 720 2100 t
+11 B f
+( Existing)1 415(5.3 Copy)1 445 2 720 2310 t
+12 R f
+( is copied, and the copy placed in the)8 1914(The CSG object selected)3 1238 2 720 2520 t
+12 I f
+(CSG Tree Window)2 934 1 3919 2520 t
+12 R f
+(for)4900 2520 w
+(editing. Beyond this point the tree behaves like any other.)9 2775 1 720 2660 t
+(This button will be unavailable if there are no CSG objects currently de\256ned.)12 3708 1 720 2870 t
+11 B f
+( OFF)1 248(5.4 Save)1 414 2 720 3080 t
+12 R f
+(The)720 3290 w
+12 I f
+(Save OFF)1 506 1 954 3290 t
+12 R f
+( to be saved as an OFF format \256le. The)9 2045(function allows a CSG object)4 1487 2 1508 3290 t
+( to choose the object to save. The \256le)8 1873(object selection dialog is presented, allowing you)6 2447 2 720 3430 t
+(selection dialog is then presented, allowing you to specify the \256lename. The default)12 4320 1 720 3570 t
+( of the object suf\256xed with .aoff. The \256le name you specify)11 2863(\256lename provided is the name)4 1457 2 720 3710 t
+( of the object will be suf\256xed)6 1607(should end with .aoff. The other \256les saved as part)9 2713 2 720 3850 t
+(accordingly.)720 3990 w
+11 B f
+( Existing)1 415(5.5 Delete)1 484 2 720 4200 t
+12 R f
+( object)1 328( The)1 250( deleted.)1 411( to be)2 273( object)1 357(A dialog is presented allowing the choice of an existing)9 2701 6 720 4410 t
+(to be deleted cannot have any instances.)6 1924 1 720 4550 t
+(This function will be unavailable if no CSG objects are de\256ned.)10 3067 1 720 4760 t
+11 B f
+(5.6 Close)1 450 1 720 4970 t
+12 R f
+( Window. It only removes the window from the screen, it)10 2936(This button closes the CSG)4 1384 2 720 5180 t
+( contents of the window, which will be available once the window is)12 3352(does not change the)3 968 2 720 5320 t
+(remapped using the CSG Window button in the Scene Window.)9 3075 1 720 5460 t
+11 B f
+( Menu Functions)2 797(5.7 Tree)1 412 2 720 5670 t
+12 R f
+( menu displaying functions)3 1433(Each button displayed in the CSG Tree Window is a)9 2887 2 720 5880 t
+( in the tree. Which functions are applicable depends on)9 2705(applicable to that particular node)4 1615 2 720 6020 t
+(the type of node and where it is in the tree. The full list of available functions is:)17 3862 1 720 6160 t
+10 S f
+(\267)794 6370 w
+12 I f
+(Display / Hide)2 701 1 900 6370 t
+10 S f
+(\267)794 6580 w
+12 I f
+(Move)900 6580 w
+10 S f
+(\267)794 6790 w
+12 I f
+(Attach)900 6790 w
+10 S f
+(\267)794 7000 w
+12 I f
+(Complete)900 7000 w
+10 S f
+(\267)794 7210 w
+12 I f
+(Preview)900 7210 w
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 25 25
+%%Page: 26 26
+/saveobj save def
+mark
+26 pagesetup
+12 R f
+(- 26 -)2 260 1 2750 560 t
+10 S f
+(\267)794 1120 w
+12 I f
+(Evaluate)900 1120 w
+10 S f
+(\267)794 1330 w
+12 I f
+(Reorder)900 1330 w
+10 S f
+(\267)794 1540 w
+12 I f
+(Break)900 1540 w
+10 S f
+(\267)794 1750 w
+12 I f
+(Copy)900 1750 w
+10 S f
+(\267)794 1960 w
+12 I f
+(Delete)900 1960 w
+11 B f
+( or Hide)2 386(5.8 Display)1 550 2 720 2170 t
+12 R f
+(This option toggles display of the tree in the CSG View Window. The objects in a)15 4320 1 720 2380 t
+( as normal instances. There are a few things to note)10 2645(displayed tree may be edited just)5 1675 2 720 2520 t
+( objects IN)2 547(however. All that really matters is the position of the object relative to other)13 3773 2 720 2660 t
+( CSG object is created it can be moved about just as any other)13 2993(THE SAME TREE. Once a)4 1327 2 720 2800 t
+( However,)1 500(object, so its position with respect to the origin is not important for that reason.)14 3820 2 720 2940 t
+(it does matter where the object is relative to the origin, because the origin will become)15 4320 1 720 3080 t
+( the default object origin)4 1199(the notional centre for the created CSG object. That is, it will be)12 3121 2 720 3220 t
+( be)1 162(for position, and the default \256xed point for scaling and editing. These points may)13 4158 2 720 3360 t
+( it is)2 239(changed later, but it is still a good idea to keep the origin somewhere near where)15 4081 2 720 3500 t
+( think of it as the centre. Also note that the size of the object is not too)17 3783(sensible to)1 537 2 720 3640 t
+(important, as the resulting object may be scaled later.)8 2566 1 720 3780 t
+( of the lists,)3 650(Removing an object from the display takes any of its instances off all)12 3670 2 720 3990 t
+( only possible to operate on)5 1421(including the selection and edit lists. In other words it is)10 2899 2 720 4130 t
+(displayed objects.)1 862 1 720 4270 t
+( are still affected by layer visibility, so it they don't appear, check the)13 3454(Displayed objects)1 866 2 720 4480 t
+(display of layers.)2 825 1 720 4620 t
+(The Display option is available for root nodes. All or none of a tree is displayed. To)16 4320 1 720 4830 t
+( it back together when \256nished. The label on this)9 2478(display parts, break the tree then put)6 1842 2 720 4970 t
+(menu item changes to indicate whether or not the tree is currently displayed.)12 3676 1 720 5110 t
+11 B f
+(5.9 Move)1 455 1 720 5320 t
+12 R f
+( Window, NOT for moving a)5 1404(The move option is for reordering trees within the CSG Tree)10 2916 2 720 5530 t
+( the world. This option mostly exists because it is possible for some)12 3428(tree's instances in)2 892 2 720 5670 t
+( 2 objects to be attached both)6 1450(objects to be off-screen, while attachment requires that the)8 2870 2 720 5810 t
+( can be accessed using the scroll bars, but it may not be)12 2744(be on-screen. Off-screen objects)3 1576 2 720 5950 t
+(possible to get both trees on the screen without moving one.)10 2889 1 720 6090 t
+( appears attached to the cursor. Click)6 1808(Once the Move option is selected, a small rectangle)8 2512 2 720 6300 t
+( to appear. For)3 727(with button one when the cursor is in the position that you want the tree)14 3593 2 720 6440 t
+( the 2nd tree, select move from the)7 1732(instance, to move the 7th tree so that it appears after)10 2588 2 720 6580 t
+(7th tree's menu, then click with button 1 somewhere between the 2nd and 3rd trees.)14 4023 1 720 6720 t
+(The Move option is available for root nodes.)7 2143 1 720 6930 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 26 26
+%%Page: 27 27
+/saveobj save def
+mark
+27 pagesetup
+12 R f
+(- 27 -)2 260 1 2750 560 t
+11 B f
+(5.10 Attach)1 565 1 720 1120 t
+12 R f
+( be combined with a set)5 1293(This operation is the essence of CSG, allowing 2 trees to)10 3027 2 720 1330 t
+(operator.)720 1470 w
+( one tree to another, select the Attach item, then choose the node from)13 3835(To attach)1 485 2 720 1680 t
+( node selected)2 684(ANOTHER tree that you wish to be the SIBLING of the attached tree. The)13 3636 2 720 1820 t
+( its)1 170(as the sibling must be from a different tree - you cannot attach a tree to one of)17 4150 2 720 1960 t
+(children. The node you attach will become the RIGHT child of a new node, and the node)16 4320 1 720 2100 t
+( node. The new)3 780(you selected as the destination will become the LEFT child of the new)12 3540 2 720 2240 t
+(node will be attached to the parent of the destination node, or become a new tree if the)17 4320 1 720 2380 t
+(destination was a root node itself.)5 1617 1 720 2520 t
+( on the desired destination node, and)6 1909(To choose the destination, push button 1 down)7 2411 2 720 2730 t
+( apply, or)2 499(another menu will pop up allowing you to choose the type of operation to)13 3821 2 720 2870 t
+(cancel. Choose the appropriate option and release the button.)8 2929 1 720 3010 t
+( the nodes is only really important for the difference operator.)10 3088(Note that the ordering of)4 1232 2 720 3220 t
+( Use the Reorder option to swap the)7 1843(The right node is taken away from the left node.)9 2477 2 720 3360 t
+(ordering if it isn't right.)4 1142 1 720 3500 t
+( always assume)2 759(Regardless of the initial display state of the tree you are attaching, it will)13 3561 2 720 3710 t
+(the display state of the destination tree.)6 1882 1 720 3850 t
+(This option is available for root nodes.)6 1861 1 720 4060 t
+11 B f
+(5.11 Complete)1 699 1 720 4270 t
+12 R f
+( and turns it into a new CSG object. If the tree)11 2381(The Complete option takes a CSG tree)6 1939 2 720 4480 t
+( it will simply become a normal instance in the)9 2410(selected consisted of a single instance)5 1910 2 720 4620 t
+(world. Otherwise the following things happen:)5 2243 1 720 4760 t
+10 S f
+(\267)794 4970 w
+12 R f
+( are replaced by)3 804(All references and dependencies to objects NOT in the current tree)10 3336 2 900 4970 t
+(absolute \(for Origin\) or offset points.)5 1784 1 900 5110 t
+10 S f
+(\267)794 5320 w
+12 R f
+( for the CSG object being created. Select Complete or)9 2679(You are prompted for a name)5 1461 2 900 5320 t
+(hit return when you are \256nished, or cancel at this point.)10 2657 1 900 5460 t
+10 S f
+(\267)794 5670 w
+12 R f
+( WHILE. It could be as)5 1134(A wireframe is generated for the object. THIS MAY TAKE A)10 3006 2 900 5670 t
+( of objects in the CSG tree you are)8 1701(bad as O squared seconds, where O is the number)9 2439 2 900 5810 t
+( of polygons making)3 1007(creating. \(The process actually is most dependent on the number)9 3133 2 900 5950 t
+( is roughly proportional to the number)6 1862(up the objects at each level in the tree, but this)10 2278 2 900 6090 t
+( will give unpredictable results. Dense)5 1888(of objects.\) Note also that Planes and Squares)7 2252 2 900 6230 t
+(wireframes also signi\256cantly slow the process, but give superior results.)9 3464 1 900 6370 t
+10 S f
+(\267)794 6580 w
+12 R f
+( to specify a default Scaling)5 1429(You are presented with the resulting object and asked)8 2711 2 900 6580 t
+(Point for the object.)3 956 1 900 6720 t
+10 S f
+(\267)794 6930 w
+12 R f
+(The object is made available as a new CSG object.)9 2434 1 900 6930 t
+10 S f
+(\267)794 7140 w
+12 R f
+( Modify Existing call\), instances of)5 1703(If the tree was a modi\256ed tree \(it originated from a)10 2437 2 900 7140 t
+(the object will be adjusted to match the new object.)9 2471 1 900 7280 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 27 27
+%%Page: 28 28
+/saveobj save def
+mark
+28 pagesetup
+12 R f
+(- 28 -)2 260 1 2750 560 t
+10 S f
+(\267)794 1120 w
+12 R f
+(The tree is removed from the CSG Window.)7 2134 1 900 1120 t
+(The Complete option is available for all root nodes.)8 2482 1 720 1330 t
+( instances through the)3 1097(Note that no instances of the object are created, you must create)11 3223 2 720 1540 t
+(New Object dialog, just as with any other object.)8 2349 1 720 1680 t
+( to produce a)3 710(The wireframe generation procedure takes a while because it attempts)9 3610 2 720 1890 t
+( the object which is not more complex than necessary. This)10 3177(realistic wireframe for)2 1143 2 720 2030 t
+( produces)1 478( it)1 112( Occasionally)1 701(procedure is also highly susceptible to numerical inaccuracy.)7 3029 4 720 2170 t
+(wireframes which aren't quite right.)4 1732 1 720 2310 t
+( full)1 214(When asked to select a default Scaling Point, the option is also available to use a)15 4106 2 720 2520 t
+( union of all component)4 1245(wireframe for the object. The full wireframe consists of the)9 3075 2 720 2660 t
+( in cases where the intersecting set of objects is)9 2364(object wireframes. This option is useful)5 1956 2 720 2800 t
+(so small that the approximate wireframes do not intersect at all.)10 3058 1 720 2940 t
+11 B f
+(5.12 Evaluate)1 665 1 720 3150 t
+12 R f
+( The subtree starting at)4 1126(The Evaluate option is combined Complete and Attach operation.)8 3194 2 720 3360 t
+( as above, then an instance of this completed object is)10 2771(the node selected is completed)4 1549 2 720 3500 t
+(attached in place of the subtree. It allows for tree simpli\256cation to some extent.)13 3805 1 720 3640 t
+( the same as for complete with the)7 1653(When you select this option, the processes involved are)8 2667 2 720 3850 t
+(extra stage at the end of creation and attachment of an instance in place of the tree.)16 3973 1 720 3990 t
+(This option is available for non-root internal nodes in the tree.)10 2990 1 720 4200 t
+11 B f
+(5.13 Preview)1 625 1 720 4410 t
+12 R f
+( options)1 392( The)1 253( is previewed using a renderer you choose.)7 2095(The subtree of the selected node)5 1580 4 720 4620 t
+(for the preview are the same as those for)8 1963 1 720 4760 t
+12 I f
+(Preview)2715 4760 w
+12 R f
+(in the)1 273 1 3140 4760 t
+12 I f
+(Scene Window)1 704 1 3445 4760 t
+12 R f
+(. A single instance)3 891 1 4149 4760 t
+( with a default light, and these are exported to the renderer)11 2842(of the subtree is created, along)5 1478 2 720 4900 t
+(of choice for preview.)3 1059 1 720 5040 t
+11 B f
+(5.14 ReOrder)1 668 1 720 5250 t
+12 R f
+( will be reordered. This is)5 1285(When this option is selected the children of the selected node)10 3035 2 720 5460 t
+( matters \(right is removed from left\),)6 1817(useful for Difference operators, where the ordering)6 2503 2 720 5600 t
+(or for changing the appearance of a tree in the window.)10 2655 1 720 5740 t
+(This option is available for all internal nodes.)7 2186 1 720 5950 t
+11 B f
+(5.15 Break)1 536 1 720 6160 t
+12 R f
+( a tree)2 311(Selecting Break will cause the selected subtree to be broken off its tree and made)14 4009 2 720 6370 t
+( sibling put in)3 682(by itself. The parent node of that selected will be removed, and the node's)13 3638 2 720 6510 t
+(the parent's place. The node and all its children will become a separate tree.)13 3646 1 720 6650 t
+(The Break option is available for all non-root nodes.)8 2520 1 720 6860 t
+11 B f
+(5.16 Copy)1 500 1 720 7070 t
+12 R f
+( all its children and adds them as a new tree.)10 2136(The copy button copies the selected node and)7 2184 2 720 7280 t
+( the Copy command on the Object menu. The new tree is not initially)13 3787(It replaces)1 533 2 720 7420 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 28 28
+%%Page: 29 29
+/saveobj save def
+mark
+29 pagesetup
+12 R f
+(- 29 -)2 260 1 2750 560 t
+(displayed.)720 1120 w
+( be adjusted to)3 728(All constraints in a copied tree that reference other nodes in the tree will)13 3592 2 720 1330 t
+( to be)2 323(reference the corresponding copies. This allows a completely constrained tree)9 3997 2 720 1470 t
+(copied and then edited independently.)4 1825 1 720 1610 t
+(Any node may be copied.)4 1229 1 720 1820 t
+11 B f
+(5.17 Delete)1 539 1 720 2030 t
+12 R f
+( tree as)2 382(This will delete the selected node and all its children, patching the remaining)12 3938 2 720 2240 t
+( function is essentially a)4 1224( This)1 289( is asked for, so be careful.)6 1377(appropriate. No con\256rmation)2 1430 4 720 2380 t
+(replacement for Delete on the Object menu.)6 2104 1 720 2520 t
+(Any tree can be deleted.)4 1162 1 720 2730 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 29 29
+%%Page: 30 30
+/saveobj save def
+mark
+30 pagesetup
+12 R f
+(- 30 -)2 260 1 2750 560 t
+11 B f
+( COMMAND LINE INTERFACE)3 1610(6. SCHEME)1 617 2 720 1120 t
+12 R f
+( extension language has been installed on your system, Sced may be)11 3420(If the Elk Scheme)3 900 2 720 1330 t
+( interface allows for)3 1009( The)1 262(compiled with support for a scheme command line interface.)8 3049 3 720 1470 t
+( and variables as per the)5 1317(commands to be entered textually. It supports expressions)7 3003 2 720 1610 t
+( with some)2 550(scheme programming language. In fact, the interface is a scheme interpreter)10 3770 2 720 1750 t
+(special purpose functions added to interface it to Sced.)8 2627 1 720 1890 t
+( the)1 186(Scheme commands can be entered in the window below the View Window in either)13 4134 2 720 2100 t
+( complete a command, type Shift-Enter. The interpreter will)8 2949(Scene or CSG windows. To)4 1371 2 720 2240 t
+( can also put commands in an external)7 1902(attempt to parse and execute the commands. You)7 2418 2 720 2380 t
+( scheme command line is still very)6 1714( The)1 253(\256le, then load the \256le to execute the commands.)8 2353 3 720 2520 t
+(much under development. A full description of the functions available will be added)12 4320 1 720 2660 t
+(shortly, as soon as it is \256nalised.)6 1559 1 720 2800 t
+( the latest Elk distribution that renders the error handling)9 2875(Note that there is an error in)6 1445 2 720 3010 t
+( an error causes the program to exit. A patch is avialable)11 2808(inoperable. Hence at this point)4 1512 2 720 3150 t
+( to the source of the)5 986(and is distributed in the elk directory. The patch needs to be applied)12 3334 2 720 3290 t
+(elk library on your system, and the library recompiled.)8 2625 1 720 3430 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 30 30
+%%Page: 31 31
+/saveobj save def
+mark
+31 pagesetup
+12 R f
+(- 31 -)2 260 1 2750 560 t
+11 B f
+( LINE OPTIONS)2 823(7. COMMAND)1 747 2 720 1120 t
+12 I f
+(-F \256lename)1 549 1 720 1330 t
+12 R f
+(Load the speci\256ed \256lename on startup. The -F can be omitted. So)11 3151 1 1020 1470 t
+12 I f
+(sced -F \256le.scn)2 725 1 4202 1470 t
+12 R f
+(is)4959 1470 w
+(the same as)2 558 1 1020 1610 t
+12 I f
+(sced \256le.scn)1 581 1 1610 1610 t
+12 R f
+(. The \256le is searched for in the current directory \256rst. If not)12 2849 1 2191 1610 t
+( .Z or .gz, one of these options is added and the)11 2279(found, and the name does not end in)7 1741 2 1020 1750 t
+( on whether gzip exists on your)6 1562(name is tried again. The extension added depends)7 2458 2 1020 1890 t
+( compile time. If the \256le is still not found, the procedure is repeated but in)15 3568(system at)1 452 2 1020 2030 t
+( scene directory. If still not found, it is assumed the \256le does not exist,)14 3499(the default)1 521 2 1020 2170 t
+(and the name is used as the default name for saving.)10 2506 1 1020 2310 t
+12 I f
+(-D defaults)1 538 1 720 2520 t
+12 R f
+( in the given \256le. If this option is not present the program)12 2811(Use default values found)3 1209 2 1020 2660 t
+( for a \256le called .scenerc in the user's home directory. Failing this, internal)13 3587(will look)1 433 2 1020 2800 t
+(defaults will be used. The format for the defaults \256le is described below.)12 3485 1 1020 2940 t
+12 I f
+(-I WidthxHeight)1 778 1 720 3150 t
+12 R f
+( view window of the given size. This does not effect the size of the program's)15 3751(Use a)1 269 2 1020 3290 t
+( determines the size of the scrollable window in)8 2489(window \(use -geom\), rather it)4 1531 2 1020 3430 t
+(which the scene appears.)3 1192 1 1020 3570 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 31 31
+%%Page: 32 32
+/saveobj save def
+mark
+32 pagesetup
+12 R f
+(- 32 -)2 260 1 2750 560 t
+11 B f
+( FILE)1 286(8. DEFAULTS)1 727 2 720 1120 t
+12 R f
+( containing default values for various)5 1938(At startup the program attempts to read a \256le)8 2382 2 720 1330 t
+( there,)1 326(parameters. If the -D option was speci\256ed on the command line, it will look)13 3994 2 720 1470 t
+(otherwise it will look for a \256le called)7 1837 1 720 1610 t
+12 I f
+(.scenerc)2595 1610 w
+12 R f
+(in your home directory. If neither can be)7 2011 1 3029 1610 t
+(found, compile time defaults will be used.)6 2025 1 720 1750 t
+11 B f
+(8.1 Format)1 546 1 720 1960 t
+12 R f
+( keyword is)2 570(The following keywords with the accompanying arguments are accepted. If a)10 3750 2 720 2170 t
+( default. Spaces, tabs and newlines)5 1691(not present in the \256le, that value will have the built in)11 2629 2 720 2310 t
+( In the)2 343(act as separators. Anything from a # to the end of line is taken as a comment.)16 3977 2 720 2450 t
+( keywords are in bold and arguments in italics. Note that the program is)13 3628(following list,)1 692 2 720 2590 t
+( is required, it must be delimited by double quotes \("\). A double)12 3100( a string)2 390( If)1 141(case sensitive.)1 689 4 720 2730 t
+(quote may be contained within a string by preceding it with a backslash.)12 3475 1 720 2870 t
+12 B f
+(MainViewport)720 3080 w
+12 R f
+(or)1503 3080 w
+12 B f
+(CSGViewport)1633 3080 w
+12 R f
+( all of the)3 521(Begins the de\256nition of the main or csg viewing parameters. Some or)11 3559 2 960 3220 t
+(following keywords should appear next in the defaults \256le.)8 2827 1 960 3360 t
+12 B f
+(LookFrom)960 3570 w
+12 I f
+(x y z)2 213 1 1543 3570 t
+12 R f
+(Set the)1 343 1 1200 3710 t
+12 I f
+(Viewpoint)1585 3710 w
+12 R f
+(vector to given vector, where x, y, and z are \257oating point)11 2924 1 2116 3710 t
+(numbers.)1200 3850 w
+12 B f
+(LookAt)960 4060 w
+12 I f
+(x y z)2 213 1 1383 4060 t
+12 R f
+(Set the)1 331 1 1200 4200 t
+12 I f
+(Look At)1 377 1 1561 4200 t
+12 R f
+(point to be the given point.)5 1297 1 1968 4200 t
+12 B f
+(LookUp)960 4410 w
+12 I f
+(x y z)2 213 1 1410 4410 t
+12 R f
+(Set the)1 331 1 1200 4550 t
+12 I f
+(Look Up)1 416 1 1561 4550 t
+12 R f
+(vector the the given vector.)4 1311 1 2007 4550 t
+12 B f
+(ViewDist)960 4760 w
+12 I f
+(dist)1456 4760 w
+12 R f
+( viewplane)1 548(Set the)1 355 2 1200 4900 t
+12 I f
+(Distance)2158 4900 w
+12 R f
+(to the given value, which should be a positive)8 2400 1 2640 4900 t
+(value.)1200 5040 w
+12 B f
+(EyeDist)960 5250 w
+12 I f
+(dist)1390 5250 w
+12 R f
+(Set the)1 331 1 1200 5390 t
+12 I f
+(Eye Distance)1 636 1 1561 5390 t
+12 R f
+(to the given value, which should be positive.)7 2147 1 2227 5390 t
+12 B f
+(Magnify)960 5600 w
+12 I f
+(zoom)1424 5600 w
+12 R f
+(Set the)1 331 1 1200 5740 t
+12 I f
+(Zoom)1561 5740 w
+12 R f
+(value to the given value, which should be a positive integer.)10 2884 1 1864 5740 t
+12 B f
+(Screen)960 5950 w
+12 I f
+(width height)1 599 1 1336 5950 t
+12 R f
+(Set the)1 351 1 1200 6090 t
+12 I f
+(Image Size)1 543 1 1601 6090 t
+12 R f
+( positive)1 433(to the given width and height, which should be)8 2413 2 2194 6090 t
+(integers.)1200 6230 w
+12 B f
+(Viewport)720 6440 w
+12 I f
+("name")1229 6440 w
+12 R f
+( for recall. The parameters that follow are)7 2043(De\256ne a viewport which will be available)6 2037 2 960 6580 t
+( viewports)1 521(all the same as for the MainViewport or CSGViewport. Useful default)10 3559 2 960 6720 t
+(include plan and elevation views.)4 1637 1 960 6860 t
+12 I f
+(Name)2635 6860 w
+12 R f
+(is the name of the label to use in the view)10 2087 1 2953 6860 t
+(dialog boxes.)1 641 1 960 7000 t
+12 B f
+(POVray)720 7210 w
+12 I f
+(path options)1 599 1 1176 7210 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 32 32
+%%Page: 33 33
+/saveobj save def
+mark
+33 pagesetup
+12 R f
+(- 33 -)2 260 1 2750 560 t
+12 B f
+(Rayshade)720 1120 w
+12 I f
+(path options)1 599 1 1250 1120 t
+12 B f
+(Radiance)720 1330 w
+12 I f
+(path options)1 599 1 1230 1330 t
+12 B f
+(Renderman)720 1540 w
+12 I f
+(path options)1 599 1 1356 1540 t
+12 B f
+(Genray)720 1750 w
+12 I f
+(path options)1 599 1 1137 1750 t
+12 B f
+(Genscan)720 1960 w
+12 I f
+(path options)1 599 1 1191 1960 t
+12 R f
+( the pathname and options for the named renderer.)8 2474( Set)1 221( strings.)1 389(Path and options are)3 996 4 960 2100 t
+( not in\257uence the)3 891(These values will be used for the preview command - they do)11 3189 2 960 2240 t
+( to "", the)3 507(exported scene. If you do not have one of renderers, set the path string)13 3573 2 960 2380 t
+(empty string.)1 636 1 960 2520 t
+12 B f
+(Directory)720 2730 w
+12 I f
+(pathname)1242 2730 w
+12 R f
+( simply the)2 542(Set the default directory for loading, saving and exporting scenes. This is)11 3538 2 960 2870 t
+( \256le selection dialog box, and is not any hard)9 2490(directory that is shown in the)5 1590 2 960 3010 t
+(restriction.)960 3150 w
+12 B f
+(Attributes)720 3360 w
+12 R f
+( If a)2 205(Set the default object attributes. Any or all or the following options can appear.)13 3875 2 960 3500 t
+( See the)2 414(particular option is not set, the value will retain the compiled in default.)12 3666 2 960 3640 t
+12 I f
+(Attributes)960 3780 w
+12 R f
+(command above for a full description of each parameter.)8 2725 1 1466 3780 t
+12 B f
+(Color)960 3990 w
+12 I f
+(red green blue)2 700 1 1283 3990 t
+12 R f
+(or)2013 3990 w
+12 B f
+(Colour)2143 3990 w
+12 I f
+(red green blue)2 700 1 2533 3990 t
+12 R f
+( red, green and blue are values between 0)8 2085(Sets the default object color, where)5 1755 2 1200 4130 t
+(and 1.)1 293 1 1200 4270 t
+12 B f
+(Diffuse)960 4480 w
+12 I f
+(coef)1357 4480 w
+12 R f
+(Set the default diffuse coef\256cient.)4 1626 1 1200 4620 t
+12 B f
+(Specular)960 4830 w
+12 I f
+(coef power)1 530 1 1444 4830 t
+12 R f
+(Set the default specular coef\256cient and power.)6 2224 1 1200 4970 t
+12 B f
+(Re\257ect)960 5180 w
+12 I f
+(coef)1342 5180 w
+12 R f
+(Set the default re\257ective coef\256cent.)4 1705 1 1200 5320 t
+12 B f
+(Refract)960 5530 w
+12 I f
+(coef)1375 5530 w
+12 R f
+(Set the default coef\256cient of refraction.)5 1889 1 1200 5670 t
+12 B f
+(Transparency)960 5880 w
+12 I f
+(coef)1710 5880 w
+12 R f
+(Set the default transparency value.)4 1658 1 1200 6020 t
+12 B f
+(Compress)720 6230 w
+12 R f
+( if)1 111(Compress \256les on output. All \256les saved will be piped through gzip, or compress)13 3969 2 960 6370 t
+( \256lename will have a .gz \(or .Z\) appended if not already)11 2875(gzip is unavailable. The)3 1205 2 960 6510 t
+( .gz)1 175(present. Sced knows how to load compressed \256les \(which it recognises through a)12 3905 2 960 6650 t
+( numbers of CSG)3 849(or .Z extension\). This is intended to save space for \256les with large)12 3231 2 960 6790 t
+(objects \(and hence wireframes\).)3 1533 1 960 6930 t
+12 B f
+(Wireframe Full)1 804 1 720 7140 t
+12 R f
+( CSG)1 302(Save full wireframes. By default, Sced only saves the basic version of)11 3778 2 960 7280 t
+( the wireframe before simpli\256cation for display. It then repeats)9 3064(wireframes, which is)2 1016 2 960 7420 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 33 33
+%%Page: 34 34
+/saveobj save def
+mark
+34 pagesetup
+12 R f
+(- 34 -)2 260 1 2750 560 t
+( the wireframe is loaded. To save both the basic and)10 2548(the simpli\256cation process when)3 1532 2 960 1120 t
+( full wireframes will)3 986( Saving)1 394( the defaults \256le.)3 802(simpli\256ed wireframe, use this option in)5 1898 4 960 1260 t
+(take more space, but speed the loading of \256les.)8 2249 1 960 1400 t
+12 B f
+(Target)720 1610 w
+12 I f
+(renderer)1096 1610 w
+12 R f
+( Renderman, Genray, or)3 1188(The named renderer \(one of Rayshade, POVray, Radiance,)7 2892 2 960 1750 t
+( export almost)2 723(Genscan\) will be used as the default target. Use this option if you)12 3357 2 960 1890 t
+(exclusively to one renderer.)3 1334 1 960 2030 t
+12 B f
+(Include)720 2240 w
+12 I f
+(include)1138 2240 w
+12 S f
+(_)1492 2240 w
+12 I f
+(\256les)1552 2240 w
+12 R f
+( \256les named \(there may be any number of strings\) are added to the list of)15 3510(The include)1 570 2 960 2380 t
+( to the output \256le with)5 1092(\256les to #include in the exported \256le. The strings are exported)10 2988 2 960 2520 t
+(#include statements preceeding them.)3 1810 1 960 2660 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 34 34
+%%Page: 35 35
+/saveobj save def
+mark
+35 pagesetup
+12 R f
+(- 35 -)2 260 1 2750 560 t
+11 B f
+( RESOURCES)1 702(9. X)1 218 2 720 1120 t
+12 R f
+( uses the)2 432(There are fallback resources for all the top level window sizes. Everything else)12 3888 2 720 1330 t
+( colors and geometries)3 1121(local default. If you wish to change things, particularly the font,)10 3199 2 720 1470 t
+( do so through a resources \256le, the command line or compile them in. The font)15 3896(you may)1 424 2 720 1610 t
+( You may prefer)3 819(has a major in\257uence on the relative size of buttons and some dialogs.)12 3501 2 720 1750 t
+( if you have a smaller screen resolution you will most)10 2679(editing using white on black, and)5 1641 2 720 1890 t
+( The geometries used by default were)6 1980(likely wish to change the default geometries.)6 2340 2 720 2030 t
+(designed for at least 1024x768, but are best at bigger than 1152x900 screen resolution.)13 4168 1 720 2170 t
+(The widgets geometries you may like to change, and their defaults are:)11 3404 1 720 2380 t
+(Sced.geometry: 800x600 \320 the main window overall size.)7 2826 1 720 2590 t
+(Sced.csgShell.geometry: 800x600 \320 the csg edit window overall size.)8 3394 1 720 2800 t
+(Sced.newObject.geometry: 400x300 \320 the new object selection box size.)8 3545 1 720 3010 t
+( object or)2 472(Sced.csgSelectShell: 400x300 \320 the dialog for selecting CSG objects for new)10 3848 2 720 3220 t
+(any of the existing CSG object operations.)6 2040 1 1320 3360 t
+( for new)2 443(Sced.wireSelectShell: 400x300 \320 the dialog for selecting Wireframe objects)8 3877 2 720 3570 t
+(object or wireframe delete.)3 1294 1 1320 3710 t
+( "Choose a Scaling Point" dialog associated with)7 2353(Sced.csgReferenceShell: 400x400 \320 the)3 1967 2 720 3920 t
+(CSG completion.)1 835 1 1320 4060 t
+(Sced*mainViewWindow \320 the main view window. You may wish to change the)11 4320 1 720 4270 t
+("foreground" and "background" resources for this widget.)6 2773 1 1320 4410 t
+( to set the)3 579(Sced*csgViewWindow \320 the csg view window. Again, you may wish)9 3741 2 720 4620 t
+("foreground" or "background" resource.)3 1921 1 1320 4760 t
+(Sced*csgReferenceView \320 the view window used to show the "Choose a Scaling Point")12 4320 1 720 4970 t
+( foreground and)2 806(CSG completed wireframe. You might like to change the)8 2914 2 1320 5110 t
+(background.)1320 5250 w
+( number of other resources are also de\256ned, mostly for controlling colors. To)12 3945(A large)1 375 2 720 5460 t
+( are shown in brackets.)4 1139( Defaults)1 476(specify a color, use its name from the rgb.txt database.)9 2705 3 720 5600 t
+(The resources are:)2 879 1 720 5740 t
+(Sced*font \320 if you want to change the font.)8 2138 1 720 5950 t
+(Sced.xAxisColor \320 the color of the world X axis. \(red\))9 2678 1 720 6160 t
+(Sced.yAxisColor \320 the color of the world Y axis. \(green\))9 2791 1 720 6370 t
+(Sced.zAxisColor \320 the color of the world Z axis. \(blue\))9 2712 1 720 6580 t
+(Sced.axisWidth \320 the line width for the world axis lines. \(2\))10 2939 1 720 6790 t
+( the tip\). This value)4 955(Sced.xAxisLength \320 the length of the X axis line \(from the origin to)12 3365 2 720 7000 t
+(\(an integer\), is divided by the axisDenom resource to allow for fractional)11 3720 1 1320 7140 t
+( that lengths are speci\256ed in world co-ordinates, not screen size.)10 3117(values. Note)1 603 2 1320 7280 t
+(\(2\))1320 7420 w
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 35 35
+%%Page: 36 36
+/saveobj save def
+mark
+36 pagesetup
+12 R f
+(- 36 -)2 260 1 2750 560 t
+( the tip\). This value)4 955(Sced.yAxisLength \320 the length of the Y axis line \(from the origin to)12 3365 2 720 1120 t
+(\(an integer\), is divided by the axisDenom resource to allow for fractional)11 3720 1 1320 1260 t
+(values. \(2\))1 507 1 1320 1400 t
+( \(from the origin to the tip\). This value)8 1902(Sced.zAxisLength \320 the length of the Z axis line)8 2418 2 720 1610 t
+(\(an integer\), is divided by the axisDenom resource to allow for fractional)11 3720 1 1320 1750 t
+(values. \(2\))1 507 1 1320 1890 t
+( to get the true)4 727(Sced.axisDenom \320 the value by which each world axis length is divided)11 3593 2 720 2100 t
+(length. \(1\))1 501 1 1320 2240 t
+(Sced.majorAxisColor \320 the color of the Major Axis for editing. \(red\))10 3365 1 720 2450 t
+(Sced.minorAxisColor \320 the color of the Minor Axis for editing. \(green\))10 3492 1 720 2660 t
+(Sced.otherAxisColor \320 the color of the Other Axis for editing. \(blue\))10 3364 1 720 2870 t
+(Sced.editAxisWidth \320 the line width for the edit axes. \(2\))9 2815 1 720 3080 t
+( value \(an integer\), is)4 1070(Sced.majorAxisLength \320 the length of the Major Axis line. This)9 3250 2 720 3290 t
+( resource to allow for fractional values. Note)7 2211(divided by the editAxisDenom)3 1509 2 1320 3430 t
+( \(4\))1 200(that lengths are speci\256ed in world co-ordinates, not screen size.)9 3047 2 1320 3570 t
+( \(an integer\), is)3 764(Sced.minorAxisLength \320 the length of the Minor Axis line. This value)10 3556 2 720 3780 t
+( resource to allow for fractional values. Note)7 2211(divided by the editAxisDenom)3 1509 2 1320 3920 t
+( \(3\))1 200(that lengths are speci\256ed in world co-ordinates, not screen size.)9 3047 2 1320 4060 t
+( Axis line. This value \(an integer\), is)7 1879(Sced.otherAxisLength \320 the length of the Other)6 2441 2 720 4270 t
+( resource to allow for fractional values. Note)7 2211(divided by the editAxisDenom)3 1509 2 1320 4410 t
+( \(2\))1 200(that lengths are speci\256ed in world co-ordinates, not screen size.)9 3047 2 1320 4550 t
+(Sced.editAxisDenom \320 the value by which each edit axis line length is divided to get the)15 4320 1 720 4760 t
+(true length. \(2\))2 718 1 1320 4900 t
+( edit)1 213(Sced.editPointRadius \320 the radius of the circle drawn around the Origin and Scaling)12 4107 2 720 5110 t
+(points. This value also sets the effective size of these points for mouse)12 3720 1 1320 5250 t
+(interaction. \(10\))1 775 1 1320 5390 t
+(Sced.scalingColor \320 the color of the edit Scaling Point. \(red\))9 2969 1 720 5600 t
+(Sced.originColor \320 the color of the edit Origin Point. \(green\))9 2982 1 720 5810 t
+(Sced.objectColor \320 the color of an object that is being edited. \(blue\))11 3322 1 720 6020 t
+(Sced.selectColor \320 the color of selected objects. \(red\))7 2626 1 720 6230 t
+(Sced.selectWidth \320 the line width of selected objects. \(2\))8 2798 1 720 6440 t
+(Sced.lightColor \320 the color of lights on screen. \(yellow\))8 2745 1 720 6650 t
+(Sced.lightPointRadius \320 the radius of the circle drawn around lights on screen. \(12\))12 4066 1 720 6860 t
+(Sced.constraintColor \320 the color of contraint indicators, such as lines or planes. \(grey\))12 4197 1 720 7070 t
+( drawn to)2 475(Sced.planeConLength \320 the edge length, in world co-ordinates, of the square)10 3845 2 720 7280 t
+(represent plane constraints. \(6\))3 1482 1 1320 7420 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 36 36
+%%Page: 37 37
+/saveobj save def
+mark
+37 pagesetup
+12 R f
+(- 37 -)2 260 1 2750 560 t
+( in in world co-ordinates, of the line drawn to)9 2534(Sced.lineConLength \320 the length,)3 1786 2 720 1120 t
+(represent ;ine constraints. \(6\))3 1403 1 1320 1260 t
+( represent point constraints.)3 1393(Sced.pointConWidth \320 the radius of the circles drawn to)8 2927 2 720 1470 t
+(\(15\))1320 1610 w
+( represent inconsistent)2 1192(Sced.inconConLength \320 the size of the crosses used to)8 3128 2 720 1820 t
+(constraints. \(15\))1 782 1 1320 1960 t
+( the size of the squares drawn to indicate points specifying)10 3091(Sced.originConWidth \320)1 1229 2 720 2170 t
+(origin constraints. \(7\))2 1040 1 1320 2310 t
+( indicate points specifying)3 1366(Sced.scaleConWidth \320 the size of the squares drawn to)8 2954 2 720 2520 t
+(scaling constraints. \(5\))2 1093 1 1320 2660 t
+( points specifying)2 916(Sced.rotateConWidth \320 the size of the squares drawn to indicate)9 3404 2 720 2870 t
+(allignment constraints. \(3\))2 1268 1 1320 3010 t
+(Sced.referencedColor \320 the color that referenced objects are drawn during point)10 4320 1 720 3220 t
+(selection. \(red\))1 721 1 1320 3360 t
+( currently active point for point selection \(the point)8 2540(Sced.activeColor \320 the color of the)5 1780 2 720 3570 t
+(that will be selected\). \(red\))4 1292 1 1320 3710 t
+(Sced.selectPointColor \320 the color of points already selected. \(blue\))8 3272 1 720 3920 t
+( the square drawn around the active and selected)8 2422(Sced.selectPointWidth \320 the width of)4 1898 2 720 4130 t
+(points. \(8\))1 495 1 1320 4270 t
+(Sced.selectPointLineWidth \320 the width of the line used to draw the above square. \(2\))13 4141 1 720 4480 t
+( to represent absolute point constraint speci\256ers.)6 2448(Sced.absoluteColor \320 the color used)4 1872 2 720 4690 t
+(\(green\))1320 4830 w
+(Sced.offsetColor \320 the color used to represent offset point constraint speci\256ers. \(blue\))11 4177 1 720 5040 t
+( color used to represent reference point constraint speci\256ers.)8 2989(Sced.referenceColor \320 the)2 1331 2 720 5250 t
+(\(red\))1320 5390 w
+(Sced.arcballColor \320 the color used to draw the arcball arc. \(grey\))10 3174 1 720 5600 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 37 37
+%%Page: 38 38
+/saveobj save def
+mark
+38 pagesetup
+12 R f
+(- 38 -)2 260 1 2750 560 t
+11 B f
+( FILE FORMAT)2 802(10. EXTERNAL)1 806 2 720 1120 t
+12 R f
+( hand or through)3 830(Sced supports an external \256le format that is easy to read and create by)13 3490 2 720 1330 t
+( as its own internal format will be)7 1733(external programs. Any \256le not recognised by Sced)7 2587 2 720 1470 t
+(processed based on the assumption that it is an external \256le.)10 2876 1 720 1610 t
+(Anything following a #, and up to the end of the line, is a comment and will be ignored.)18 4223 1 720 1820 t
+(The key words and their arguments are described below.)8 2716 1 720 2030 t
+12 B f
+(Version)720 2240 w
+12 I f
+(version)1157 2240 w
+12 S f
+(_)1511 2240 w
+12 I f
+(num)1571 2240 w
+12 R f
+( number that this \256le applies to. At the)8 1913(: Speci\256es the Sced version)4 1350 2 1777 2240 t
+( for)1 171(moment the only valid value)4 1385 2 1320 2380 t
+12 I f
+(version)2907 2380 w
+12 S f
+(_)3261 2380 w
+12 I f
+(num)3321 2380 w
+12 R f
+( command must be)3 915( This)1 275(is 0.8.)1 292 3 3558 2380 t
+( to ease the transition to)5 1167( option is included primarily)4 1384( This)1 277(the \256rst in the \256le.)4 892 4 1320 2520 t
+(later versions.)1 675 1 1320 2660 t
+12 B f
+(Viewport)720 2870 w
+12 R f
+( de\256nition of the viewport. Parameters that are speci\256ed will modify the)11 3489(: Begin)1 352 2 1199 2870 t
+( is loaded. De\256nition of the viewport ends)7 2093(main view in place when the \256le)6 1627 2 1320 3010 t
+(when a command not included in the parameter list below is encountered.)11 3720 1 1320 3150 t
+(Valid paramaters to follow this keyword are:)6 2156 1 1320 3290 t
+12 B f
+(LookFrom)1320 3500 w
+12 I f
+(x y z)2 229 1 1911 3500 t
+12 R f
+(: Set the view direction such that you appear to be looking)11 2900 1 2140 3500 t
+(down)1920 3640 w
+12 I f
+(x y z)2 213 1 2216 3640 t
+12 R f
+(toward the)1 510 1 2459 3640 t
+12 I f
+(LookAt)2999 3640 w
+12 R f
+(point.)3376 3640 w
+12 B f
+(LookAt)1320 3850 w
+12 I f
+(x y z)2 219 1 1746 3850 t
+12 R f
+( center of)2 461(: Set the point to look at. This point will appear in the)12 2614 2 1965 3850 t
+(the view window.)2 856 1 1920 3990 t
+12 B f
+(LookUp)1320 4200 w
+12 I f
+(x y z)2 229 1 1778 4200 t
+12 R f
+(: The vector)2 596 1 2007 4200 t
+12 I f
+(x y z)2 229 1 2641 4200 t
+12 R f
+(will always appear to be pointing vertically)6 2132 1 2908 4200 t
+(up in the window.)3 867 1 1920 4340 t
+12 B f
+(Viewdist)1320 4550 w
+12 I f
+(d)1797 4550 w
+12 R f
+(: Set the distance of the viewing plane from the)9 2274 1 1857 4550 t
+12 I f
+(LookAt)4161 4550 w
+12 R f
+(point.)4538 4550 w
+12 B f
+(EyeDist)1320 4760 w
+12 I f
+(d)1771 4760 w
+12 R f
+(: Set the distance of the eye from the viewplane. This controls)11 3209 1 1831 4760 t
+(perspective effects, and the \256eld of view.)6 1974 1 1920 4900 t
+12 B f
+(Magnify)1320 5110 w
+12 I f
+(s)1806 5110 w
+12 R f
+( the magni\256cation of the image. This is equivalent to the)10 2947(: Set)1 240 2 1853 5110 t
+12 I f
+(Zoom)1920 5250 w
+12 R f
+(interface function.)1 881 1 2223 5250 t
+12 B f
+(Screen)1320 5460 w
+12 I f
+(x y)1 136 1 1696 5460 t
+12 R f
+(: Set the image size.)4 966 1 1832 5460 t
+12 B f
+(Camera)720 5670 w
+12 R f
+( de\256nition of the)3 829(: Begin de\256nition of the camera. The format is identical to the)11 3079 2 1132 5670 t
+12 I f
+(Viewport)1320 5810 w
+12 R f
+(, but modi\256es the world camera instead.)6 1923 1 1761 5810 t
+12 B f
+(Object)720 6020 w
+12 I f
+(name base)1 510 1 1098 6020 t
+12 R f
+(: Begin de\256nition of an object instance. It has name given by)11 2936 1 1608 6020 t
+12 I f
+(name)4576 6020 w
+12 R f
+(and)4867 6020 w
+(is of base type)3 760 1 1320 6160 t
+12 I f
+(base)2133 6160 w
+12 R f
+(.)2353 6160 w
+12 I f
+(Name)2436 6160 w
+12 R f
+(and)2768 6160 w
+12 I f
+(base)2994 6160 w
+12 R f
+( enclosed in double)3 997(must be strings)2 776 2 3267 6160 t
+(quotes.)1320 6300 w
+12 I f
+(Base)1724 6300 w
+12 R f
+( de\256ned. The default bases are:)5 1648(must have been previously)3 1375 2 2017 6300 t
+12 I f
+(sphere)1320 6440 w
+12 R f
+(,)1640 6440 w
+12 I f
+(cube)1722 6440 w
+12 R f
+(,)1948 6440 w
+12 I f
+(cone)2029 6440 w
+12 R f
+(,)2255 6440 w
+12 I f
+(cylinder)2336 6440 w
+12 R f
+(,)2730 6440 w
+12 I f
+(square)2811 6440 w
+12 R f
+(,)3138 6440 w
+12 I f
+(plane)3219 6440 w
+12 R f
+(,)3486 6440 w
+12 I f
+(light)3567 6440 w
+12 R f
+(,)3789 6440 w
+12 I f
+(spotlight)3870 6440 w
+12 R f
+(and)4344 6440 w
+12 I f
+(arealight)4568 6440 w
+12 R f
+(.)5010 6440 w
+( ends when)2 555(The instance is modi\256ed by the following parameters. De\256nition)8 3165 2 1320 6580 t
+(a parameter not listed below is encountered.)6 2119 1 1320 6720 t
+12 B f
+(Matrix)1320 6930 w
+12 I f
+( y3 z1 z2 z3)4 598(x1 x2 x3 y1 y2)4 725 2 1720 6930 t
+12 R f
+(: The object is transformed by the given)7 1997 1 3043 6930 t
+(matrix.)1920 7070 w
+12 I f
+(x1 x2 x3)2 425 1 2308 7070 t
+12 R f
+(is the \256rst row,)3 761 1 2776 7070 t
+12 I f
+(y*)3580 7070 w
+12 R f
+( row and)2 443(the second)1 523 2 3736 7070 t
+12 I f
+(z*)4744 7070 w
+12 R f
+(the)4893 7070 w
+( The matrix is pre-multiplied onto the current)7 2589(third row.)1 531 2 1920 7210 t
+(transformation matrix \(which starts as the identity\).)6 2478 1 1920 7350 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 38 38
+%%Page: 39 39
+/saveobj save def
+mark
+39 pagesetup
+12 R f
+(- 39 -)2 260 1 2750 560 t
+12 B f
+(Scale)1320 1120 w
+12 I f
+(x y z)2 213 1 1617 1120 t
+12 R f
+(: Scale the object by)4 975 1 1830 1120 t
+12 I f
+(x)2835 1120 w
+12 R f
+( X direction,)2 606(in the)1 271 2 2918 1120 t
+12 I f
+(y)3826 1120 w
+12 R f
+(in the Y direction and)4 1052 1 3910 1120 t
+12 I f
+(z)4993 1120 w
+12 R f
+( order it is)3 549(in the Z direction. The scaling is performed in the)9 2571 2 1920 1260 t
+(given.)1920 1400 w
+12 B f
+(Rotate)1320 1610 w
+12 I f
+(x y z)2 223 1 1694 1610 t
+12 R f
+(: Rotate the object through)4 1303 1 1917 1610 t
+12 I f
+(x)3255 1610 w
+12 R f
+(degrees about the X axis, followed)5 1697 1 3343 1610 t
+(by)1920 1750 w
+12 I f
+(y)2074 1750 w
+12 R f
+( by)1 153(degrees about the y axis, followed)5 1661 2 2161 1750 t
+12 I f
+(z)4008 1750 w
+12 R f
+(degrees about the Z)3 952 1 4088 1750 t
+( Separate rotation)2 886(axis. Note that the order of rotation matters.)7 2234 2 1920 1890 t
+(statements are applied in the order given.)6 1980 1 1920 2030 t
+12 B f
+(Position)1320 2240 w
+12 I f
+(x y z)2 277 1 1797 2240 t
+12 R f
+(: Translate the object along the vect)6 1908 1 2074 2240 t
+12 I f
+( z)1 110(x y)1 168 2 4044 2240 t
+12 R f
+(. Translations)1 718 1 4322 2240 t
+(accumulate, and are applied after all other transformations.)7 2834 1 1920 2380 t
+12 B f
+(Dense)1320 2590 w
+12 I f
+(level)1675 2590 w
+12 R f
+( object to)2 488(: Set the wireframe density level of the)7 2000 2 1902 2590 t
+12 I f
+(level)4440 2590 w
+12 R f
+(, which)1 373 1 4667 2590 t
+( level)1 285(should be an integer. The default level is 0. Each extra)10 2835 2 1920 2730 t
+( generators for the object, or multiplies by)7 2039(doubles the number of)3 1081 2 1920 2870 t
+(4 the number of facets on a sphere.)7 1680 1 1920 3010 t
+12 B f
+(Color)1320 3220 w
+12 I f
+(r g b)2 235 1 1647 3220 t
+12 R f
+(or)1916 3220 w
+12 B f
+(Colour)2050 3220 w
+12 I f
+(r g b)2 235 1 2444 3220 t
+12 R f
+( object's color, or intensity if it's a light)8 1958(: Set the)2 403 2 2679 3220 t
+(source.)1920 3360 w
+12 I f
+(R g b)2 253 1 2293 3360 t
+12 R f
+(should be values between 0 and 1.)6 1643 1 2576 3360 t
+12 B f
+(Diffuse)1320 3570 w
+12 I f
+(v)1717 3570 w
+12 R f
+(: Set the diffuse surface re\257ectance to)6 1808 1 1770 3570 t
+12 I f
+(v)3608 3570 w
+12 R f
+(.)3661 3570 w
+12 B f
+(Specular)1320 3780 w
+12 I f
+(v p)1 161 1 1822 3780 t
+12 R f
+( the specular surface re\257ectance to)5 1751(: Set)1 236 2 1983 3780 t
+12 I f
+(v)4019 3780 w
+12 R f
+(with an associated)2 919 1 4121 3780 t
+(power of)1 429 1 1920 3920 t
+12 I f
+(p)2379 3920 w
+12 R f
+(.)2439 3920 w
+12 B f
+(Re\257ect)1320 4130 w
+12 I f
+(v)1702 4130 w
+12 R f
+(: Set the re\257ectance of the surface to)7 1751 1 1755 4130 t
+12 I f
+(v)3536 4130 w
+12 R f
+(.)3589 4130 w
+12 B f
+(Refract)1320 4340 w
+12 I f
+(v)1735 4340 w
+12 R f
+(: Set the index of refraction of the body to)9 2020 1 1788 4340 t
+12 I f
+(v)3838 4340 w
+12 R f
+(.)3891 4340 w
+12 B f
+(Transparency)1320 4550 w
+12 I f
+(v)2070 4550 w
+12 R f
+(: Set the transparency of the object to)7 1793 1 2123 4550 t
+12 I f
+(v)3946 4550 w
+12 R f
+(.)3999 4550 w
+12 B f
+(CSG)720 4760 w
+12 I f
+(name)1008 4760 w
+12 R f
+( CSG base object which will have the name)8 2190(: Begin de\256nition of a)4 1100 2 1267 4760 t
+12 I f
+(name)4599 4760 w
+12 R f
+(for)4900 4760 w
+(later reference.)1 725 1 1320 4900 t
+12 I f
+(Name)2081 4900 w
+12 R f
+(must be a string enclosed in double quotes. Following)8 2644 1 2396 4900 t
+12 I f
+(name)1320 5040 w
+12 R f
+(should appear a valid CSG object tree description, as de\256ned here. A)11 3421 1 1619 5040 t
+(CSG tree de\256nition is best described recursively:)6 2358 1 1320 5180 t
+10 S f
+(\267)1394 5390 w
+12 R f
+( may be one of the words)6 1267(A CSG tree)2 575 2 1500 5390 t
+12 I f
+(Union)3381 5390 w
+12 R f
+(,)3681 5390 w
+12 I f
+(Intersection)3750 5390 w
+12 R f
+(or)4364 5390 w
+12 I f
+(Difference)4503 5390 w
+12 R f
+(,)5010 5390 w
+(immediately followed by two CSG tree de\256nitions.)6 2462 1 1500 5530 t
+10 S f
+(\267)1394 5740 w
+12 R f
+( tree may also be a single)6 1293(A CSG)1 361 2 1500 5740 t
+12 I f
+(Object)3197 5740 w
+12 R f
+(command describing a leaf of)4 1480 1 3560 5740 t
+(the CSG tree.)2 650 1 1500 5880 t
+(For example,)1 634 1 1320 6090 t
+(CSG "example")1 768 1 1680 6230 t
+(Union)1680 6370 w
+(Difference)2040 6510 w
+(Object "leaf1" "cube")2 1042 1 2400 6650 t
+(Object "leaf2" "sphere")2 1129 1 2400 6790 t
+(Object "leaf3" "cylinder")2 1210 1 2040 6930 t
+( difference of a cube and sphere)6 1657(describes a CSG object consisting of the)6 2063 2 1320 7070 t
+(unioned with a cylinder.)3 1168 1 1320 7210 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 39 39
+%%Page: 40 40
+/saveobj save def
+mark
+40 pagesetup
+12 R f
+(- 40 -)2 260 1 2750 560 t
+12 B f
+(Wireframe)720 1120 w
+12 I f
+(name num)1 544 1 1365 1120 t
+12 S f
+(_)1909 1120 w
+12 I f
+(verts num)1 519 1 1969 1120 t
+12 S f
+(_)2488 1120 w
+12 I f
+(faces verts faces)2 886 1 2548 1120 t
+12 R f
+( of a new)3 592(: Begin description)2 1014 2 3434 1120 t
+( name)1 290(wireframe type object. The object has)5 1819 2 1320 1260 t
+12 I f
+(name)3459 1260 w
+12 R f
+(\(a string\). It has)3 762 1 3748 1260 t
+12 I f
+(num)4540 1260 w
+12 S f
+(_)4746 1260 w
+12 I f
+(verts)4806 1260 w
+12 R f
+(vertices and)1 580 1 1320 1400 t
+12 I f
+(num)1933 1400 w
+12 S f
+(_)2139 1400 w
+12 I f
+(faces)2199 1400 w
+12 R f
+(faces.)2480 1400 w
+12 I f
+(Verts)2820 1400 w
+12 R f
+(is a list of vertices, each given as an)8 1758 1 3108 1400 t
+12 I f
+(x y)1 140 1 4900 1400 t
+(z)1320 1540 w
+12 R f
+(vector.)1398 1540 w
+12 I f
+(Faces)1789 1540 w
+12 R f
+( number of vertices followed)4 1388(is a list of faces, each given as a)8 1546 2 2106 1540 t
+(by the indices of the vertices in the vertex list. Indices start at 0.)13 3071 1 1320 1680 t
+( have at least 3 vertices, and be convex. Face vertices should)11 2977(Each face must)2 743 2 1320 1890 t
+( you)1 231( If)1 161( outside the object.)3 972(be given in a clockwise order as viewed from)8 2356 4 1320 2030 t
+( CSG object, the faces must intersect each)7 2120(intend to use the wireframe in a)6 1600 2 1320 2170 t
+( edges or at a single vertice. The object must also)10 2437(other only along complete)3 1283 2 1320 2310 t
+(be closed.)1 480 1 1320 2450 t
+(For example,)1 634 1 1320 2660 t
+(Wireframe "mycube" 8 6)3 1208 1 1680 2800 t
+(1 1 1)2 240 1 1680 2940 t
+(1 -1 1)2 280 1 1680 3080 t
+(-1 -1 1)2 320 1 1680 3220 t
+(-1 1 1)2 280 1 1680 3360 t
+(1 1 -1)2 280 1 1680 3500 t
+(1 -1 -1)2 320 1 1680 3640 t
+(-1 -1 -1)2 360 1 1680 3780 t
+(-1 1 -1)2 320 1 1680 3920 t
+(4 0 3 2 1)4 420 1 1680 4060 t
+(4 4 5 6 7)4 420 1 1680 4200 t
+(4 0 4 7 3)4 420 1 1680 4340 t
+(4 1 2 6 5)4 420 1 1680 4480 t
+(4 0 1 5 4)4 420 1 1680 4620 t
+(4 2 3 7 6)4 420 1 1680 4760 t
+(de\256nes a cube.)2 709 1 1320 4900 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 40 40
+%%Page: 41 41
+/saveobj save def
+mark
+41 pagesetup
+12 R f
+(- 41 -)2 260 1 2750 560 t
+11 B f
+( SPECIFIC NOTES)2 945(11. RENDERER)1 811 2 720 1120 t
+(11.1 POVRay)1 670 1 720 1330 t
+12 R f
+( the Sced distribution will need to be applied. They allow for)11 3035(The patches supplied with)3 1285 2 720 1540 t
+(the matrix keyword to specify object transformations.)6 2582 1 720 1680 t
+( their)1 291(Squares are rendered as polygons. Wireframes are exported as the union of)11 4029 2 720 1890 t
+(component polygons.)1 1035 1 720 2030 t
+(Sced de\256nes the identi\256er)3 1302 1 720 2240 t
+12 I f
+(ambient)2072 2240 w
+12 S f
+(_)2459 2240 w
+12 I f
+(light)2519 2240 w
+12 S f
+(_)2741 2240 w
+12 I f
+(level)2801 2240 w
+12 R f
+(, which holds a \257oat value equal to the)8 2012 1 3028 2240 t
+( level in the scene, as entered in the)8 1873(ambient light)1 662 2 720 2380 t
+12 I f
+(Ambient)3306 2380 w
+12 R f
+(dialog. You may use this)4 1283 1 3757 2380 t
+( you change)2 599(identifer in texture statements to save adjusting all the attributes every time)11 3721 2 720 2520 t
+(the ambient light value.)3 1137 1 720 2660 t
+11 B f
+(11.2 Rayshade)1 708 1 720 2870 t
+12 R f
+( are given.)2 511(The simple attributes on an object are exported even if more speci\256c attributes)12 3809 2 720 3080 t
+( problem arises out of)4 1205( The)1 285( surface properties to still be applied.)6 2015(This allows the)2 815 4 720 3220 t
+(Rayshade's strange way of entering attributes in two separate groups, surfaces before the)12 4320 1 720 3360 t
+(object de\256nition and transformation, and textures afterward.)6 2891 1 720 3500 t
+( were)1 302(Wireframes are exported as triangles, and phong triangles if vertex normals)10 4018 2 720 3710 t
+( is)1 127(speci\256ed in the OFF \256le that de\256ned the wireframe. The triangulation method used)12 4193 2 720 3850 t
+(trivial, and will fail for concave polygons.)6 2024 1 720 3990 t
+11 B f
+(11.3 Radiance)1 689 1 720 4200 t
+12 R f
+(Radiance differs signi\256cantly from the other renderers, so these notes are extensive.)11 4028 1 720 4410 t
+( the intensity)2 641(Point light sources are exported as small spheres. There is no need to limit)13 3679 2 720 4620 t
+(of a light source to 1.0, you may go as high as you wish.)13 2710 1 720 4760 t
+( allows for true spheres, cones and cylinders. This precludes a very large)12 3620(Radiance only)1 700 2 720 4970 t
+( transformations \(it only allows for uniform scaling in the radial direction\). To)12 3911(range of)1 409 2 720 5110 t
+( of polygons.)2 717(overcome this dif\256culty, Sced exports any non-true object as a list)10 3603 2 720 5250 t
+( should make extensive use of)5 1490(Obviously this impacts on the quality of the picture. You)9 2830 2 720 5390 t
+(the)720 5530 w
+12 I f
+(Dense Wireframe)1 844 1 898 5530 t
+12 R f
+( will be)2 365( They)1 308( the appearance of these objects.)5 1563(command to improve)2 1031 4 1773 5530 t
+(exported at the same density as they appear on screen.)9 2601 1 720 5670 t
+( are exported as a plastic surface, so many of the parameters)11 2921(The simple surface attributes)3 1399 2 720 5880 t
+( anything but the most simple effects you will need to make)11 3163(have no effect. To get)4 1157 2 720 6020 t
+(extensive use of your own modi\256ers and renderer speci\256c de\256nitions.)9 3343 1 720 6160 t
+(Radiance does not have CSG de\256nition within its input language, and instancing is)12 4320 1 720 6370 t
+( range of transformations available. Hence Sced exports)7 2716(prohibited because of the limited)4 1604 2 720 6510 t
+( Firstly, the)2 563(all CSG object instances as individual lists of polygons. This has two effects.)12 3757 2 720 6650 t
+( large. Secondly, the representation is only as accurate as the)10 2996(exported \256le becomes very)3 1324 2 720 6790 t
+( use of the)3 500(wireframe displayed on screen by Sced. Once again you should make extensive)11 3820 2 720 6930 t
+12 I f
+(Dense Wireframe)1 843 1 720 7070 t
+12 R f
+(functions to improve the appearance of CSG objects.)7 2542 1 1593 7070 t
+( square. Relating this to the plane)6 1901(Planes are exported to Radiance as a 10x10)7 2419 2 720 7280 t
+( by Sced, the polygon is the same size as the extremities of the cross)14 3381(representation used)1 939 2 720 7420 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 41 41
+%%Page: 42 42
+/saveobj save def
+mark
+42 pagesetup
+12 R f
+(- 42 -)2 260 1 2750 560 t
+(drawn.)720 1120 w
+( like the)2 462(When you export a radiance \256le, an extra dialog is used to enter things)13 3858 2 720 1330 t
+( options are)2 595( These)1 363( assorted other things.)3 1107(interior/exterior option, the view volume and)5 2255 4 720 1470 t
+( to a .rad \256le,)4 666(exported to a rad \(.rif\) input \256le. The geometry and modi\256ers are exported)12 3654 2 720 1610 t
+( previewer to "rad" with options "-o)6 1764(ready for use with oconv. I recommend setting your)8 2556 2 720 1750 t
+(x11" to get an interactive preview using rview.)7 2251 1 720 1890 t
+11 B f
+(11.4 RenderMan)1 816 1 720 2100 t
+12 R f
+( area lights)2 556(Renderman is an excellent language to export to. I don't think I understand)12 3764 2 720 2310 t
+(correctly, so they will probably not work as expected.)8 2582 1 720 2450 t
+( exported. So you should set the red, green and blue)10 2678(The color of an object is always)6 1642 2 720 2660 t
+( if those attributes)3 870(values in the simple attributes box every time you want attributes, even)11 3450 2 720 2800 t
+(are target speci\256c.)2 877 1 720 2940 t
+(Planes are exported as 10x10 squares, as with Radiance.)8 2700 1 720 3150 t
+( support concave)2 883(Polygons are exported as the simple polygon type, which doesn't)9 3437 2 720 3360 t
+(polygons. I couldn't get the other method \(using GeneralPolygon\), to work.)10 3635 1 720 3500 t
+( defaults)1 412( This)1 275( name of the image \256le to render.)7 1602(When exporting, you are prompted for the)6 2031 4 720 3710 t
+(to the base \256lename with .tif added.)6 1716 1 720 3850 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 42 42
+%%Page: 43 43
+/saveobj save def
+mark
+43 pagesetup
+12 R f
+(- 43 -)2 260 1 2750 560 t
+11 B f
+(12. ACKNOWLEDGEMENTS)1 1492 1 720 1120 t
+12 R f
+(I am required to state the following \(Pixar's copyright rules\):)9 2937 1 720 1330 t
+(The RenderMan)1 782 1 900 1540 t
+12 S f
+(\342)1682 1540 w
+12 R f
+(Interface Procedures and RIB Protocol are:)5 2070 1 1807 1540 t
+(Copyright 1988, 1989, Pixar.)3 1402 1 900 1680 t
+(All rights reserved.)2 925 1 900 1820 t
+(RenderMan)900 1960 w
+12 S f
+(\342)1466 1960 w
+12 R f
+(is a registered trademark of Pixar)5 1599 1 1591 1960 t
+( and)1 235(Thanks also to all the people who helped out with comments and suggestions)12 4085 2 720 2170 t
+(debugging.)720 2310 w
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 43 43
+%%Page: 44 44
+/saveobj save def
+mark
+44 pagesetup
+12 R f
+(- 44 -)2 260 1 2750 560 t
+9 B f
+(APPENDIX A: Text Editing Commands)4 1552 1 720 1100 t
+10 R f
+( of commands is taken from a description of the Athena Text widget. Note that the all the)17 3601(The following list)2 719 2 720 1280 t
+( functions. You may also select from and)7 1698(text widgets in Sced \(anything you type text into\) support these)10 2622 2 720 1400 t
+( button 3 continue)3 731(copy into these text windows, just as you would an xterm \(button 1 select, button 2 paste,)16 3589 2 720 1520 t
+(selection\).)720 1640 w
+(The commands are:)2 787 1 720 1820 t
+(Ctrl-A: Beginning of line.)3 1039 1 720 1940 t
+(Ctrl-B: Backward character.)2 1127 1 720 2060 t
+(Ctrl-D: Delete next character.)3 1185 1 720 2180 t
+(Ctrl-E: End of line.)3 772 1 720 2300 t
+(Ctrl-F: Forward character.)2 1050 1 720 2420 t
+(Ctrl-G: Reset the multiplier.)3 1128 1 720 2540 t
+(Ctrl-H: Delete previous character.)3 1357 1 720 2660 t
+(Ctrl-J: Newline and indent.)3 1088 1 720 2780 t
+(Ctrl-K: Delete to end of line, putting it in buffer 2.)10 2015 1 720 2900 t
+(Ctrl-L: Redraw display.)2 952 1 720 3020 t
+(Ctrl-M: Newline.)1 694 1 720 3140 t
+(Ctrl-N: Next line.)2 708 1 720 3260 t
+(Ctrl-O: Newline and back up.)4 1184 1 720 3380 t
+(Ctrl-P: Previous line.)2 848 1 720 3500 t
+(Ctrl-R: Search backward \(a dialog is popped up asking for the string to search for\).)14 3313 1 720 3620 t
+(Ctrl-S: Search forward.)2 934 1 720 3740 t
+(Ctrl-T: Transpose characters. The characters on either side of the cursor are swapped.)12 3411 1 720 3860 t
+(Ctrl-U: Multiply the next action by 4.)6 1503 1 720 3980 t
+(Ctrl-V: Next page.)2 746 1 720 4100 t
+(Ctrl-W: Delete the selection and put it in buffer 2 \(not the selection buffer\).)13 3011 1 720 4220 t
+(Ctrl-Y: Insert the contents of buffer 2.)6 1522 1 720 4340 t
+(Ctrl-Z: Scroll up one line.)4 1036 1 720 4460 t
+(Alt-B: Backward word.)2 940 1 720 4580 t
+(Alt-F: Forward word.)2 863 1 720 4700 t
+(Alt-I: Insert \256le \(a pop up dialog requests the name\).)9 2102 1 720 4820 t
+(Alt-K: Delete to end of paragraph, stuf\256ng it in buffer 2.)10 2257 1 720 4940 t
+(Alt-Q: Form paragraph \(this formats a paragraph\).)6 2009 1 720 5060 t
+(Alt-V: Previous page.)2 874 1 720 5180 t
+(Alt-Y: Insert the selection.)3 1065 1 720 5300 t
+(Alt-Z: Scroll down one line.)4 1130 1 720 5420 t
+(Alt-d: \(case sensitive\) Delete next word.)5 1613 1 720 5540 t
+(Alt-D: \(case sensitive\) Delete next word, stuf\256ng it in buffer 2.)10 2518 1 720 5660 t
+(Alt-Delete:)720 5780 w
+(Alt-Backspace:)720 5900 w
+(Alt-h: \(case sensitive\) Delete previous word.)5 1785 1 720 6020 t
+(Shift-Alt-Delete:)720 6140 w
+(Shift-Alt-Backspace:)720 6260 w
+(Alt-H: \(case sensitive\) Delete previous word, stuf\256ng it in buffer 2.)10 2690 1 720 6380 t
+(Alt-)720 6500 w
+10 S f
+(<)881 6500 w
+10 R f
+(: Beginning of \256le.)3 756 1 936 6500 t
+(Alt-)720 6620 w
+10 S f
+(>)881 6620 w
+10 R f
+(: End of \256le.)3 500 1 936 6620 t
+(Alt-]: Forward paragraph.)2 1033 1 720 6740 t
+(Alt-[: Back paragraph.)2 900 1 720 6880 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 44 44
+%%Page: 45 45
+/saveobj save def
+mark
+45 pagesetup
+12 R f
+(- 45 -)2 260 1 2750 560 t
+12 I f
+(REFERENCES)2514 1120 w
+12 R f
+(1. Ken Shoemake)2 849 1 780 1400 t
+( Interface For Specifying Three Dimensional Orientation Using a)8 3328(Arcball: A User)2 812 2 900 1540 t
+(Mouse)900 1680 w
+12 I f
+(User Interface '92)2 887 1 900 1820 t
+12 R f
+(, 1992, pp 151-156.)3 940 1 1817 1820 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 45 45
+%%Page: 46 46
+/saveobj save def
+mark
+46 pagesetup
+12 R f
+(CONTENTS)2568 1120 w
+(1. INTRODUCTION)1 1052 1 780 1470 t
+12 B f
+(. . . . . . . . . . . . . . . . . .)17 2750 1 1985 1470 t
+12 R f
+(1)4980 1470 w
+(2. PRELIMINARIES)1 1062 1 780 1680 t
+12 B f
+(. . . . . . . . . . . . . . . . . .)17 2750 1 1985 1680 t
+12 R f
+(2)4980 1680 w
+( Of The Window)3 815(2.1 Regions)1 664 2 930 1820 t
+12 B f
+(. . . . . . . . . . . . . .)13 2110 1 2625 1820 t
+12 R f
+(2)4980 1820 w
+( Button Functions)2 863(2.2 Command)1 771 2 930 1960 t
+12 B f
+(. . . . . . . . . . . . .)12 1950 1 2785 1960 t
+12 R f
+(2)4980 1960 w
+(2.3 Selection)1 718 1 930 2100 t
+12 B f
+(. . . . . . . . . . . . . . . . . . .)18 2910 1 1825 2100 t
+12 R f
+(3)4980 2100 w
+( Word on Text Entry)4 1000(2.4 A)1 356 2 930 2240 t
+12 B f
+(. . . . . . . . . . . . . . .)14 2270 1 2465 2240 t
+12 R f
+(4)4980 2240 w
+( Scene)1 316(2.5 Changed)1 696 2 930 2380 t
+12 B f
+(. . . . . . . . . . . . . . . . .)16 2590 1 2145 2380 t
+12 R f
+(4)4980 2380 w
+(2.6 Cancel)1 603 1 930 2520 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 2520 t
+12 R f
+(4)4980 2520 w
+(2.7 Colors)1 591 1 930 2660 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 2660 t
+12 R f
+(4)4980 2660 w
+( FUNCTIONS)1 701(3. BASIC)1 503 2 780 2870 t
+12 B f
+(. . . . . . . . . . . . . . . . .)16 2590 1 2145 2870 t
+12 R f
+(5)4980 2870 w
+( Functions)1 505(3.1 File)1 458 2 930 3010 t
+12 B f
+(. . . . . . . . . . . . . . . . . .)17 2750 1 1985 3010 t
+12 R f
+(5)4980 3010 w
+( Window)1 443(3.2 CSG)1 503 2 930 3150 t
+12 B f
+(. . . . . . . . . . . . . . . . . .)17 2750 1 1985 3150 t
+12 R f
+(5)4980 3150 w
+(3.3 Wireframe)1 790 1 930 3290 t
+12 B f
+(. . . . . . . . . . . . . . . . . . .)18 2910 1 1825 3290 t
+12 R f
+(6)4980 3290 w
+( Functions)1 505(3.4 Object)1 590 2 930 3430 t
+12 B f
+(. . . . . . . . . . . . . . . . .)16 2590 1 2145 3430 t
+12 R f
+(6)4980 3430 w
+( Manipulation Functions)2 1184(3.5 Light)1 531 2 930 3570 t
+12 B f
+(. . . . . . . . . . . . .)12 1950 1 2785 3570 t
+12 R f
+(10)4920 3570 w
+( Manipulation Functions)2 1184(3.6 View)1 529 2 930 3710 t
+12 B f
+(. . . . . . . . . . . . .)12 1950 1 2785 3710 t
+12 R f
+(11)4920 3710 w
+( Manipulation Functions)2 1184(3.7 Window)1 683 2 930 3850 t
+12 B f
+(. . . . . . . . . . . .)11 1790 1 2945 3850 t
+12 R f
+(13)4920 3850 w
+( Functions)1 505(3.8 Layer)1 549 2 930 3990 t
+12 B f
+(. . . . . . . . . . . . . . . . .)16 2590 1 2145 3990 t
+12 R f
+(14)4920 3990 w
+(3.9 Target)1 583 1 930 4130 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 4130 t
+12 R f
+(14)4920 4130 w
+(3.10 Camera)1 643 1 930 4270 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 4270 t
+12 R f
+(14)4920 4270 w
+(3.11 Preview)1 663 1 930 4410 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 4410 t
+12 R f
+(15)4920 4410 w
+(3.12 Clear)1 530 1 930 4550 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 4550 t
+12 R f
+(15)4920 4550 w
+(3.13 Maintain)1 705 1 930 4690 t
+12 B f
+(. . . . . . . . . . . . . . . . . . .)18 2910 1 1825 4690 t
+12 R f
+(15)4920 4690 w
+( INTERFACE)1 688(4. EDIT)1 422 2 780 4900 t
+12 B f
+(. . . . . . . . . . . . . . . . . .)17 2750 1 1985 4900 t
+12 R f
+(16)4920 4900 w
+(4.1 Overview)1 742 1 930 5040 t
+12 B f
+(. . . . . . . . . . . . . . . . . . .)18 2910 1 1825 5040 t
+12 R f
+(16)4920 5040 w
+(4.2 Position)1 666 1 930 5180 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 5180 t
+12 R f
+(18)4920 5180 w
+(4.3 Scaling)1 631 1 930 5320 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 5320 t
+12 R f
+(19)4920 5320 w
+(4.4 Rotation)1 685 1 930 5460 t
+12 B f
+(. . . . . . . . . . . . . . . . . . .)18 2910 1 1825 5460 t
+12 R f
+(19)4920 5460 w
+(4.5 Alignment)1 785 1 930 5600 t
+12 B f
+(. . . . . . . . . . . . . . . . . . .)18 2910 1 1825 5600 t
+12 R f
+(19)4920 5600 w
+( Constraints)1 579(4.6 Default)1 630 2 930 5740 t
+12 B f
+(. . . . . . . . . . . . . . . .)15 2430 1 2305 5740 t
+12 R f
+(20)4920 5740 w
+( the Direction of Motion)4 1176(4.7 Controlling)1 826 2 930 5880 t
+12 B f
+(. . . . . . . . . . .)10 1630 1 3105 5880 t
+12 R f
+(20)4920 5880 w
+(4.8 Maintenance)1 890 1 930 6020 t
+12 B f
+(. . . . . . . . . . . . . . . . . .)17 2750 1 1985 6020 t
+12 R f
+(20)4920 6020 w
+( Scaling Constraints)2 970(4.9 Forced)1 603 2 930 6160 t
+12 B f
+(. . . . . . . . . . . . . .)13 2110 1 2625 6160 t
+12 R f
+(21)4920 6160 w
+( Dialog Box)2 587(4.10 The)1 456 2 930 6300 t
+12 B f
+(. . . . . . . . . . . . . . . . .)16 2590 1 2145 6300 t
+12 R f
+(21)4920 6300 w
+( CSG INTERFACE)2 951(5. THE)1 382 2 780 6510 t
+12 B f
+(. . . . . . . . . . . . . . . .)15 2430 1 2305 6510 t
+12 R f
+(24)4920 6510 w
+( Window Functions)2 948(5.1 CSG)1 503 2 930 6650 t
+12 B f
+(. . . . . . . . . . . . . . .)14 2270 1 2465 6650 t
+12 R f
+(24)4920 6650 w
+( Existing)1 432(5.2 Modify)1 631 2 930 6790 t
+12 B f
+(. . . . . . . . . . . . . . . . .)16 2590 1 2145 6790 t
+12 R f
+(24)4920 6790 w
+( Existing)1 432(5.3 Copy)1 530 2 930 6930 t
+12 B f
+(. . . . . . . . . . . . . . . . . .)17 2750 1 1985 6930 t
+12 R f
+(25)4920 6930 w
+( OFF)1 250(5.4 Save)1 503 2 930 7070 t
+12 B f
+(. . . . . . . . . . . . . . . . . . .)18 2910 1 1825 7070 t
+12 R f
+(25)4920 7070 w
+( Existing)1 432(5.5 Delete)1 583 2 930 7210 t
+12 B f
+(. . . . . . . . . . . . . . . . .)16 2590 1 2145 7210 t
+12 R f
+(25)4920 7210 w
+(5.6 Close)1 544 1 930 7350 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 7350 t
+12 R f
+(25)4920 7350 w
+(- i -)2 174 1 2793 7768 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 46 46
+%%Page: 47 47
+/saveobj save def
+mark
+47 pagesetup
+12 R f
+( Menu Functions)2 815(5.7 Tree)1 489 2 930 1120 t
+12 B f
+(. . . . . . . . . . . . . . . .)15 2430 1 2305 1120 t
+12 R f
+(25)4920 1120 w
+( or Hide)2 393(5.8 Display)1 644 2 930 1260 t
+12 B f
+(. . . . . . . . . . . . . . . . .)16 2590 1 2145 1260 t
+12 R f
+(26)4920 1260 w
+(5.9 Move)1 550 1 930 1400 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 1400 t
+12 R f
+(26)4920 1400 w
+(5.10 Attach)1 590 1 930 1540 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 1540 t
+12 R f
+(27)4920 1540 w
+(5.11 Complete)1 738 1 930 1680 t
+12 B f
+(. . . . . . . . . . . . . . . . . . .)18 2910 1 1825 1680 t
+12 R f
+(27)4920 1680 w
+(5.12 Evaluate)1 690 1 930 1820 t
+12 B f
+(. . . . . . . . . . . . . . . . . . .)18 2910 1 1825 1820 t
+12 R f
+(28)4920 1820 w
+(5.13 Preview)1 663 1 930 1960 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 1960 t
+12 R f
+(28)4920 1960 w
+(5.14 ReOrder)1 682 1 930 2100 t
+12 B f
+(. . . . . . . . . . . . . . . . . . .)18 2910 1 1825 2100 t
+12 R f
+(28)4920 2100 w
+(5.15 Break)1 556 1 930 2240 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 2240 t
+12 R f
+(28)4920 2240 w
+(5.16 Copy)1 530 1 930 2380 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 2380 t
+12 R f
+(28)4920 2380 w
+(5.17 Delete)1 583 1 930 2520 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 2520 t
+12 R f
+(29)4920 2520 w
+( COMMAND LINE INTERFACE)3 1658(6. SCHEME)1 636 2 780 2730 t
+12 B f
+(. . . . . . . . . .)9 1470 1 3265 2730 t
+12 R f
+(30)4920 2730 w
+( LINE OPTIONS)2 837(7. COMMAND)1 788 2 780 2940 t
+12 B f
+(. . . . . . . . . . . . . .)13 2110 1 2625 2940 t
+12 R f
+(31)4920 2940 w
+( FILE)1 283(8. DEFAULTS)1 761 2 780 3150 t
+12 B f
+(. . . . . . . . . . . . . . . . . .)17 2750 1 1985 3150 t
+12 R f
+(32)4920 3150 w
+(8.1 Format)1 618 1 930 3290 t
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 3290 t
+12 R f
+(32)4920 3290 w
+( RESOURCES)1 722(9. X)1 236 2 780 3500 t
+12 B f
+(. . . . . . . . . . . . . . . . . . .)18 2910 1 1825 3500 t
+12 R f
+(35)4920 3500 w
+( FILE FORMAT)2 812(10. EXTERNAL)1 840 2 720 3710 t
+12 B f
+(. . . . . . . . . . . . . . .)14 2270 1 2465 3710 t
+12 R f
+(38)4920 3710 w
+( SPECIFIC NOTES)2 959(11. RENDERER)1 841 2 720 3920 t
+12 B f
+(. . . . . . . . . . . . . .)13 2110 1 2625 3920 t
+12 R f
+(41)4920 3920 w
+(11.1 POVRay)1 702 1 930 4060 t
+12 B f
+(. . . . . . . . . . . . . . . . . . .)18 2910 1 1825 4060 t
+12 R f
+(41)4920 4060 w
+(11.2 Rayshade)1 736 1 930 4200 t
+12 B f
+(. . . . . . . . . . . . . . . . . . .)18 2910 1 1825 4200 t
+12 R f
+(41)4920 4200 w
+(11.3 Radiance)1 716 1 930 4340 t
+12 B f
+(. . . . . . . . . . . . . . . . . . .)18 2910 1 1825 4340 t
+12 R f
+(41)4920 4340 w
+(11.4 RenderMan)1 836 1 930 4480 t
+12 B f
+(. . . . . . . . . . . . . . . . . .)17 2750 1 1985 4480 t
+12 R f
+(42)4920 4480 w
+(12. ACKNOWLEDGEMENTS)1 1544 1 720 4690 t
+12 B f
+(. . . . . . . . . . . . . . .)14 2270 1 2465 4690 t
+12 R f
+(43)4920 4690 w
+(APPENDIX A: Text Editing Commands)4 1954 1 930 4830 t
+12 B f
+(. . . . . . . . . . .)10 1630 1 3105 4830 t
+12 R f
+(44)4920 4830 w
+(REFERENCES)720 5040 w
+12 B f
+(. . . . . . . . . . . . . . . . . . . .)19 3070 1 1665 5040 t
+12 R f
+(45)4920 5040 w
+(- ii -)2 208 1 2776 7768 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 47 47
+%%Trailer
+done
+%%Pages: 47
+%%DocumentFonts: Times-Bold Times-Italic Times-Roman Symbol

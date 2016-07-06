@@ -1,0 +1,97 @@
+                                   
+                     Sceda: Scene Editor/Animator
+
+
+Overview
+--------
+
+  Sceda is a patched version of sced, the cool three dimensional
+modeller from Stephen Chenney (schenney@franklin.cs.berkeley.edu).
+Sceda supports simple keyframe/spline based animation of scenes,
+including wireframe animation from within sceda and exporting
+animation sequences for rendering.
+
+
+Description
+-----------
+
+  Sceda is, like sced, an X-based, constraint-oriented three
+dimensional modeller.  It also provides support for splined keyframe
+animation.  Animated objects have their position, rotation and scale
+smoothly interpolated across multiple keyframes via a (modified)
+spline function.
+
+  It naturally requires X, and a sufficiently Unix-like environment.
+I develop on a Linux system, so I know it works there, but most other
+platforms should also work, modulo messed up keysyms.  This version
+of sceda is based on sced 0.81.
+
+  This software is beta: it mostly works pretty well, but there are
+still bugs to be found.  If you try it out and something breaks,
+drop me a line.
+
+  Currently, this version of sceda allows you to:
+
+  - Create and design single scenes, the same as in vanilla sced.
+
+  - Clone or copy a single scene to create multiple scenes.  These
+    multiple scenes are used as keyframes for animating
+
+  - View and edit each keyframe individually.
+
+  - Control the number of interpolated frames between each keyframe
+    pair in various ways.
+
+  - Perform wireframe animations from within sced, in which the position, 
+    rotation and scaling of the objects, the position and orientation of 
+    the camera in the keyframes, and the zoom factor are smoothly 
+    interpolated across the frames.
+
+  - Export scene description files for all frames (keyframe and inter-
+    polated) to the usual sced array of formats (POVray, Renderman, 
+    Radiance, etc).  A script file, for performing all the renders, is
+    also exported.
+
+  - Save and load keyframe sequences from files.
+
+  - Propagate views, objects, and attributes of objects across keyframes.
+
+  - Clone sets of objects within and across keyframes.
+
+  - Delete sets of objects across keyframes.
+
+  - Use various keyboard shortcuts for things like editing, zooming, 
+    view recall and viewpoint manipulation.
+
+
+Availability
+------------
+
+  Sced is distributed under the GNU copyleft, and so are the patches 
+to get from sced to sceda.  Sceda is available via the sceda home 
+page at:
+
+http://www.cyberus.ca/~denism/sceda/sceda.html
+
+
+  Vanilla sced source is available via anonymous ftp from:
+
+ftp://ftp.cs.su.oz.au:/stephen/sced
+
+  or from the sced home page:
+
+http://www.cs.su.oz.au/~stephen/sced.html
+
+
+Feedback
+--------
+
+  I'm interested in feedback from anyone who uses this, including bug
+reports.  I'm also very interested in seeing any animations you do with
+it: if you come up with something particularly nifty, please let me 
+know about it.  I can be reached at the email address below.
+
+
+Denis McLaughlin
+denism@cyberus.ca
+October 21, 1995

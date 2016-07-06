@@ -1,0 +1,3960 @@
+
+
+
+            Sced: Constraint Based Scene Editing User's Guide
+
+                             Stephen Chenney
+
+       Basser Department Of Computer Science, University of Sydney
+
+
+       1.  _I_N_T_R_O_D_U_C_T_I_O_N
+
+       Sced is a program for creating and editing scene files for a
+       variety of rendering programs which runs in a UNIX and X
+       windows environment.  Constraints are used to position and
+       shape objects. Simple primitive objects can be created and
+       there is full support for Constructive Solid Geometry (CSG),
+       which allows for the definition of complex objects using set
+       operations on simpler objects. Objects can be positioned in
+       the scene, scaled, rotated, copied, moved etc. The current
+       view of the scene can be dynamically changed in all its
+       parameters. There is support for lighting and a camera in
+       the scene.  Objects may be previewed using a chosen
+       rendering program. Sced currently produces input files for
+       the following programs:
+
+          +o POVRay: A freeware raytracer for various platforms.
+
+          +o Rayshade: Another freeware raytracer for UNIX
+            platforms.
+
+          +o Genray: A fast and simple raytracer for UNIX platforms.
+
+          +o Radiance: A freeware radiosity program.
+
+          +o RenderMan: Pixar's standard file format for scene
+            descriptions.
+
+          +o Genscan: A simple scanline rendering program.
+
+       Sced may also be used to create OFF files, capable of
+       describing polyhedral wireframe objects.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 2 -
+
+
+
+       2.  _P_R_E_L_I_M_I_N_A_R_I_E_S
+
+       2.1  _R_e_g_i_o_n_s__O_f__T_h_e__W_i_n_d_o_w
+
+       The window consists of 5 or 6 distinct regions, depending on
+       whether the Scheme command line interface was compiled in.
+
+       On the left is a sequence of buttons - the command buttons.
+       Most of the program's functionality is invoked via these
+       buttons. Some of the buttons are menu buttons - they pop up
+       a menu when pushed. Such buttons have a small symbol to the
+       left of the label, indicating a menu. Single command buttons
+       (those without menus attached), may have rounded corners if
+       that option was compiled in.
+
+       The largest window area is the _v_i_e_w _w_i_n_d_o_w, in which the
+       scene appears. You may request a view window size larger
+       than the main window size, in which case the view window
+       will be contained within standard X Athena scrollbars.
+
+       If the Scheme command line interface is available, another
+       window will appear immediately below the view window. A
+       scheme interpreter runs in this window, interfaced to the
+       program as a whole. Read the section _T_h_e _S_c_h_e_m_e _C_o_m_m_a_n_d _L_i_n_e
+       _I_n_t_e_r_f_a_c_e for details.
+
+       In the bottom left corner of the main window is the _a_p_p_l_y
+       button which is used in various situations, but most often
+       to apply the text shown in the _t_e_x_t _e_n_t_r_y _w_i_n_d_o_w or to
+       complete an operation.
+
+       The _p_r_o_m_p_t _l_a_b_e_l is beside the apply button at the bottom of
+       the window, and generally gives some indication of what is
+       currently displayed in the _t_e_x_t _e_n_t_r_y _w_i_n_d_o_w.
+
+       Finally, the _t_e_x_t _e_n_t_r_y _w_i_n_d_o_w runs across the bottom of the
+       main window. It is used to obtain optional text where
+       appropriate. It is a standard Athena text widget, with all
+       the editing functions that go along with that. Note,
+       however, that the return key has been mapped to the apply
+       button, so hitting return while in this window is the same
+       as clicking on the apply button. See Appendix A for a full
+       list of the editing commands available in this window, or
+       any other text entry area.
+
+       2.2  _C_o_m_m_a_n_d__B_u_t_t_o_n__F_u_n_c_t_i_o_n_s
+
+       Command buttons are shown with or without a bitmap to the
+       left of the label. Those with the bitmap (lots of little
+       parallel lines) are menu buttons. In addition, non-menu
+       buttons may have rounded corners.
+
+
+
+
+
+
+
+
+
+
+
+                                  - 3 -
+
+
+
+       The following functions are available (listed according to
+       the button they appear on.)
+
+          +o FFFFiiiilllleeee:::: Load, Merge, Save, Export, Copyright, Quit
+
+          +o CCCCSSSSGGGG WWWWiiiinnnnddddoooowwww
+
+          ++++oooo WWWWiiiirrrreeeeffffrrrraaaammmmeeee:::: Load, Delete
+
+          +o OOOObbbbjjjjeeeecccctttt:::: New, Edit, Copy, Delete, Name, Attribs, Dense
+            Wire, Thin Wire, Change Base
+
+          +o LLLLiiiigggghhhhttttssss:::: Point, Spot, Area, Ambient
+
+          +o VVVViiiieeeewwww:::: Viewpoint, Pan, Lookat, Lookup, Distance, Eye
+
+          +o WWWWiiiinnnnddddoooowwww:::: Zoom, Image Size, Draw Mode, Save, Recall,
+            Delete
+
+          +o LLLLaaaayyyyeeeerrrrssss:::: New, Add Objects, Merge, Display
+
+          +o TTTTaaaarrrrggggeeeetttt
+
+          ++++oooo CCCCaaaammmmeeeerrrraaaa
+
+          ++++oooo PPPPrrrreeeevvvviiiieeeewwww
+
+          ++++oooo CCCClllleeeeaaaarrrr:::: Clear Objects, Reset
+
+          +o MMMMaaaaiiiinnnnttttaaaaiiiinnnn
+
+          ++++oooo EEEEddddiiiitttt
+
+       2222....3333  _S_e_l_e_c_t_i_o_n
+
+       There are 2 forms of selection - object selection and point
+       selection.  Object selection is used to choose objects for
+       editing etc. Point selection is used when a specific points
+       are needed, such as for the specification of constraints.
+
+       2.3.1  _O_b_j_e_c_t__S_e_l_e_c_t_i_o_n  To select an object, drag over any
+       of its edges while holding down button 1.  To deselect, use
+       button 2. A single mouse click is equivalent to dragging out
+       a small rectangle centred on the pointer.
+
+       Selected objects are shown highlighted. They will remain
+       selected until they are deselected or they become invisible
+       for some reason (such as through deletion or a layer display
+       change). Objects are generally NOT deselected by any of the
+       functions that manipulate them.
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 4 -
+
+
+
+       2.3.2  _P_o_i_n_t__S_e_l_e_c_t_i_o_n  When the program needs a point to be
+       entered, a small red square will appear on the nearest
+       available point to the mouse. A mouse click in this square
+       will select that point. Selected points appear in blue. If
+       there are no more points required, the scene will return to
+       its previous state. Selecting a point a second time will
+       deselect it. Selection doesn't happen until the button is
+       released, so can be cancelled by moving off the highlighted
+       point.
+
+       It matters which button you use to select a point. Button 1
+       will select the point by _r_e_f_e_r_e_n_c_e, button 2 will select as
+       an _o_f_f_s_e_t and button 3 will select as an _a_b_s_o_l_u_t_e point.
+       Currently which button you use will only make a difference
+       when selecting points for constraints, hence the full
+       implications will be discussed in terms of the editing
+       interface. Suffice to say here that button 1 will do for
+       most purposes. If a point refuses to be selected it may be
+       that the button you are using has been masked out.  Try
+       another button in this case. Points will also refuse to be
+       selected if they fail to sufficiently describe the feature
+       required. All this will be explained in more detail in terms
+       of editing.
+
+       If it is valid to do so, a prompt will also appear in the
+       text entry box at the bottom of the screen. You can type in
+       a 3-vector here which nominates the corresponding point in
+       the world. A vector is a sequence of three real numbers in
+       pretty much any useful number format (those accepted by
+       sscanf). When you have typed in the vector (eg _1._0 -_2._3
+       _5._0), either hit the return key or click in the _a_p_p_l_y button
+       to enter the text. If an invalid sequence was entered the
+       text will be ignored. If it is appropriate for the point to
+       be an offset point, a dialog will appear allowing you to
+       select the point type to use. If offset points are invalid
+       in this context, the point is selected as an _a_b_s_o_l_u_t_e point.
+
+       2.4  _A__W_o_r_d__o_n__T_e_x_t__E_n_t_r_y
+
+       Some dialogs requiring text entry have the return key mapped
+       to the _D_o_n_e or _A_p_p_l_y button, so that a mouse click is not
+       required. In general, such dialogs only require the entry of
+       one piece of text. One example is the Ambient light dialog.
+       A beep will sound if the return key is used at an
+       inappropriate time for other dialogs. The text entry window
+       at the bottom has the return key mapped to the apply button.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 5 -
+
+
+
+       2.5  _C_h_a_n_g_e_d__S_c_e_n_e
+
+       Anything that changes the properties of an object, including
+       its geometry and attributes, changes the scene as a whole.
+       Also, functions that add or remove entities from the program
+       environment, such as CSG objects, change the scene.
+       Conversely, view changes do not change the scene, because
+       they make no difference to the objects in the scene, only
+       the view of them.
+
+       If the scene has changed, certain functions will ask for
+       confirmation of some sort, generally whether you wish to
+       save the current scene first. After a save or load operation
+       the scene is always considered unchanged.
+
+       2.6  _C_a_n_c_e_l
+
+       _C_a_n_c_e_l buttons are provided for almost all dialogs. Choosing
+       cancel will exit the dialog leaving the scene as unchanged
+       as possible.
+
+       2.7  _C_o_l_o_r_s
+
+       All the colors mentioned in this guide are the compiled in
+       defaults. All colors may be changed through the appropriate
+       X resource. See the section on X Resources for details.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 6 -
+
+
+
+       3.  _B_A_S_I_C__F_U_N_C_T_I_O_N_S
+
+       3.1  _F_i_l_e__F_u_n_c_t_i_o_n_s
+
+       3.1.1  _L_o_a_d  If the scene has changed, you will be prompted
+       to save first. Choose save to go to the save dialog, or load
+       to get the load box.
+
+       In any case, the load dialog will eventually appear. The
+       file name may be entered at the top, or can be selected from
+       those shown in the windows below. The windows show the files
+       in 3 directories. Each directory is a subdirectory to it's
+       immediate left neighbour. To select a file, click on the
+       filename. To view another directory, click on the directory
+       name (shown with a / following its name). If there are more
+       files than will fit in the window, a scrollbar is available.
+       Click on Load or hit _r_e_t_u_r_n to load the file shown at the
+       top.
+
+       Any existing objects will be destroyed upon loading the
+       file, as if the _R_e_s_e_t command was invoked.
+
+       Load recognises filenames ending in .Z, .gz or .z as
+       compressed files, and automatically uncompresses them as it
+       loads. External format files are also automatically
+       recognised, and will be loaded appropriately. See the
+       _E_x_t_e_r_n_a_l _F_i_l_e _F_o_r_m_a_t section for details.
+
+       3.1.2  _M_e_r_g_e  Merge adds the contents of a file to the scene
+       currently being edited, without changing any existing
+       features. It is most useful for loading predefined CSG
+       objects for use in the current scene.
+
+       The dialog for selecting a file to merge is identical to
+       that for load.
+
+       3.1.3  _S_a_v_e  A save dialog, similar to that for load, will
+       appear. See load above for details. Enter a filename at the
+       top, or select a file. You WILL NOT be warned about
+       overwriting an existing file. Choose Save or hit _r_e_t_u_r_n to
+       save to the named file.
+
+       The scene is saved in a text format. Cameras, viewports, CSG
+       trees and the like are all saved.
+
+       If the _C_o_m_p_r_e_s_s option is in force, the actual name of the
+       file saved may have an extension added, such as .gz. See the
+       Defaults File section for more details.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 7 -
+
+
+
+       3.1.4  _E_x_p_o_r_t  If no target raytracer has been selected, you
+       will be asked to select one.  A dialog box, as for load and
+       save, will then appear.  The file produced is suitable for
+       use as an input file to the specified raytracer.
+
+       3.1.5  _C_o_p_y_r_i_g_h_t  A copyright message is displayed.
+
+       3.1.6  _Q_u_i_t  If the scene has changed a save prompt will be
+       issued, otherwise the program exits quietly.
+
+       3.2  _C_S_G__W_i_n_d_o_w
+
+       The CSG Window is brought to the front (or created if
+       necessary) and all the selected objects are transferred to
+       that window for use there. Any objects removed in this way
+       will be taken off the edit list. Edit constraint references
+       will be maintained between objects that are selected,
+       otherwise they will converted to offsets or absolutes. This
+       prevents dependencies between objects in different windows,
+       and ensures that CSG defining objects only have references
+       within themselves.
+
+       For a complete description of the CSG object interface, see
+       the later section _T_h_e _C_S_G _I_n_t_e_r_f_a_c_e.
+
+       3.3  _W_i_r_e_f_r_a_m_e
+
+       3.3.1  _L_o_a_d  An ascii OFF file, describing a wireframe
+       object, may be loaded using this option.  The standard load
+       dialog is presented, allowing you to select a file to load.
+       The file you load should be the header file for the object
+       (NOT the geometry file). If the global environment variable
+       OBJ_PATH is set it will be the default path for the files.
+
+       For a description of the OFF standard, see Randi J. Rost
+       "OFF - A 3D Object File Format" for details. This document
+       is available with the off distribution, a copy of which has
+       been placed at ftp.cs.su.oz.au://stephen/off.tar.gz.
+
+       The object loaded is made available as another basic object
+       class, just like a completed CSG object. They are accessed
+       via the _W_i_r_e_f_r_a_m_e button in the New Object dialog box.
+
+       Wireframe objects should not in general be used in CSG
+       objects. Most of the example objects provided with the OFF
+       distribution will cause errors if used as a component in a
+       CSG object. However, wireframes satisfying the following
+       properties may be used in CSG:
+
+          +o Each polygon in the wireframe must be planar and
+            convex.
+
+
+
+
+
+
+
+
+
+
+
+                                  - 8 -
+
+
+
+          +o Polygons must intersect ONLY along complete edges or at
+            single vertices.
+
+          +o The object must be closed.
+       Note that the majority of objects in the off example
+       database fail on point 1 (because of numerical inaccuracy)
+       and on point 3.
+
+       3.3.2  _D_e_l_e_t_e  This button is only active if wireframe
+       objects have been loaded. A dialog displaying the currently
+       available wireframe objects is displayed. Select an object
+       to delete, or cancel. Objects that have instances cannot be
+       deleted.
+
+       3.4  _O_b_j_e_c_t__F_u_n_c_t_i_o_n_s
+
+       3.4.1  _N_e_w__O_b_j_e_c_t  A dialog is presented for selecting a new
+       primitive object.  The objects available are Cube, Sphere,
+       Cylinder, Cone, Square and Plane. To select on object click
+       on its picture.
+
+       Selecting the _C_S_G _O_b_j_e_c_t button within the New Object dialog
+       will cause another dialog to be displayed, this time showing
+       all the CSG objects currently defined. Use the scrollbars to
+       view the range of objects available. Note that the CSG
+       Object button will be insensitive if there are no CSG
+       objects defined.
+
+       The _W_i_r_e_f_r_a_m_e button displays the currently loaded wireframe
+       objects, which may also be selected. This button is
+       insensitive if no wireframe objects have been loaded.
+
+       The new object is placed at the origin of the world. It is
+       also added to the list of objects awaiting editing. It will
+       have a name somehow indicative of its type and the number of
+       objects created so far. It has the default attributes. Note
+       that if the World layer is not being displayed, then the
+       object will not be visible.
+
+       3.4.2  _E_d_i_t  This command places all the currently selected
+       objects onto the list of objects waiting to be edited.
+       Editing in this context refers to the movement, scaling and
+       rotating of an object. If only one object is selected, it is
+       immediately edited.
+
+       3.4.3  _C_o_p_y  A copy is made of each object selected, and the
+       copy is placed on the list of objects ready for editing. The
+       new object has a name prefixed by the object it was copied
+       from. The new object will inherit everything from its
+       parent, including the constraints. Note that it inherits
+       shape and location, so will appear directly on top of its
+
+
+
+
+
+
+
+
+
+
+
+                                  - 9 -
+
+
+
+       source.
+
+       3.4.4  _D_e_l_e_t_e  You are prompted before all the selected
+       objects are deleted.
+
+       3.4.5  _N_a_m_e  For each of the selected objects, you are
+       prompted for a new name. The current name is provided as a
+       default. Names are for your benefit only. They are used to
+       refer to objects on the edit list, and are printed as
+       comments in exported files, allowing you to find the actual
+       instance in the raytrace input file. The program places no
+       restrictions on uniqueness or any other aspect of names.
+
+       3.4.6  _A_t_t_r_i_b_u_t_e_s__(_A_t_t_r_i_b_s_)  A dialog box for object
+       attributes is presented. The defaults are those for the
+       first object found on the list of selected objects. When
+       completed, the attributes of all the objects on the list are
+       changed. This is useful for changing the surface features of
+       a large number of objects at once.  If lights are among the
+       objects selected, separate dialogs will be presented for
+       them. See the section on Lights for details.
+
+       The simple surface attributes available are:
+
+          - _C_o_l_o_r: Enter normalised values ( 0 _< x _< 1.0 ) for red,
+            green and blue components of the object's color. This
+            is the color before any other effect is applied, ie all
+            other surface effects modify this color.
+
+          - _D_i_f_f_u_s_e _R_e_f_l_e_c_t_i_o_n: The diffuse component of an
+            object's final color models how much light from a
+            source it radiates back in all directions. A value
+            between 0 and 1 should be entered here.
+
+          - _S_p_e_c_u_l_a_r _C_o_e_f_f_i_c_i_e_n_t _a_n_d _P_o_w_e_r: These parameters are
+            used to model the highlights that appear on an object's
+            surface due to reflection of a light source. The
+            coefficient determines how much of the incident light
+            is reflected in this manner. The power determines how
+            large the highlight will be - the smaller the power the
+            larger but less bright the highlight. The coefficient
+            should be a normalised value, the power can be anything
+            positive.
+
+          - _R_e_f_l_e_c_t_i_o_n _C_o_e_f_f_i_c_i_e_n_t This parameter controls how much
+            light from other objects is reflected by object. It is
+            reflection in the sense of mirror reflection. Enter a
+            normalised value, but you should be aware that
+            reflective objects take much more time to render.
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 10 -
+
+
+
+          - _R_e_f_r_a_c_t_i_v_e _c_o_e_f_f_i_c_i_e_n_t: This is the coefficient of
+            refraction for transparent objects. For instance air is
+            1.0, glass is 1.5. This parameter will only have an
+            effect if the object has non-zero transparency.
+
+          - _T_r_a_n_s_p_a_r_e_n_c_y: This controls how much light passes
+            through the object. A value of 1.0 means that the
+            object is totally transparent, 0 means opaque. The
+            light passing through is refracted according to the
+            refractive index of the object. Like reflection,
+            transparency dramatically increases the rendering time
+            for an object.
+
+       It is also possible to set all the attributes to the
+       default, by clicking on the _D_e_f_a_u_l_t button. All attributes
+       on the selected bodies may be removed by choosing _N_o_n_e.
+
+       When all the attributes have been set, click on the _D_o_n_e
+       button. The program attempts to parse all the values entered
+       and set the attributes. If a given value could not be parsed
+       the value of that particular attribute will remain
+       unchanged.
+
+       In addition to the simple surface attributes, it is possible
+       to attach an attribute string to the object. The meaning of
+       this string and how it influences the rendered object
+       depends on the renderer being used. To access such renderer
+       specific attributes, click on the _T_a_r_g_e_t _S_p_e_c_i_f_i_c button in
+       the attributes dialog box. The results are dependent on the
+       current target renderer.
+
+       POVray, Rayshade: The dialog box presented allows a "texture
+            ..." string to be entered. The string is exported with
+            the object description, so needs to be a complete,
+            legal POV or Rayshade texture description.  For
+            Rayshade the string is exported following the object
+            transformation.  The simple attributes are still
+            exported to Rayshade, so use these to set the color and
+            surface attributes of the object. For POV, the simple
+            attributes will be ignored if specific attributes are
+            defined and active.
+
+            The _T_r_a_n_s_f_o_r_m _T_e_x_t_u_r_e toggle controls whether or not
+            the texture is transformed with the object. If active,
+            the same transformation that is applied to the object
+            is applied to the texture (the texture is exported
+            before the transformation for POV, or has a
+            transformation applied in Rayshade).
+
+            The _O_p_e_n toggle applies only to cylinders and cones.
+            Cylinders and cones with this attribute set will appear
+
+
+
+
+
+
+
+
+
+
+
+                                  - 11 -
+
+
+
+            without endcaps. Normally all cylinder and cones would
+            appear with endcaps.
+
+            _I_n_c_l_u_d_e_s pops up a dialog box in which a sequence of
+            #include statements may be entered. These statements
+            appear at the top of the exported file, allowing
+            textures declared within them to be used for object
+            textures. You need only type the filenames, one per
+            line, without quotes. Each line is exported as a
+            filename to #include. Beware of spaces before and after
+            filenames on the line.
+
+            _D_e_c_l_a_r_a_t_i_o_n_s allows for any number of #declare
+            statements to be entered for POV, or #define directives
+            for Rayshade.  These are exported immediately after any
+            #includes, allowing texture declarations to be used on
+            any object. You need to enter the complete declaration,
+            such as
+            #declare Red = pigment { color red 1.0 green 0.0 blue
+            0.0 } // A POV example
+
+            The _D_o_n_e button completes declaration of the specific
+            attributes.  These attributes are then used in
+            preference to any simple attributes that may have been
+            declared. Specific attributes are only used if the Done
+            button in the Specific Attributes dialog is used. Using
+            the Done button in the Simple Attributes dialog causes
+            simple attributes to be reinstated.
+
+            The _S_i_m_p_l_i_f_i_e_d button causes the Simple Attributes
+            dialog to be presented again. In this situation any
+            specific attributes will not be used, although they
+            will be saved for later use. You may wish to use this
+            method to disable specific attributes while previewing
+            or test rendering.
+
+            _C_a_n_c_e_l leaves the specific attributes of an object
+            unchanged, although if any simple attributes had been
+            adjusted they will remain adjusted.
+
+       Radiance: A dialog prompting for a single modifier string is
+            presented.  The string entered must be a legal Radiance
+            modifier name. Use the _D_e_c_l_a_r_a_t_i_o_n_s button to pop up a
+            window in which modifier declarations may be entered.
+            The contents of the Declaration window are exported as
+            is at the start of the Radiance file, so all modifiers
+            should be declared within that window.
+
+            The _I_n_v_e_r_t _N_o_r_m_a_l_s button causes the surface normals of
+            the object to be inverted as they are exported.
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 12 -
+
+
+
+            The _O_p_e_n button causes cylinders and cones to be
+            exported without endcaps.
+
+            The _D_o_n_e, _S_i_m_p_l_i_f_i_e_d _a_n_d _C_a_n_c_e_l buttons behave the same
+            as for POV or Rayshade. See the final three paragraphs
+            of the above section for information.
+
+       RenderMan: The Renderman dialog is identical to that for
+            Radiance. However, the _I_n_v_e_r_t _N_o_r_m_a_l_s button has no
+            effect. The string entered is exported immediately
+            following a Surface statement in the exported file,
+            before the object itself is exported. Each object is
+            included within AttributeBegin/End statements, so the
+            Surface staement applies for as long as it takes to
+            define the object. A sample string might be "matte"
+            "Kd" 0.8. Note that you need to include the quotes
+            because the RIB interface requires them.
+
+       Genray, Genscan, None: These renderers have no specific
+            attributes, so an error window is popped up. You are
+            then returned to the simple attributes dialog.
+
+       3.4.7  _D_e_n_s_e__W_i_r_e_f_r_a_m_e_s  The ruled objects (cylinders and
+       cones) and spheres have the option for dense wireframes,
+       which use progressively twice as many generating lines,
+       giving a much better approximation to the true surface. Use
+       this command to convert selected objects to the next level
+       of wireframe density. This option is essential for good
+       results using Radiance. See the "Renderer Specific Notes"
+       section for details. Note that version 0.61 only had one
+       additional density level, and you couldn't go back. These
+       restrictions have been removed in subsequent versions.
+
+       3.4.8  _T_h_i_n__W_i_r_e_f_r_a_m_e_s  This is the inverse function to
+       _D_e_n_s_e _W_i_r_e_f_r_a_m_e. It makes a cylinder cone or sphere
+       wireframe one level less dense. You cannot reduce below the
+       initial density (using 8 generators).
+
+       3.4.9  _C_h_a_n_g_e__B_a_s_e  The _C_h_a_n_g_e _B_a_s_e function allows the base
+       type of an object instance or instances to be changed. For
+       example, you can change a cube to a cylinder.  The function
+       is most useful for adjusting the base type of CSG objects
+       after modification of the original CSG type.
+
+       When the function is selected, the _n_e_w _O_b_j_e_c_t dialog is
+       presented.  Select the new base type as if choosing a new
+       object. When a new type is chosen, all the selected objects
+       are adjusted to be of this new type. All that changes is the
+       type. The same transformation is applied, the same
+       constraints are active and so on. The only visible change is
+       a switch in wireframes. Note that upon editing the Origin
+
+
+
+
+
+
+
+
+
+
+
+                                  - 13 -
+
+
+
+       and Scaling point may appear to be in strange places not
+       connected to any vertex of the object, but this causes no
+       problem for the interface.
+
+       3.5  _L_i_g_h_t__M_a_n_i_p_u_l_a_t_i_o_n__F_u_n_c_t_i_o_n_s
+
+       3.5.1  _P_o_i_n_t  A point light source is created at the origin.
+       Its default intensity is 1.0 in all colors. The light may be
+       selected and editing like any other object. Note that
+       rotating and scaling a point light source has no meaning in
+       the final scene, although it may help editing.
+
+       The dialog to change a point light's intensity is accessed
+       through the normal Object Attributes menu. It asks for three
+       values between 0 and 1.0 representing RGB intensities. If
+       only one value is entered it is taken as the value for all
+       three of red, green and blue.
+
+       3.5.2  _S_p_o_t  A Spotlight light source is created. Initially
+       the spotlight is located at the origin, pointing in the
+       negative Z direction. Editing the object controls both its
+       position and the shape and direction of the "cone" of light
+       emited.  The wireframe used is indicative of this cone.
+
+       The dialog to change a spotlight's parameters is accessed
+       through the normal Object Attributes menu. Aside from RGB
+       intensity values, it asks for several other things:
+
+       _O_u_t_e_r _R_a_d_i_u_s controls the falloff of light at the edge of
+            the cone.  The light intensity will begin to decline at
+            the edge of the cone indicated by the object wireframe,
+            with a apex angle of _a degrees. It will have completely
+            fallen to 0 by _O_u_t_e_r _R_a_d_i_u_s times this _a_p_e_x angle.  So
+            setting a value of 1 for _O_u_t_e_r _R_a_d_i_u_s means the light
+            falls off immediately. A value of 1.5 indicates that
+            the light takes some time to fall off. Note that values
+            must always be greater than 1.
+
+       _T_i_g_h_t_n_e_s_s controls how quickly the light falls off at the
+            edge. Higher values give sharper falloffs. The value
+            should be between 1 and 100. This parameter affects the
+            fuzziness of edges.
+
+       _I_n_v_e_r_t causes the cone of light to be inverted. that is, the
+            area within the cone shown on screen will be dark, and
+            the area outside will be lit. This is how spotlight
+            angles greater than 90 degrees are specified.
+
+       Note that Genray and Genscan do not have Spotlight
+       primitives.
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 14 -
+
+
+
+       3.5.3  _A_r_e_a  An area light source is created. Initially it
+       is located at the origin, with the area lying in the X-Y
+       plane. The object may be edited to move it and resize and
+       reorient the area. The square wireframe used indicates the
+       size and location of the light.
+
+       The dialog to change an arealight's parameters is accessed
+       through the normal Object Attributes menu. Aside from RGB
+       intensity values, it asks for several other things:
+
+       _X_n_u_m are the number of light sources in the X direction (as
+            the light is drawn initially). This attribute only has
+            meaning for POV and Rayshade, where an arealight is
+            approximated by lots of point lights. More lights give
+            a better result, but significantly increase rendering
+            time.
+
+       _Y_n_u_m is the number of light sources in the Y direction.
+
+       _J_i_t_t_e_r controls whether the point lights are jittered to
+            give a better result. Jittering increases rendering
+            time, but produces softer shadows and reduces banding
+            in intensity.
+
+       Note that Genray and Genscan do not have Arealight
+       primitives.
+
+       3.5.4  _A_m_b_i_e_n_t  You are prompted for the ambient light level
+       in the scene. The light color should be entered as
+       normalised RGB values. This light source will diffusely
+       light all object in the scene, regardless of whether or not
+       they are in shadow. Note that POVRay is unable to make full
+       use of this feature, as it only allows for monochromatic
+       ambient light. If only one value is entered, the program
+       will assume it is an intensity value, and set each of the
+       RGB values equally to that entered, giving white light.
+
+       3.6  _V_i_e_w__M_a_n_i_p_u_l_a_t_i_o_n__F_u_n_c_t_i_o_n_s
+
+       A range of functions are provided for manipulating your view
+       of the scene. There are several key viewing parameters:
+
+          - _V_i_e_w_p_o_i_n_t: is a vector from the centre of the world out
+            to the eye. In other words it controls which direction
+            you are looking from.
+
+          - _L_o_o_k _A_t: is a point in the world which is the centre of
+            the world for viewing purposes. This point will always
+            appear in the centre of the viewing window.
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 15 -
+
+
+
+          - _L_o_o_k _U_p: is a vector defining which way is up. A line,
+            parallel to this vector and passing through the _L_o_o_k _A_t
+            point will always appear to be vertical on the screen,
+            although it may be leaning into or out of the screen.
+
+          - _D_i_s_t_a_n_c_e: refers to the distance from the _L_o_o_k _A_t point
+            to the abstract viewplane window you are looking
+            through. Points lying behind the viewplane will have
+            strange things happen to them, and most likely become
+            invisible. This distance also influences the apparent
+            size of the scene.
+
+          - _E_y_e _D_i_s_t_a_n_c_e: is the distance from the viewplane to the
+            eye. This controls the amount of perspective in the
+            scene - shorter eye distances relative to viewplane
+            distances give more perspective. For parallel views,
+            set this value to be something large relative to the
+            viewplane distance. Eye distance also influences the
+            apparent size of the scene - shorter eye distances make
+            the scene appear smaller.
+
+       3.6.1  _V_i_e_w_p_o_i_n_t  The program goes into change view mode,
+       where most buttons are desensitized and the cursor is a
+       cross. The cursor is theoretically lying on a sphere,
+       centred on the _L_o_o_k _A_t point with poles in the _L_o_o_k _U_p
+       direction. The current viewpoint is a point on this sphere.
+       Moving the mouse moves the viewpoint on the sphere in the
+       following way:
+
+          - _B_u_t_t_o_n _1 _M_o_t_i_o_n: The viewpoint is free to move to any
+            point on the sphere. Moving the mouse up or down rolls
+            the world in the corresponding way, while moving
+            sideways rotates the world around the _L_o_o_k _U_p vector.
+            Moving the mouse all the way to the top of the window
+            will give the impression of looking straight up the
+            _L_o_o_k _U_p vector, while moving all the way to the bottom
+            will have you looking straight down it. Moving from one
+            side of the window to the other will do a complete
+            circuit about the world. You may find it easier ignore
+            this description and learn by experimenting with the
+            interface.
+
+          - _B_u_t_t_o_n _2 _M_o_t_i_o_n Moving the mouse with button 2 down
+            only allows for circling the world, it prevents moving
+            the view higher or lower in the the scene.
+
+          - _B_u_t_t_o_n _3 _M_o_t_i_o_n This allows only for apparent motion up
+            or down in the scene.
+
+       The current viewpoint is shown in the text entry window. You
+       can specify a particular viewpoint (in vector format) here.
+
+
+
+
+
+
+
+
+
+
+
+                                  - 16 -
+
+
+
+       If for some reason your text is unacceptable, the view will
+       remain the same.
+
+       Click on the _A_p_p_l_y button to complete a viewpoint changing
+       session.  Clicking on _U_n_d_o in the edit interface will also
+       complete the view change.
+
+       3.6.2  _P_a_n  This is like panning a film camera. It rotates
+       the view around the current eye position, so the scene
+       appears to slide past you. In other words, both the
+       viewpoint and look at point are changing while the eye stays
+       in the same position in the world. The mouse buttons control
+       constrained motion similar to a viewpoint change.
+
+       3.6.3  _L_o_o_k__A_t  When this item is selected the program goes
+       into _p_o_i_n_t _s_e_l_e_c_t_i_o_n mode, where you may enter a new point
+       for the centre of the world.  You can type in an arbitrary
+       point if you wish. If the point entered in the text entry
+       window is an offset point, the Look At point will be offset
+       from its current location by the amount entered.
+
+       3.6.4  _L_o_o_k__U_p  The program goes into _p_o_i_n_t _s_e_l_e_c_t_i_o_n mode
+       waiting for 2 points defining the new up direction. The _L_o_o_k
+       _U_p vector will be the one _f_r_o_m the first point entered _t_o
+       the second point. Each point can be arbitrarily entered. The
+       vector just chosen may not necessarily end up being
+       vertical, due to perspective effects, but a vector parallel
+       in the world, passing through the _L_o_o_k _A_t point, will be.
+
+       3.6.5  _D_i_s_t_a_n_c_e  As with viewpoint changing, most of the
+       buttons are desensitized. The cursor changes to an arrow.
+       Button down mouse motion will cause the distance to change.
+       Pushing up moves you closer to the scene, while dragging
+       down moves you further away. Each button has a different
+       speed - button 1 is medium, button 2 fast and 3 slow. You
+       may also enter a new distance in the text entry window. The
+       apply button completes a session.
+
+       3.6.6  _E_y_e__D_i_s_t_a_n_c_e  Similar to distance, the eye distance
+       is adjusted by pushing or dragging the mouse. Note that
+       moving the eye closer will appear to make the scene smaller
+       due to perspective effects. Again you may enter a value and
+       the apply button completes a session. Eye distance is
+       synonymous with the focal length parameter taken by many
+       renderers.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 17 -
+
+
+
+       3.7  _W_i_n_d_o_w__M_a_n_i_p_u_l_a_t_i_o_n__F_u_n_c_t_i_o_n_s
+
+       Window functions act with the View functions to control the
+       current view of the scene.
+
+          - _Z_o_o_m: controls the magnification of the scene.
+
+          - _I_m_a_g_e _S_i_z_e: controls the size of the window in which
+            the scene appears. This is the window contained within
+            scrollbars. The command does not adjust the outer
+            window size. Note that it is the image size values that
+            are sent to the renderer to control the rendered size
+            of the image (although POV ignores this option). It is
+            also the size used in camera calculations. If no image
+            size has been specified, it defaults to the current
+            size of the view window.
+
+          - _D_r_a_w _M_o_d_e: controls how back face edges are drawn.
+
+          - _S_a_v_e: Saves the current viewport for later recall.
+
+          - _R_e_c_a_l_l: Recalls a viewport.
+
+          - _D_e_l_e_t_e: Deletes a saved viewport.
+
+       3.7.1  _Z_o_o_m__(_M_a_g_n_i_f_i_c_a_t_i_o_n_)__F_u_n_c_t_i_o_n  A dialog appears
+       asking for the new zoom value. This controls the apparent
+       size of the image on screen. Clicking on the _A_p_p_l_y button
+       applies the new zoom without closing the dialog, whereas
+       _D_o_n_e applies the value and closes the dialog.  _T_o _F_i_t causes
+       the zoom value to adjust to the largest value such that all
+       the objects are visible in the scene. This is mostly useful
+       for finding "lost" objects or expanding the scene to fill
+       the available space. The return key is mapped to the Done
+       button.
+
+       3.7.2  _I_m_a_g_e__S_i_z_e  A dialog box appears asking for new width
+       and height values for the _v_i_e_w _w_i_n_d_o_w.  Enter positive
+       integers for each value, and choose _D_o_n_e.  Note that if the
+       image size you enter is smaller than the available area in
+       the program window, you will get a window larger than you
+       asked for. However when the file is exported the value will
+       be as you defined it.  If you want to see how big it
+       actually is, resize the program window until scrollbars
+       appear around the view window.
+
+       The _T_o _F_i_t button sets the values to the current visible
+       area, so there will be no scrollbars.
+
+       _C_a_n_c_e_l exits the dialog leaving the actual values unchanged,
+       regardless of whether any of the values in the dialog have
+
+
+
+
+
+
+
+
+
+
+
+                                  - 18 -
+
+
+
+       been modified.
+
+       3.7.3  _D_r_a_w__M_o_d_e  There are three ways in which Sced draws
+       back facing edges object edges.  they may be drawn fully,
+       dashed or not at all. The _D_r_a_w _M_o_d_e item pops up a dialog
+       from which you may select the mode you wish to use. The
+       current mode is shown selected as a default.
+
+       3.7.4  _S_a_v_e  You are prompted for a name for the current
+       view, which is then saved to be available via the Recall
+       menu item. All aspects of the view are saved, including
+       image size and zoom.
+
+       3.7.5  _R_e_c_a_l_l  A list of currently defined views is popped
+       up. Choose the view you want by clicking on it. The stored
+       view will be reinstated. Those views that appear in the
+       defaults file will appear, as will any you have saved. One
+       special view, called _C_a_m_e_r_a, sets the view to match the
+       currently defined camera, if it exists. Any views defined in
+       the _D_e_f_a_u_l_t_s _F_i_l_e will appear here also.
+
+       3.7.6  _D_e_l_e_t_e  A dialog appears with all the currently
+       defined views. Choose the one you wish to delete and it will
+       be removed from the list.
+
+       3.8  _L_a_y_e_r__F_u_n_c_t_i_o_n_s
+
+       The Layer functions provide control over which objects are
+       visible on the screen. Conceptually, each object belongs to
+       a layer. New objects belong to the _W_o_r_l_d layer, unless they
+       were copied or they have explicitly been added to another
+       layer. At any given time, a set of layers is displayed, and
+       those objects which appear in the displayed layers are
+       visible. Objects in layers not displayed are not visible.
+       Invisible objects are still exported and saved. An object
+       can only belong to one layer at a time.
+
+       3.8.1  _N_e_w  A new layer is created containing the selected
+       objects. You are prompted for a name (a default is
+       provided). The objects are removed from their previous
+       layer, and the new layer is displayed.
+
+       3.8.2  _A_d_d__O_b_j_e_c_t_s  You are asked to select a layer, to
+       which the selected objects will be added. The objects just
+       transferred take on the visibility of the destination layer.
+       If the new layer is not visible, they will also be removed
+       from the edit or selection lists.
+
+       3.8.3  _M_e_r_g_e  You must select two layers. The first chosen
+       is deleted and all the objects from that layer added to the
+       second selected. If the _W_o_r_l_d layer is one chosen, the other
+
+
+
+
+
+
+
+
+
+
+
+                                  - 19 -
+
+
+
+       will be deleted regardless of the order selected. The
+       objects transferred take on the visibility of the
+       destination layer. If the new layer is not visible, they
+       will also be removed from the edit or selection lists.
+
+       3.8.4  _D_i_s_p_l_a_y  A popup containing all the defined layers is
+       presented. Those displayed are shown highlighted. Each label
+       is a toggle controlling the display of that layer. When a
+       layer is toggled, the scene is redrawn immediately to
+       reflect the change. Choose _F_i_n_i_s_h when you are satisfied.
+       Objects in layers that are hidden will be removed from the
+       selection and edit lists.
+
+       3.9  _T_a_r_g_e_t
+
+       This button allows for the choice of the target renderer.
+       This not only determines the format of the exported file, it
+       also changes the dialog presented for camera definition and
+       specific attributes.
+
+       3.10  _C_a_m_e_r_a
+
+       A dialog for the entry of camera data is presented. The
+       actual parameters prompted for are dependent on the target
+       raytracer, and if no target has been selected it is prompted
+       for first.
+
+       You can modify any parameter - each corresponds to a camera
+       definition element for the target renderer.
+
+       Alternatively, you can use the _T_o _V_i_e_w_p_o_r_t button to match
+       the camera to the current viewing specifications. This is
+       the easiest way to define a camera.
+
+       A _D_e_f_a_u_l_t button is also provided, although the default
+       settings for each of the renderers are useless for anything
+       other than the simplest scene.
+
+       When all is finished, choose the _D_o_n_e button, which will
+       save the camera as defined.  _C_a_n_c_e_l will close the dialog
+       leaving the camera unchanged from its previous state.
+
+       3.11  _P_r_e_v_i_e_w
+
+       A preview dialog box is popped up, allowing you to specify
+       the parameters for the preview. The renderer options are
+       shown at the top. Choose the renderer you wish to preview
+       with. You may also select a width and height for the preview
+       image. The default is the size of the current image window.
+       Since only the window size is adjusted using these
+       parameters (not the camera), it is good to keep them in
+
+
+
+
+
+
+
+
+
+
+
+                                  - 20 -
+
+
+
+       proportion to the current image size. The _P_r_e_v_i_e_w _A_l_l button
+       causes all the objects to be previewed, rather than the
+       default of just the selected objects. Choose _G_o! to proceed
+       with the preview.
+
+       If no lights have been defined, a light located near the eye
+       is used, otherwise the defined lights are used.
+
+       The selected objects are exported to a temporary file then
+       previewed using a renderer chosen for the task. If the
+       process fork succeeded a dialog will pop up indicating the
+       file that the renderer's output is going to, and asking for
+       recognition. If for some reason the preview file cannot be
+       exported, or the renderer cannot be forked, a message will
+       inform you.
+
+       The target renderer is not necessarily used because it may
+       be unsuited to previewing (Rayshade does not give a runtime
+       view of the picture being traced and POVRay is very slow but
+       gives a dynamic color view.) The full pathname for each of
+       the renderers needs to be defined in the defaults file, or
+       compiled in. It is also possible to specify options for the
+       preview within the defaults file.
+
+       3.12  _C_l_e_a_r
+
+       There are two variations of this function.
+
+       _C_l_e_a_r _O_b_j_e_c_t_s deletes all the objects in the Scene and CSG
+            window.  It clears any edit and selection lists also.
+            It does not delete existing base objects.
+
+       _R_e_s_e_t performs a _C_l_e_a_r _O_b_j_e_c_t_s, and then deletes all the
+            base objects that have been defined - that is any CSG
+            and Wireframe objects. It also deletes any saved
+            viewports and layers.
+
+       3.13  _M_a_i_n_t_a_i_n
+
+       The Maintain button is a toggle. It controls interactive
+       constraint maintenance. If on, constraints will be
+       interactively maintained as objects are dragged and edited.
+       If off, constraints will only be maintained at the end of
+       each object edit session. On is the better setting from
+       almost all points of view, except refresh speed. Turn
+       maintenance off if the number of dependent objects is large
+       and updating is much slower than usual.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 21 -
+
+
+
+       4.  _E_D_I_T__I_N_T_E_R_F_A_C_E
+
+       4.1  _O_v_e_r_v_i_e_w
+
+       Sced is a _C_o_n_s_t_r_a_i_n_t _B_a_s_e_d editor, in that objects are
+       manipulated through constraints on their location, shape and
+       orientation. Constraints are also used to remove the 3rd
+       dimension from the world for interaction, to allow
+       meaningful interpretation of a 2D mouse point as a 3D world
+       point. Constraints may also be _m_a_i_n_t_a_i_n_e_d which means that
+       the relative position of objects may remain the same even
+       when one of the objects is moved.
+
+       Sced works by constraining 3 features of each body:
+
+          - _T_h_e _O_r_i_g_i_n controls the _p_o_s_i_t_i_o_n of the object. The
+            Origin appears in Green somewhere in the scene,
+            initially at the centre of the object.  Moving the
+            origin point moves the body with it, and constraining
+            it constrains where the body is in space. The origin
+            also performs 2 other key functions. It the the centre
+            for all rotation of the body. That is, the origin will
+            stay in the same spot as the body rotates around it.
+            This lets you rotate about any point you like. The
+            origin is also the centre for scaling the object. That
+            is, the origin stays where it is, regardless how you
+            scale the object. This means you can move the object
+            while scaling, or scale about one corner of the object.
+            The outcome of all this is that the origin stays where
+            you put it, no matter what other operations you apply.
+            However you do have a great deal of choice of where you
+            may define it to be.
+
+          - _A_x_e_s control the orientation or _a_l_i_g_n_m_e_n_t of the
+            object. They appear as red, green and blue lines
+            sticking out of the origin. The red, or _M_a_j_o_r axis is
+            longer than the green, or _M_i_n_o_r axis. The blue, _O_t_h_e_r
+            axis is the shortest. The Major axis always takes
+            precedence over the Minor axis, and the Other doesn't
+            control anything much. Scaling is along the axes. When
+            the axes rotate, the body rotates with them.
+
+          - _T_h_e _S_c_a_l_i_n_g _P_o_i_n_t controls _s_c_a_l_i_n_g of the object. It
+            appears in Red on one vertex of the body. When this
+            point moves the object scales to keep the point at the
+            same vertex. Scaling is about the Origin and along the
+            Axes, so you can shear the body if you want.
+
+       The cursor will change depending on what feature the mouse
+       is over. If the feature under the mouse is not open to
+       interaction, the cursor will be a closed circle. The cursor
+
+
+
+
+
+
+
+
+
+
+
+                                  - 22 -
+
+
+
+       will be a pair of arrows in the rotation region.  It will be
+       a diamond cross in the origin region and a sizing arrow in
+       the scale point.
+
+       The features just described may be constrained in various
+       ways. The constraint types available follow. The number in
+       brackets is the number of points needed to define the
+       constraint.
+
+          - _P_l_a_n_e (_3): The point is constrained to lie in the given
+            plane, defined by 3 points on the plane. The plane is
+            represented by a large rectangle with a cross through
+            it.
+
+          - _L_i_n_e (_2): The point lies on a line as defined by 2
+            other points on the line. A line is represented by a
+            line segment.
+
+          - _P_o_i_n_t (_1): Completely defines the location of a point.
+            A circle is drawn around the point.
+
+          - _M_i_d_p_l_a_n_e (_2): The point must lie on a plane equidistant
+            from 2 points. This is effectively a plane constraint,
+            but with a different method of specifying the plane,
+            and is represented as a plane.
+
+          - _M_i_d_p_o_i_n_t (_2): The constraint defined is a point - the
+            midpoint of the two selected.
+
+          - _O_r_i_g_i_n _L_i_n_e _o_r _P_l_a_n_e (_1,_2): The constraint that results
+            is a line or plane which passes through the current
+            origin point and the point(s) selected. The line or
+            plane will follow the origin around as it changes.
+
+          - _S_c_a_l_e _L_i_n_e _o_r _P_l_a_n_e (_1,_2): The constraint is a line or
+            plane which always passes through the current scaling
+            point and the points selected.
+
+          - _A_x_i_s (_2): An axis for rotating about, defined to be
+            parallel to a line joining 2 given points. It appears
+            as an arc on the arcball sphere. The arc could be
+            considered as the edge of a disc with the defined axis.
+
+          - _A_x_i_s _P_l_a_n_e (_3): A plane whose normal is used as a
+            rotation. It essentially defines an Axis in a different
+            way, and is drawn as an axis.
+
+          - _A_l_i_g_n_m_e_n_t _P_o_i_n_t (_1): A line from the current origin to
+            another point which the constrained axis will point
+            along.
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 23 -
+
+
+
+          - _A_l_i_g_n_m_e_n_t _L_i_n_e (_2): A line joining two points which an
+            axis is constrained to be parallel to.
+
+          - _A_l_i_g_n_m_e_n_t _P_l_a_n_e (_3): A plane which an axis is
+            constrained to be perpendicular to.
+
+       Constraints are defined by choosing the type off a menu and
+       then selecting points which define the constraint. To select
+       a plane, choose 3 points you want the plane to pass through.
+       To choose a line, select 2 points that the line will pass
+       through.
+
+       The type of point used to define a constraint determines how
+       the constraint is maintained.
+
+       _R_e_f_e_r_e_n_c_e _P_o_i_n_t_s (button 1) are attached to a particular
+            object.  As the object they are attached to moves, so
+            does the defining point.  Use this type of point to
+            specify relationships between objects that you want
+            maintained. When choosing a reference point, button 1
+            down will cause the object referenced to change color.
+            If this is not the object desired, move the mouse with
+            the button down to cycle through other objects which
+            may be referenced by that point. Button up inside the
+            point rectangle chooses the currently highlighted
+            object.
+
+       _O_f_f_s_e_t _P_o_i_n_t_s (button 2) stay in the same place relative to
+            the current object. Use these to specify scaling
+            constraints which relate to the body being edited only.
+            If offset points are entered via the text entry window,
+            the vector entered is taken as the offset from the
+            centre of the body.  Offset points are also useful as
+            origin line constraint specifiers, as they encode
+            motion in a particular direction.
+
+       _A_b_s_o_l_u_t_e _P_o_i_n_t_s have a fixed position in space. Use them to
+            position an object somewhere where you don't want it to
+            move from.
+
+       Reference points are the basis for constraint maintenance.
+       They allow the current object to react to changes in the
+       object it references. There are limitations on what can be
+       used as a reference point. In particular, reference points
+       cannot lead to cycles. The system will not allow references
+       to objects that depend on the current object. So you can't
+       say object A is the same height as object B, and then say
+       that object B is the same height as A. The system will
+       refuse to select reference points from dependent objects,
+       which are shown dashed during editing.
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 24 -
+
+
+
+       The Origin and Scaling points both have a set of available
+       constraints associated with them. To actually constrain the
+       point, choose one or more of the available constraints. The
+       selected constraints are said to be active.  More than one
+       constraint can be active at any one time, and the system
+       solves for a resultant, which is like having all the
+       selected constraints active at the same time. Interactive
+       rotation also has a set of available constraints, but it is
+       only meaningful to have one selected at a time. The Major
+       and Minor axis can each have a constraint associated with
+       them, but this constraint is chosen explicitly. New
+       constraints are added to the available lists, but not made
+       active.
+
+       Constraints are named for your convenience. When a new
+       constraint is added you are prompted for a name. A default
+       is provided. Once again names need not be unique or anything
+       like that (but you may have problems telling them apart).
+
+       The whole system works by doing the following:
+
+          - Make the origin satisfy the origin constraints. This
+            will position the object somewhere.
+
+          - Make the axes satisfy any alignment constraints. This
+            will orient the object somehow.
+
+          - Make the scaling object satisfy any scaling
+            constraints. This will scale the object.
+
+       If a point is effectively Plane or Line constrained it may
+       be moved with the mouse in such a way that the constraint is
+       maintained. To move a partly constrained point, push any
+       button down on the point and drag it to where you want it to
+       go. If you drag the Origin point the object will move with
+       the mouse. It may also be scaled to maintain the scaling
+       constraints. If you drag the Scaling point the object will
+       be scaled, and the origin will stay where it is.
+
+       If constraints that cannot be mutually satisfied are chosen
+       for a point, the special Inconsistent constraint results,
+       and the point is fixed until the constraints are adjusted.
+       An inconsistently constrained point has a cross drawn
+       through it.
+
+       4.2  _P_o_s_i_t_i_o_n
+
+       It is the Origin that defines the position of the object.
+       The origin may be moved in 2 ways:
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 25 -
+
+
+
+          - If partially constrained it may be dragged around with
+            the mouse by clicking any button down on the point and
+            dragging it to its new location.
+
+          - A constraint may be selected which, by forcing
+            satisfaction, moves the origin to a new location. This
+            is actually a more definite way of doing things,
+            because it allows for precise positioning. The object
+            will move by the MINIMUM amount to satisfy the new
+            resulting constraint. This means the point will move
+            perpendicular to the constraint until it hits it.
+       If the Origin is Point- or Inconsistently-Constrained, or
+       not constrained at all, it cannot be moved interactively. It
+       may still move if something it depends on is moved, but more
+       on that later.
+
+       4.3  _S_c_a_l_i_n_g
+
+       The Scaling Point defines the scaling of an object. It may
+       be moved in 2 ways just as for the Origin.
+
+       An object can also be scaled in response to a Position or
+       Rotation drag, if the drag results in the Scaling
+       constraints being violated. This may seem dangerous but is
+       in fact very useful behaviour which allows a particular
+       point to be put somewhere and then kept there.
+
+       All scaling happens with respect to the Origin and the Axes.
+       So scaling will never cause the Origin to move, and is
+       always relative to the Axes. If you don't change the axes
+       this means that scaling is always along the object's natural
+       axes.
+
+       Scaling uses the ratio between the original distance to the
+       origin and the new distance to determine how much the object
+       should be scaled in each direction.  If the original
+       distance to the origin along any axis is 0, then a
+       constraint is automatically enforced to stop you scaling in
+       that direction. These are called forced constraints.
+
+       4.4  _R_o_t_a_t_i_o_n
+
+       Interactive rotation happens through a mouse drag.  If the
+       button goes down anywhere in the scene that isn't the Origin
+       or Scaling Point, it is assumed rotation is taking place.
+       If a rotation constraint is active then the object will
+       rotate about this axis and around the Origin. The interface
+       is Shoemake's [1] Arcball interface. On the screen there is
+       a dashed circle centred on the Origin point. This defines
+       the edge of an imaginary sphere centred in the Origin and
+       with the radius indicated. When you move the mouse you are
+
+
+
+
+
+
+
+
+
+
+
+                                  - 26 -
+
+
+
+       notionally dragging it around on this sphere, and the object
+       moves underneath. The interface works best if the motion is
+       constrained, when you should try to drag somewhere near the
+       indicated arc. Dragging around the outside of the dashed
+       circle is the same as rotating about an axis out of the
+       screen, which may be useful. As rotation interfaces go this
+       is good, so take the time to play with it. For full details,
+       implementation and all, see the paper or the book "Graphics
+       Gems 4".
+
+       The scaling constraints are maintained at all times through
+       a rotation, which can give some interesting results,
+       particularly if the scaling constraint suddenly goes from
+       inconsistent to satisfiable. Undo will always get you back.
+
+       4.5  _A_l_i_g_n_m_e_n_t
+
+       Alignment involves rotating the object so that one of the
+       axes satisfies some constraint. To align an axis, choose the
+       type of constraint from the Major or Minor axis menus, and
+       define the points for the constraint.  The constraint will
+       remain active until you remove it by selecting remove from
+       the same menu. Axes can be temporarily aligned with one of
+       the interactive rotation axes by choosing Temp Align off the
+       axis menu.
+
+       Alignment constraints will cause corresponding interactive
+       rotation constraints to be enforced to prevent breaking the
+       constraints. The constraints will be deactivated when the
+       alignment is removed.
+
+       4.6  _D_e_f_a_u_l_t__C_o_n_s_t_r_a_i_n_t_s
+
+       Three default constraints are provided for each of Position,
+       Scale and Rotate. They are:
+
+          - _P_o_s_i_t_i_o_n: Three planes aligned with the world axis
+            planes and passing through the Origin. The X-Y Plane is
+            the plane defined by the world X and Y axes.  The
+            others are the Y-Z and Z-X planes.
+
+          - _S_c_a_l_e: Three planes passing through the Reference Point
+            and perpendicular to the Object Axes. Together they
+            allow rectangular scaling of the object.  The planes
+            are named after the axes that lie in them.
+
+          - _R_o_t_a_t_e: Three axes aligned with the Object Axes.
+
+       The defaults all move and change with the object in order to
+       maintain the conditions just described.
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 27 -
+
+
+
+       4.7  _C_o_n_t_r_o_l_l_i_n_g__t_h_e__D_i_r_e_c_t_i_o_n__o_f__M_o_t_i_o_n
+
+       If you wish to control the direction in which a point will
+       move to satisfy a constraint, you can do so through Origin
+       or Scaling Line or Plane constraints. Consider a situation
+       where you want a cylinder to move along its axis line until
+       it meets a plane which is not perpendicular to the origin.
+       It you were to just choose the plane constraint, the
+       cylinder would move perpendicular to the plane, not its
+       axis. To force it to move along its axis, add an Origin Line
+       constraint passing through the Origin (it must) and parallel
+       to the axis. Choose this constraint first.  This effectively
+       says that the origin must remain on its current axis line.
+       Now choose the plane constraint. The system will calculate
+       where the axis line intersects the plane and move the origin
+       there. If you think about it this is the same as moving the
+       cylinder along its axis until it meets the plane.
+
+       The same technique will work to control the direction of
+       scaling, this time through use of a Scaling Line or Plane
+       constraint.
+
+       4.8  _M_a_i_n_t_e_n_a_n_c_e
+
+       The network of reference points used to define constraints
+       introduce dependencies of one object upon another, which in
+       turn may depend on some other object.
+
+       Constraint dependencies are maintained whenever an object is
+       manipulated, if the Maintain toggle is set, otherwise they
+       will be adjusted when editing of the current object is
+       finished or suspended.  So if a block is defined to lie on a
+       plane (by using the plane to define reference points for a
+       position constraint) and the plane is subsequently moved up,
+       the block will also be moved up to still lie on the plane.
+       The block will move in the minimum amount to satisfy the
+       constraint.
+
+       Dependent objects are shown dashed. These objects are the
+       ones that may be affected by manipulating the current
+       object. You cannot select reference points from among these
+       objects because to do so would cause cycles.
+
+       The solving of dependencies may take a little while. All
+       dependencies, whether active or not, are updated, so don't
+       keep unnecessary constraints with an object. All defined
+       constraints are stored and saved with an object, so delete
+       the ones you don't want any more before finishing or
+       suspending the edit object session.
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 28 -
+
+
+
+       If you don't want any maintenance, define all position
+       constraints as absolutes, all scaling constraints as offsets
+       and rotation as one or the other. Alternatively, deselect
+       all constraints before you finish editing an object.
+       INACTIVE CONSTRAINTS CANNOT AFFECT THE OBJECT.
+
+       When an object is updated by the constraint maintenance
+       algorithm, its position is updated first, then its
+       orientation and then its scaling.  This is consistent with
+       the interactive method outlined above.
+
+       4.9  _F_o_r_c_e_d__S_c_a_l_i_n_g__C_o_n_s_t_r_a_i_n_t_s
+
+       When the Origin and Scaling Point both lie in one of the 3
+       planes defined by the Object Axes, scaling perpendicular to
+       the plane is impossible. In this situation the program will
+       enforce the corresponding default scaling constraint so
+       violation is impossible. You cannot deselect forced
+       constraints.  The only way to remove them is to change the
+       Origin, Scaling or Axes such that the situation no longer
+       exists. The program remembers which constraints it enforced,
+       but if one is selected while also being forced the program
+       will remember that you selected it, and leave it selected
+       once the enforcement is unnecessary.
+
+       Rotation constraints are also forced if alignment
+       constraints are active.  The intention is to prevent
+       interactive rotation from destroying alignment.  The forced
+       constraints are removed if the alignment constraints are.
+
+       4.10  _T_h_e__D_i_a_l_o_g__B_o_x
+
+       When an editing session begins on an object the Edit dialog
+       box is popped up below the window in which the editing is
+       happening (you can move the dialog around at will, even
+       minimise it). All the buttons in the main displays are
+       deactivated. The dialog itself has lots of buttons, some of
+       whose meaning should be intuitive from the previous
+       discussion.
+
+          - _F_i_n_i_s_h: This finishes a session. Several things are
+            done:
+
+               +o The object is removed from the edit list.
+
+               +o All objects depending on this one have their
+                 constraints updated and reworked.
+
+               +o The screen is redrawn and all the main buttons
+                 resensitized.
+            There is no return from a finish. An full undo should
+
+
+
+
+
+
+
+
+
+
+
+                                  - 29 -
+
+
+
+            to be provided, but isn't.
+
+          - _S_u_s_p_e_n_d: This is the same as a finish, except that the
+            object is not removed from the edit list. Use this it
+            you intend to do more editing of the object in the near
+            future.
+
+          - _U_n_d_o: Undo provides undo right back to the start of the
+            current session. Everything can be undone, including
+            constraint addition, removal, selection and all drags
+            of any type. In effect, undo winds the state back one
+            step. Undo is also used to cancel point selection,
+            cancel a view change and cancel constraint removal.
+
+          - _R_e_d_o: Undoes an Undo.
+
+          - _O_r_i_g_i_n: Allows the specification of a new Object
+            Origin. The program goes into select point mode waiting
+            for a point. You are free to select any point, or type
+            one in. It doesn't matter what type of point you
+            select. The object will be moved if necessary so that
+            the new origin satisfies the Position constraints, and
+            any scaling constraints will be updated as a result of
+            such a move. Redefining the Origin is a good way to
+            move an object. In the box on table example it is
+            useful to have the origin on the bottom of the box
+            somewhere. A change in Origin can also cause scaling
+            constraints to be forced.
+
+          - _S_c_a_l_i_n_g: Allows a new Scaling Point to be defined. The
+            point chosen must be a point on the body, but it
+            doesn't matter which button you use to select it. The
+            object will be scaled if necessary to satisfy any
+            scaling constraints.  A change in Scaling may cause
+            scaling constraints to be forced.
+
+          - _M_a_j_o_r: Allows access to all functions related to the
+            Major Axis:
+
+               - Redefine 1: You choose a single point and the axis
+                 is redefined to point toward it. The object
+                 doesn't rotate, rather the axis is moved relative
+                 to the body.
+
+               - Redefine 2: As above but you choose 2 points, and
+                 the axis is defined to be parallel to the line
+                 passing FROM the first point TO the second.
+                 Direction matters.
+
+               - Temp Align: Aligns the axis with the current
+                 active rotation axis, if one is active. It doesn't
+
+
+
+
+
+
+
+
+
+
+
+                                  - 30 -
+
+
+
+                 remember the constraint, hence is temporary.
+
+               - Align Pt: Align the axis so that it points toward
+                 a chosen point, This is a maintained constraint,
+                 so be careful with the point type (reference,
+                 absolute or offset).
+
+               - Align Line: Align the axis to be parallel with a
+                 line going from a first selected point toward
+                 another selected point. Again this constraint is
+                 maintained, and direction matters.
+
+               - Align Plane: Aligns the axis to be perpendicular
+                 to the given plane (you enter 3 points). This
+                 one's maintained too.
+
+               - Remove: Removes any constraints that may be
+                 active.
+            There is a label at the bottom indicating whether or
+            not the axis is constrained.
+
+          - _M_i_n_o_r: This does all the things outlined above but with
+            the Minor axis. There is one other difference. Because
+            the Major axis takes precedence, and the Minor axis
+            must always be perpendicular to it, the rotations and
+            alignments that result move as close as possible to the
+            constraint you specify, but may not achieve it
+            entirely. This may sound difficult but is actually
+            useful behaviour.
+
+          - _R_e_m_o_v_e: Lets you remove a constraint from one of the
+            constraint boxes. The cursor changes to a skull and the
+            program waits for your next move. If you select an
+            _i_n_a_c_t_i_v_e, _n_o_n-_d_e_f_a_u_l_t constraint, that constraint will
+            be deleted. Other constraints cannot be deleted. Note
+            that the Uniform scale constraint is not a default for
+            the purposes of this function.
+
+          - _V_i_e_w Allows for view changing without exiting the edit
+            session. You can change the viewpoint, the lookat point
+            or the zoom. This is a very good way to verify the
+            position of an object or the orientation of a
+            constraint. Use Apply or Undo to cancel the operation.
+
+          - _P_o_s_i_t_i_o_n _B_o_x All the available Position constraints are
+            displayed here. Each is a toggle showing whether or not
+            that particular constraint is active. To activate or
+            deactivate a constraint simply click on the toggle. An
+            Add menu is provided to add new position constraints to
+            those available.
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 31 -
+
+
+
+          - _S_c_a_l_e _B_o_x A similar concept to the Position Box.
+            Everything works the same. Recall that some constraints
+            will be enforced by the program at certain times, and
+            these cannot be deselected.
+
+          - _R_o_t_a_t_e _B_o_x The available rotation axes are displayed
+            here. Only one may be active at any given time. Apart
+            from that, it's the same as the Position Box.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 32 -
+
+
+
+       5.  _T_H_E__C_S_G__I_N_T_E_R_F_A_C_E
+
+       The CSG interface consists of a separate window in which CSG
+       objects are created and edited. The window is accessed via
+       the _C_S_G _W_i_n_d_o_w button on the main display. The window is
+       divided much along the same lines as the scene window, with
+       the addition of an extra region below the View Window of a
+       _C_S_G _T_r_e_e _W_i_n_d_o_w where the objects currently being
+       manipulated are represented by small labelled buttons. Each
+       button is  a menu, allowing access to certain functions for
+       that object. The available functions will be discussed
+       later.
+
+       The relative size of the CSG Tree Window and CSG View Window
+       can be changed by dragging the small square on the dividing
+       line up or down. Scrollbars will appear in both windows if
+       required.
+
+       5.1  _C_S_G__W_i_n_d_o_w__F_u_n_c_t_i_o_n_s
+
+       Many of the functions provided in the CSG window are
+       identical to those in the Scene Window. The full list of
+       functions available is:
+
+          +o CCCCSSSSGGGG:::: Modify Existing, Copy Existing, Save OFF, Delete
+            Existing, Close
+
+          +o OOOObbbbjjjjeeeecccctttt:::: New, Edit, Name, Attribs, Dense Wire, Thin
+            Wire, Change Base
+
+          +o VVVViiiieeeewwww:::: Viewpoint, Pan, Lookat, Lookup, Distance, Eye
+
+          +o WWWWiiiinnnnddddoooowwww:::: Zoom, View Size, Draw Mode, Save, Recall,
+            Delete
+
+          +o LLLLaaaayyyyeeeerrrrssss:::: New, Add Objects, Merge, Display
+
+          +o CCCClllleeeeaaaarrrr CCCCSSSSGGGG
+
+       In addition, there is an Edit button as with the Scene
+       Window.
+
+       For those functions which are also defined in the Scene
+       Window, the behaviour is the same except that it works on
+       the CSG View Window and objects contained therein.
+
+       A word on attributes is required at this point. By default
+       CSG objects have no attributes attached. Hence attributes
+       attached to an instance of a CSG object will be used.
+       However, if attributes are attached to the components of a
+       CSG object, those attributes will take precedence over
+
+
+
+
+
+
+
+
+
+
+
+                                  - 33 -
+
+
+
+       attributes attached to the instance. So if you specify a
+       window, and attach attributes to the glass but not the
+       frame, you can specify a different frame color for each
+       instance throught the instance attributes, but the glass
+       will always be glass.  In other words the CSG objects
+       inherit attributes from the instance, unless they themselves
+       have attributes attached.
+
+       5.2  _M_o_d_i_f_y__E_x_i_s_t_i_n_g
+
+       This function allows for the editing of an existing CSG
+       type, which is selected through the general object selection
+       dialog (like a new object). There are some restrictions on
+       the use of this function. If a CSG object has instances that
+       appear in other CSG objects, then that object cannot be
+       modified. If there are any other instances (that appear in
+       the scene), they will be highlighted to indicate their
+       presence. You then have the option of marking these
+       instances for later modification, or copying the CSG object
+       rather than modifying it. If the objects are marked for
+       modification, a _C_h_a_n_g_e _B_a_s_e operation will be performed on
+       them when the modified object is completed. If a copy of the
+       CSG object is edited than no changes will be made to
+       existing objects.
+
+       The CSG object that is being modified is stored with the
+       tree during editing. If a modified tree is combined with
+       some other tree, the resulting tree is considered to be the
+       modified tree for the purpose of later _C_h_a_n_g_e _B_a_s_e
+       operations on instances.
+
+       This button will be unavailable if there are no CSG objects
+       currently defined.
+
+       5.3  _C_o_p_y__E_x_i_s_t_i_n_g
+
+       The CSG object selected is copied, and the copy placed in
+       the _C_S_G _T_r_e_e _W_i_n_d_o_w for editing. Beyond this point the tree
+       behaves like any other.
+
+       This button will be unavailable if there are no CSG objects
+       currently defined.
+
+       5.4  _S_a_v_e__O_F_F
+
+       The _S_a_v_e _O_F_F function allows a CSG object to be saved as an
+       OFF format file. The object selection dialog is presented,
+       allowing you to choose the object to save. The file
+       selection dialog is then presented, allowing you to specify
+       the filename. The default filename provided is the name of
+       the object suffixed with .aoff. The file name you specify
+
+
+
+
+
+
+
+
+
+
+
+                                  - 34 -
+
+
+
+       should end with .aoff. The other files saved as part of the
+       object will be suffixed accordingly.
+
+       5.5  _D_e_l_e_t_e__E_x_i_s_t_i_n_g
+
+       A dialog is presented allowing the choice of an existing
+       object to be deleted.  The object to be deleted cannot have
+       any instances.
+
+       This function will be unavailable if no CSG objects are
+       defined.
+
+       5.6  _C_l_o_s_e
+
+       This button closes the CSG Window. It only removes the
+       window from the screen, it does not change the contents of
+       the window, which will be available once the window is
+       remapped using the CSG Window button in the Scene Window.
+
+       5.7  _T_r_e_e__M_e_n_u__F_u_n_c_t_i_o_n_s
+
+       Each button displayed in the CSG Tree Window is a menu
+       displaying functions applicable to that particular node in
+       the tree. Which functions are applicable depends on the type
+       of node and where it is in the tree. The full list of
+       available functions is:
+
+          +o _D_i_s_p_l_a_y / _H_i_d_e
+
+          +o _M_o_v_e
+
+          +o _A_t_t_a_c_h
+
+          +o _C_o_m_p_l_e_t_e
+
+          +o _P_r_e_v_i_e_w
+
+          +o _E_v_a_l_u_a_t_e
+
+          +o _R_e_o_r_d_e_r
+
+          +o _B_r_e_a_k
+
+          +o _C_o_p_y
+
+          +o _D_e_l_e_t_e
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 35 -
+
+
+
+       5.8  _D_i_s_p_l_a_y__o_r__H_i_d_e
+
+       This option toggles display of the tree in the CSG View
+       Window. The objects in a displayed tree may be edited just
+       as normal instances. There are a few things to note however.
+       All that really matters is the position of the object
+       relative to other objects IN THE SAME TREE. Once a CSG
+       object is created it can be moved about just as any other
+       object, so its position with respect to the origin is not
+       important for that reason. However, it does matter where the
+       object is relative to the origin, because the origin will
+       become the notional centre for the created CSG object. That
+       is, it will be the default object origin for position, and
+       the default fixed point for scaling and editing. These
+       points may be changed later, but it is still a good idea to
+       keep the origin somewhere near where it is sensible to think
+       of it as the centre. Also note that the size of the object
+       is not too important, as the resulting object may be scaled
+       later.
+
+       Removing an object from the display takes any of its
+       instances off all of the lists, including the selection and
+       edit lists. In other words it is only possible to operate on
+       displayed objects.
+
+       Displayed objects are still affected by layer visibility, so
+       it they don't appear, check the display of layers.
+
+       The Display option is available for root nodes. All or none
+       of a tree is displayed. To display parts, break the tree
+       then put it back together when finished. The label on this
+       menu item changes to indicate whether or not the tree is
+       currently displayed.
+
+       5.9  _M_o_v_e
+
+       The move option is for reordering trees within the CSG Tree
+       Window, NOT for moving a tree's instances in the world. This
+       option mostly exists because it is possible for some objects
+       to be off-screen, while attachment requires that the 2
+       objects to be attached both be on-screen. Off-screen objects
+       can be accessed using the scroll bars, but it may not be
+       possible to get both trees on the screen without moving one.
+
+       Once the Move option is selected, a small rectangle appears
+       attached to the cursor. Click with button one when the
+       cursor is in the position that you want the tree to appear.
+       For instance, to move the 7th tree so that it appears after
+       the 2nd tree, select move from the 7th tree's menu, then
+       click with button 1 somewhere between the 2nd and 3rd trees.
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 36 -
+
+
+
+       The Move option is available for root nodes.
+
+       5.10  _A_t_t_a_c_h
+
+       This operation is the essence of CSG, allowing 2 trees to be
+       combined with a set operator.
+
+       To attach one tree to another, select the Attach item, then
+       choose the node from ANOTHER tree that you wish to be the
+       SIBLING of the attached tree. The node selected as the
+       sibling must be from a different tree - you cannot attach a
+       tree to one of its children. The node you attach will become
+       the RIGHT child of a new node, and the node you selected as
+       the destination will become the LEFT child of the new node.
+       The new node will be attached to the parent of the
+       destination node, or become a new tree if the destination
+       was a root node itself.
+
+       To choose the destination, push button 1 down on the desired
+       destination node, and another menu will pop up allowing you
+       to choose the type of operation to apply, or cancel. Choose
+       the appropriate option and release the button.
+
+       Note that the ordering of the nodes is only really important
+       for the difference operator. The right node is taken away
+       from the left node. Use the Reorder option to swap the
+       ordering if it isn't right.
+
+       Regardless of the initial display state of the tree you are
+       attaching, it will always assume the display state of the
+       destination tree.
+
+       This option is available for root nodes.
+
+       5.11  _C_o_m_p_l_e_t_e
+
+       The Complete option takes a CSG tree and turns it into a new
+       CSG object. If the tree selected consisted of a single
+       instance it will simply become a normal instance in the
+       world. Otherwise the following things happen:
+
+          +o All references and dependencies to objects NOT in the
+            current tree are replaced by absolute (for Origin) or
+            offset points.
+
+          +o You are prompted for a name for the CSG object being
+            created. Select Complete or hit return when you are
+            finished, or cancel at this point.
+
+          +o A wireframe is generated for the object. THIS MAY TAKE
+            A WHILE. It could be as bad as O squared seconds, where
+
+
+
+
+
+
+
+
+
+
+
+                                  - 37 -
+
+
+
+            O is the number of objects in the CSG tree you are
+            creating. (The process actually is most dependent on
+            the number of polygons making up the objects at each
+            level in the tree, but this is roughly proportional to
+            the number of objects.) Note also that Planes and
+            Squares will give unpredictable results. Dense
+            wireframes also significantly slow the process, but
+            give superior results.
+
+          +o You are presented with the resulting object and asked
+            to specify a default Scaling Point for the object.
+
+          +o The object is made available as a new CSG object.
+
+          +o If the tree was a modified tree (it originated from a
+            Modify Existing call), instances of the object will be
+            adjusted to match the new object.
+
+          +o The tree is removed from the CSG Window.
+
+       The Complete option is available for all root nodes.
+
+       Note that no instances of the object are created, you must
+       create instances through the New Object dialog, just as with
+       any other object.
+
+       The wireframe generation procedure takes a while because it
+       attempts to produce a realistic wireframe for the object
+       which is not more complex than necessary. This procedure is
+       also highly susceptible to numerical inaccuracy.
+       Occasionally it produces wireframes which aren't quite
+       right.
+
+       When asked to select a default Scaling Point, the option is
+       also available to use a full wireframe for the object. The
+       full wireframe consists of the union of all component object
+       wireframes. This option is useful in cases where the
+       intersecting set of objects is so small that the approximate
+       wireframes do not intersect at all.
+
+       5.12  _E_v_a_l_u_a_t_e
+
+       The Evaluate option is combined Complete and Attach
+       operation. The subtree starting at the node selected is
+       completed as above, then an instance of this completed
+       object is attached in place of the subtree. It allows for
+       tree simplification to some extent.
+
+       When you select this option, the processes involved are the
+       same as for complete with the extra stage at the end of
+       creation and attachment of an instance in place of the tree.
+
+
+
+
+
+
+
+
+
+
+
+                                  - 38 -
+
+
+
+       This option is available for non-root internal nodes in the
+       tree.
+
+       5.13  _P_r_e_v_i_e_w
+
+       The subtree of the selected node is previewed using a
+       renderer you choose.  The options for the preview are the
+       same as those for _P_r_e_v_i_e_w in the _S_c_e_n_e _W_i_n_d_o_w. A single
+       instance of the subtree is created, along with a default
+       light, and these are exported to the renderer of choice for
+       preview.
+
+       5.14  _R_e_O_r_d_e_r
+
+       When this option is selected the children of the selected
+       node will be reordered. This is useful for Difference
+       operators, where the ordering matters (right is removed from
+       left), or for changing the appearance of a tree in the
+       window.
+
+       This option is available for all internal nodes.
+
+       5.15  _B_r_e_a_k
+
+       Selecting Break will cause the selected subtree to be broken
+       off its tree and made a tree by itself. The parent node of
+       that selected will be removed, and the node's sibling put in
+       the parent's place. The node and all its children will
+       become a separate tree.
+
+       The Break option is available for all non-root nodes.
+
+       5.16  _C_o_p_y
+
+       The copy button copies the selected node and all its
+       children and adds them as a new tree. It replaces the Copy
+       command on the Object menu. The new tree is not initially
+       displayed.
+
+       All constraints in a copied tree that reference other nodes
+       in the tree will be adjusted to reference the corresponding
+       copies. This allows a completely constrained tree to be
+       copied and then edited independently.
+
+       Any node may be copied.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 39 -
+
+
+
+       5.17  _D_e_l_e_t_e
+
+       This will delete the selected node and all its children,
+       patching the remaining tree as appropriate. No confirmation
+       is asked for, so be careful.  This function is essentially a
+       replacement for Delete on the Object menu.
+
+       Any tree can be deleted.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 40 -
+
+
+
+       6.  _S_C_H_E_M_E__C_O_M_M_A_N_D__L_I_N_E__I_N_T_E_R_F_A_C_E
+
+       If the Elk Scheme extension language has been installed on
+       your system, Sced may be compiled with support for a scheme
+       command line interface.  The interface allows for commands
+       to be entered textually. It supports expressions and
+       variables as per the scheme programming language. In fact,
+       the interface is a scheme interpreter with some special
+       purpose functions added to interface it to Sced.
+
+       Scheme commands can be entered in the window below the View
+       Window in either the Scene or CSG windows. To complete a
+       command, type Shift-Enter. The interpreter will attempt to
+       parse and execute the commands. You can also put commands in
+       an external file, then load the file to execute the
+       commands.  The scheme command line is still very much under
+       development. A full description of the functions available
+       will be added shortly, as soon as it is finalised.
+
+       Note that there is an error in the latest Elk distribution
+       that renders the error handling inoperable. Hence at this
+       point an error causes the program to exit. A patch is
+       avialable and is distributed in the elk directory. The patch
+       needs to be applied to the source of the elk library on your
+       system, and the library recompiled.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 41 -
+
+
+
+       7.  _C_O_M_M_A_N_D__L_I_N_E__O_P_T_I_O_N_S
+
+       -_F _f_i_l_e_n_a_m_e
+            Load the specified filename on startup. The -F can be
+            omitted. So _s_c_e_d -_F _f_i_l_e._s_c_n is the same as _s_c_e_d
+            _f_i_l_e._s_c_n. The file is searched for in the current
+            directory first. If not found, and the name does not
+            end in .Z or .gz, one of these options is added and the
+            name is tried again. The extension added depends on
+            whether gzip exists on your system at compile time. If
+            the file is still not found, the procedure is repeated
+            but in the default scene directory. If still not found,
+            it is assumed the file does not exist, and the name is
+            used as the default name for saving.
+
+       -_D _d_e_f_a_u_l_t_s
+            Use default values found in the given file. If this
+            option is not present the program will look for a file
+            called .scenerc in the user's home directory. Failing
+            this, internal defaults will be used. The format for
+            the defaults file is described below.
+
+       -_I _W_i_d_t_h_x_H_e_i_g_h_t
+            Use a view window of the given size. This does not
+            effect the size of the program's window (use -geom),
+            rather it determines the size of the scrollable window
+            in which the scene appears.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 42 -
+
+
+
+       8.  _D_E_F_A_U_L_T_S__F_I_L_E
+
+       At startup the program attempts to read a file containing
+       default values for various parameters. If the -D option was
+       specified on the command line, it will look there, otherwise
+       it will look for a file called ._s_c_e_n_e_r_c in your home
+       directory. If neither can be found, compile time defaults
+       will be used.
+
+       8.1  _F_o_r_m_a_t
+
+       The following keywords with the accompanying arguments are
+       accepted. If a keyword is not present in the file, that
+       value will have the built in default. Spaces, tabs and
+       newlines act as separators. Anything from a # to the end of
+       line is taken as a comment. In the following list, keywords
+       are in bold and arguments in italics. Note that the program
+       is case sensitive.  If a string is required, it must be
+       delimited by double quotes ("). A double quote may be
+       contained within a string by preceding it with a backslash.
+
+       MMMMaaaaiiiinnnnVVVViiiieeeewwwwppppoooorrrrtttt or CCCCSSSSGGGGVVVViiiieeeewwwwppppoooorrrrtttt
+           Begins the definition of the main or csg viewing
+           parameters. Some or all of the following keywords should
+           appear next in the defaults file.
+
+           LLLLooooooookkkkFFFFrrrroooommmm _x _y _z
+               Set the _V_i_e_w_p_o_i_n_t vector to given vector, where x,
+               y, and z are floating point numbers.
+
+           LLLLooooooookkkkAAAAtttt _x _y _z
+               Set the _L_o_o_k _A_t point to be the given point.
+
+           LLLLooooooookkkkUUUUpppp _x _y _z
+               Set the _L_o_o_k _U_p vector the the given vector.
+
+           VVVViiiieeeewwwwDDDDiiiisssstttt _d_i_s_t
+               Set the viewplane _D_i_s_t_a_n_c_e to the given value, which
+               should be a positive value.
+
+           EEEEyyyyeeeeDDDDiiiisssstttt _d_i_s_t
+               Set the _E_y_e _D_i_s_t_a_n_c_e to the given value, which
+               should be positive.
+
+           MMMMaaaaggggnnnniiiiffffyyyy _z_o_o_m
+               Set the _Z_o_o_m value to the given value, which should
+               be a positive integer.
+
+           SSSSccccrrrreeeeeeeennnn _w_i_d_t_h _h_e_i_g_h_t
+               Set the _I_m_a_g_e _S_i_z_e to the given width and height,
+               which should be positive integers.
+
+
+
+
+
+
+
+
+
+
+
+                                  - 43 -
+
+
+
+       VVVViiiieeeewwwwppppoooorrrrtttt "_n_a_m_e"
+           Define a viewport which will be available for recall.
+           The parameters that follow are all the same as for the
+           MainViewport or CSGViewport. Useful default viewports
+           include plan and elevation views. _N_a_m_e is the name of
+           the label to use in the view dialog boxes.
+
+       PPPPOOOOVVVVrrrraaaayyyy _p_a_t_h _o_p_t_i_o_n_s
+
+       RRRRaaaayyyysssshhhhaaaaddddeeee _p_a_t_h _o_p_t_i_o_n_s
+
+       RRRRaaaaddddiiiiaaaannnncccceeee _p_a_t_h _o_p_t_i_o_n_s
+
+       RRRReeeennnnddddeeeerrrrmmmmaaaannnn _p_a_t_h _o_p_t_i_o_n_s
+
+       GGGGeeeennnnrrrraaaayyyy _p_a_t_h _o_p_t_i_o_n_s
+
+       GGGGeeeennnnssssccccaaaannnn _p_a_t_h _o_p_t_i_o_n_s
+           Path and options are strings.  Set the pathname and
+           options for the named renderer. These values will be
+           used for the preview command - they do not influence the
+           exported scene. If you do not have one of renderers, set
+           the path string to "", the empty string.
+
+       DDDDiiiirrrreeeeccccttttoooorrrryyyy _p_a_t_h_n_a_m_e
+           Set the default directory for loading, saving and
+           exporting scenes. This is simply the directory that is
+           shown in the file selection dialog box, and is not any
+           hard restriction.
+
+       AAAAttttttttrrrriiiibbbbuuuutttteeeessss
+           Set the default object attributes. Any or all or the
+           following options can appear. If a particular option is
+           not set, the value will retain the compiled in default.
+           See the _A_t_t_r_i_b_u_t_e_s command above for a full description
+           of each parameter.
+
+           CCCCoooolllloooorrrr _r_e_d _g_r_e_e_n _b_l_u_e or CCCCoooolllloooouuuurrrr _r_e_d _g_r_e_e_n _b_l_u_e
+               Sets the default object color, where red, green and
+               blue are values between 0 and 1.
+
+           DDDDiiiiffffffffuuuusssseeee _c_o_e_f
+               Set the default diffuse coefficient.
+
+           SSSSppppeeeeccccuuuullllaaaarrrr _c_o_e_f _p_o_w_e_r
+               Set the default specular coefficient and power.
+
+           RRRReeeefffflllleeeecccctttt _c_o_e_f
+               Set the default reflective coefficent.
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 44 -
+
+
+
+           RRRReeeeffffrrrraaaacccctttt _c_o_e_f
+               Set the default coefficient of refraction.
+
+           TTTTrrrraaaannnnssssppppaaaarrrreeeennnnccccyyyy _c_o_e_f
+               Set the default transparency value.
+
+       CCCCoooommmmpppprrrreeeessssssss
+           Compress files on output. All files saved will be piped
+           through gzip, or compress if gzip is unavailable. The
+           filename will have a .gz (or .Z) appended if not already
+           present. Sced knows how to load compressed files (which
+           it recognises through a .gz or .Z extension). This is
+           intended to save space for files with large numbers of
+           CSG objects (and hence wireframes).
+
+       WWWWiiiirrrreeeeffffrrrraaaammmmeeee FFFFuuuullllllll
+           Save full wireframes. By default, Sced only saves the
+           basic version of CSG wireframes, which is the wireframe
+           before simplification for display. It then repeats the
+           simplification process when the wireframe is loaded. To
+           save both the basic and simplified wireframe, use this
+           option in the defaults file.  Saving full wireframes
+           will take more space, but speed the loading of files.
+
+       TTTTaaaarrrrggggeeeetttt _r_e_n_d_e_r_e_r
+           The named renderer (one of Rayshade, POVray, Radiance,
+           Renderman, Genray, or Genscan) will be used as the
+           default target. Use this option if you export almost
+           exclusively to one renderer.
+
+       IIIInnnncccclllluuuuddddeeee _i_n_c_l_u_d_e__f_i_l_e_s
+           The include files named (there may be any number of
+           strings) are added to the list of files to #include in
+           the exported file. The strings are exported to the
+           output file with #include statements preceeding them.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 45 -
+
+
+
+       9.  _X__R_E_S_O_U_R_C_E_S
+
+       There are fallback resources for all the top level window
+       sizes. Everything else uses the local default. If you wish
+       to change things, particularly the font, colors and
+       geometries you may do so through a resources file, the
+       command line or compile them in. The font has a major
+       influence on the relative size of buttons and some dialogs.
+       You may prefer editing using white on black, and if you have
+       a smaller screen resolution you will most likely wish to
+       change the default geometries. The geometries used by
+       default were designed for at least 1024x768, but are best at
+       bigger than 1152x900 screen resolution.
+
+       The widgets geometries you may like to change, and their
+       defaults are:
+
+       Sced.geometry: 800x600 - the main window overall size.
+
+       Sced.csgShell.geometry: 800x600 - the csg edit window
+                 overall size.
+
+       Sced.newObject.geometry: 400x300 - the new object selection
+                 box size.
+
+       Sced.csgSelectShell: 400x300 - the dialog for selecting CSG
+                 objects for new object or any of the existing CSG
+                 object operations.
+
+       Sced.wireSelectShell: 400x300 - the dialog for selecting
+                 Wireframe objects for new object or wireframe
+                 delete.
+
+       Sced.csgReferenceShell: 400x400 - the "Choose a Scaling
+                 Point" dialog associated with CSG completion.
+
+       Sced*mainViewWindow - the main view window. You may wish to
+                 change the "foreground" and "background" resources
+                 for this widget.
+
+       Sced*csgViewWindow - the csg view window. Again, you may
+                 wish to set the "foreground" or "background"
+                 resource.
+
+       Sced*csgReferenceView - the view window used to show the
+                 "Choose a Scaling Point" CSG completed wireframe.
+                 You might like to change the foreground and
+                 background.
+
+       A large number of other resources are also defined, mostly
+       for controlling colors. To specify a color, use its name
+
+
+
+
+
+
+
+
+
+
+
+                                  - 46 -
+
+
+
+       from the rgb.txt database.  Defaults are shown in brackets.
+       The resources are:
+
+       Sced*font - if you want to change the font.
+
+       Sced.xAxisColor - the color of the world X axis. (red)
+
+       Sced.yAxisColor - the color of the world Y axis. (green)
+
+       Sced.zAxisColor - the color of the world Z axis. (blue)
+
+       Sced.axisWidth - the line width for the world axis lines.
+                 (2)
+
+       Sced.xAxisLength - the length of the X axis line (from the
+                 origin to the tip). This value (an integer), is
+                 divided by the axisDenom resource to allow for
+                 fractional values. Note that lengths are specified
+                 in world co-ordinates, not screen size. (2)
+
+       Sced.yAxisLength - the length of the Y axis line (from the
+                 origin to the tip). This value (an integer), is
+                 divided by the axisDenom resource to allow for
+                 fractional values. (2)
+
+       Sced.zAxisLength - the length of the Z axis line (from the
+                 origin to the tip). This value (an integer), is
+                 divided by the axisDenom resource to allow for
+                 fractional values. (2)
+
+       Sced.axisDenom - the value by which each world axis length
+                 is divided to get the true length. (1)
+
+       Sced.majorAxisColor - the color of the Major Axis for
+                 editing. (red)
+
+       Sced.minorAxisColor - the color of the Minor Axis for
+                 editing. (green)
+
+       Sced.otherAxisColor - the color of the Other Axis for
+                 editing. (blue)
+
+       Sced.editAxisWidth - the line width for the edit axes. (2)
+
+       Sced.majorAxisLength - the length of the Major Axis line.
+                 This value (an integer), is divided by the
+                 editAxisDenom resource to allow for fractional
+                 values. Note that lengths are specified in world
+                 co-ordinates, not screen size.  (4)
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 47 -
+
+
+
+       Sced.minorAxisLength - the length of the Minor Axis line.
+                 This value (an integer), is divided by the
+                 editAxisDenom resource to allow for fractional
+                 values. Note that lengths are specified in world
+                 co-ordinates, not screen size.  (3)
+
+       Sced.otherAxisLength - the length of the Other Axis line.
+                 This value (an integer), is divided by the
+                 editAxisDenom resource to allow for fractional
+                 values. Note that lengths are specified in world
+                 co-ordinates, not screen size.  (2)
+
+       Sced.editAxisDenom - the value by which each edit axis line
+                 length is divided to get the true length. (2)
+
+       Sced.editPointRadius - the radius of the circle drawn around
+                 the Origin and Scaling edit points. This value
+                 also sets the effective size of these points for
+                 mouse interaction. (10)
+
+       Sced.scalingColor - the color of the edit Scaling Point.
+                 (red)
+
+       Sced.originColor - the color of the edit Origin Point.
+                 (green)
+
+       Sced.objectColor - the color of an object that is being
+                 edited. (blue)
+
+       Sced.selectColor - the color of selected objects. (red)
+
+       Sced.selectWidth - the line width of selected objects. (2)
+
+       Sced.lightColor - the color of lights on screen. (yellow)
+
+       Sced.lightPointRadius - the radius of the circle drawn
+                 around lights on screen. (12)
+
+       Sced.constraintColor - the color of contraint indicators,
+                 such as lines or planes. (grey)
+
+       Sced.planeConLength - the edge length, in world co-
+                 ordinates, of the square drawn to represent plane
+                 constraints. (6)
+
+       Sced.lineConLength - the length, in in world co-ordinates,
+                 of the line drawn to represent ;ine constraints.
+                 (6)
+
+       Sced.pointConWidth - the radius of the circles drawn to
+                 represent point constraints. (15)
+
+
+
+
+
+
+
+
+
+
+
+                                  - 48 -
+
+
+
+       Sced.inconConLength - the size of the crosses used to
+                 represent inconsistent constraints. (15)
+
+       Sced.originConWidth - the size of the squares drawn to
+                 indicate points specifying origin constraints. (7)
+
+       Sced.scaleConWidth - the size of the squares drawn to
+                 indicate points specifying scaling constraints.
+                 (5)
+
+       Sced.rotateConWidth - the size of the squares drawn to
+                 indicate points specifying allignment constraints.
+                 (3)
+
+       Sced.referencedColor - the color that referenced objects are
+                 drawn during point selection. (red)
+
+       Sced.activeColor - the color of the currently active point
+                 for point selection (the point that will be
+                 selected). (red)
+
+       Sced.selectPointColor - the color of points already
+                 selected. (blue)
+
+       Sced.selectPointWidth - the width of the square drawn around
+                 the active and selected points. (8)
+
+       Sced.selectPointLineWidth - the width of the line used to
+                 draw the above square. (2)
+
+       Sced.absoluteColor - the color used to represent absolute
+                 point constraint specifiers. (green)
+
+       Sced.offsetColor - the color used to represent offset point
+                 constraint specifiers. (blue)
+
+       Sced.referenceColor - the color used to represent reference
+                 point constraint specifiers. (red)
+
+       Sced.arcballColor - the color used to draw the arcball arc.
+                 (grey)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 49 -
+
+
+
+       10.  _E_X_T_E_R_N_A_L__F_I_L_E__F_O_R_M_A_T
+
+       Sced supports an external file format that is easy to read
+       and create by hand or through external programs. Any file
+       not recognised by Sced as its own internal format will be
+       processed based on the assumption that it is an external
+       file.
+
+       Anything following a #, and up to the end of the line, is a
+       comment and will be ignored.
+
+       The key words and their arguments are described below.
+
+       VVVVeeeerrrrssssiiiioooonnnn _v_e_r_s_i_o_n__n_u_m: Specifies the Sced version number that
+                 this file applies to. At the moment the only valid
+                 value for _v_e_r_s_i_o_n__n_u_m is 0.8.  This command must
+                 be the first in the file.  This option is included
+                 primarily to ease the transition to later
+                 versions.
+
+       VVVViiiieeeewwwwppppoooorrrrtttt: Begin definition of the viewport. Parameters that
+                 are specified will modify the main view in place
+                 when the file is loaded. Definition of the
+                 viewport ends when a command not included in the
+                 parameter list below is encountered.  Valid
+                 paramaters to follow this keyword are:
+
+                 LLLLooooooookkkkFFFFrrrroooommmm _x _y _z: Set the view direction such that
+                           you appear to be looking down _x _y _z
+                           toward the _L_o_o_k_A_t point.
+
+                 LLLLooooooookkkkAAAAtttt _x _y _z: Set the point to look at. This point
+                           will appear in the center of the view
+                           window.
+
+                 LLLLooooooookkkkUUUUpppp _x _y _z: The vector _x _y _z will always appear
+                           to be pointing vertically up in the
+                           window.
+
+                 VVVViiiieeeewwwwddddiiiisssstttt _d: Set the distance of the viewing plane
+                           from the _L_o_o_k_A_t point.
+
+                 EEEEyyyyeeeeDDDDiiiisssstttt _d: Set the distance of the eye from the
+                           viewplane. This controls perspective
+                           effects, and the field of view.
+
+                 MMMMaaaaggggnnnniiiiffffyyyy _s: Set the magnification of the image.
+                           This is equivalent to the _Z_o_o_m interface
+                           function.
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 50 -
+
+
+
+                 SSSSccccrrrreeeeeeeennnn _x _y: Set the image size.
+
+       CCCCaaaammmmeeeerrrraaaa: Begin definition of the camera. The format is
+                 identical to the definition of the _V_i_e_w_p_o_r_t, but
+                 modifies the world camera instead.
+
+       OOOObbbbjjjjeeeecccctttt _n_a_m_e _b_a_s_e: Begin definition of an object instance. It
+                 has name given by _n_a_m_e and is of base type _b_a_s_e.
+                 _N_a_m_e and _b_a_s_e must be strings enclosed in double
+                 quotes. _B_a_s_e must have been previously defined.
+                 The default bases are: _s_p_h_e_r_e, _c_u_b_e, _c_o_n_e,
+                 _c_y_l_i_n_d_e_r, _s_q_u_a_r_e, _p_l_a_n_e, _l_i_g_h_t, _s_p_o_t_l_i_g_h_t and
+                 _a_r_e_a_l_i_g_h_t. The instance is modified by the
+                 following parameters. Definition ends when a
+                 parameter not listed below is encountered.
+
+                 MMMMaaaattttrrrriiiixxxx _x_1 _x_2 _x_3 _y_1 _y_2 _y_3 _z_1 _z_2 _z_3: The object is
+                           transformed by the given matrix. _x_1 _x_2
+                           _x_3 is the first row, _y* the second row
+                           and _z* the third row. The matrix is
+                           pre-multiplied onto the current
+                           transformation matrix (which starts as
+                           the identity).
+
+                 SSSSccccaaaalllleeee _x _y _z: Scale the object by _x in the X
+                           direction, _y in the Y direction and _z in
+                           the Z direction. The scaling is
+                           performed in the order it is given.
+
+                 RRRRoooottttaaaatttteeee _x _y _z: Rotate the object through _x degrees
+                           about the X axis, followed by _y degrees
+                           about the y axis, followed by _z degrees
+                           about the Z axis. Note that the order of
+                           rotation matters. Separate rotation
+                           statements are applied in the order
+                           given.
+
+                 PPPPoooossssiiiittttiiiioooonnnn _x _y _z: Translate the object along the
+                           vect _x _y _z.  Translations accumulate,
+                           and are applied after all other
+                           transformations.
+
+                 DDDDeeeennnnsssseeee _l_e_v_e_l: Set the wireframe density level of
+                           the object to _l_e_v_e_l, which should be an
+                           integer. The default level is 0. Each
+                           extra level doubles the number of
+                           generators for the object, or multiplies
+                           by 4 the number of facets on a sphere.
+
+                 CCCCoooolllloooorrrr _r _g _b or CCCCoooolllloooouuuurrrr _r _g _b: Set the object's
+                           color, or intensity if it's a light
+
+
+
+
+
+
+
+
+
+
+
+                                  - 51 -
+
+
+
+                           source. _R _g _b should be values between 0
+                           and 1.
+
+                 DDDDiiiiffffffffuuuusssseeee _v: Set the diffuse surface reflectance to
+                           _v.
+
+                 SSSSppppeeeeccccuuuullllaaaarrrr _v _p: Set the specular surface reflectance
+                           to _v with an associated power of _p.
+
+                 RRRReeeefffflllleeeecccctttt _v: Set the reflectance of the surface to
+                           _v.
+
+                 RRRReeeeffffrrrraaaacccctttt _v: Set the index of refraction of the body
+                           to _v.
+
+                 TTTTrrrraaaannnnssssppppaaaarrrreeeennnnccccyyyy _v: Set the transparency of the object
+                           to _v.
+
+       CCCCSSSSGGGG _n_a_m_e: Begin definition of a CSG base object which will
+                 have the name _n_a_m_e for later reference. _N_a_m_e must
+                 be a string enclosed in double quotes. Following
+                 _n_a_m_e should appear a valid CSG object tree
+                 description, as defined here. A CSG tree
+                 definition is best described recursively:
+
+                    +o A CSG tree may be one of the words _U_n_i_o_n,
+                      _I_n_t_e_r_s_e_c_t_i_o_n or _D_i_f_f_e_r_e_n_c_e, immediately
+                      followed by two CSG tree definitions.
+
+                    +o A CSG tree may also be a single _O_b_j_e_c_t
+                      command describing a leaf of the CSG tree.
+
+                 For example,
+                         CSG "example"
+                         Union
+                                 Difference
+                                         Object "leaf1" "cube"
+                                         Object "leaf2" "sphere"
+                                 Object "leaf3" "cylinder"
+                 describes a CSG object consisting of the
+                 difference of a cube and sphere unioned with a
+                 cylinder.
+
+       WWWWiiiirrrreeeeffffrrrraaaammmmeeee _n_a_m_e _n_u_m__v_e_r_t_s _n_u_m__f_a_c_e_s _v_e_r_t_s _f_a_c_e_s: Begin
+                 description of a new wireframe type object. The
+                 object has name _n_a_m_e (a string). It has _n_u_m__v_e_r_t_s
+                 vertices and _n_u_m__f_a_c_e_s faces.  _V_e_r_t_s is a list of
+                 vertices, each given as an _x _y _z vector.  _F_a_c_e_s is
+                 a list of faces, each given as a number of
+                 vertices followed by the indices of the vertices
+                 in the vertex list. Indices start at 0.
+
+
+
+
+
+
+
+
+
+
+
+                                  - 52 -
+
+
+
+                 Each face must have at least 3 vertices, and be
+                 convex. Face vertices should be given in a
+                 clockwise order as viewed from outside the object.
+                 If you intend to use the wireframe in a CSG
+                 object, the faces must intersect each other only
+                 along complete edges or at a single vertice. The
+                 object must also be closed.
+
+                 For example,
+                         Wireframe "mycube" 8 6
+                         1 1 1
+                         1 -1 1
+                         -1 -1 1
+                         -1 1 1
+                         1 1 -1
+                         1 -1 -1
+                         -1 -1 -1
+                         -1 1 -1
+                         4 0 3 2 1
+                         4 4 5 6 7
+                         4 0 4 7 3
+                         4 1 2 6 5
+                         4 0 1 5 4
+                         4 2 3 7 6
+                 defines a cube.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 53 -
+
+
+
+       11.  _R_E_N_D_E_R_E_R__S_P_E_C_I_F_I_C__N_O_T_E_S
+
+       11.1  _P_O_V_R_a_y
+
+       The patches supplied with the Sced distribution will need to
+       be applied. They allow for the matrix keyword to specify
+       object transformations.
+
+       Squares are rendered as polygons. Wireframes are exported as
+       the union of their component polygons.
+
+       Sced defines the identifier _a_m_b_i_e_n_t__l_i_g_h_t__l_e_v_e_l, which holds
+       a float value equal to the ambient light level in the scene,
+       as entered in the _A_m_b_i_e_n_t dialog. You may use this identifer
+       in texture statements to save adjusting all the attributes
+       every time you change the ambient light value.
+
+       11.2  _R_a_y_s_h_a_d_e
+
+       The simple attributes on an object are exported even if more
+       specific attributes are given. This allows the surface
+       properties to still be applied.  The problem arises out of
+       Rayshade's strange way of entering attributes in two
+       separate groups, surfaces before the object definition and
+       transformation, and textures afterward.
+
+       Wireframes are exported as triangles, and phong triangles if
+       vertex normals were specified in the OFF file that defined
+       the wireframe. The triangulation method used is trivial, and
+       will fail for concave polygons.
+
+       11.3  _R_a_d_i_a_n_c_e
+
+       Radiance differs significantly from the other renderers, so
+       these notes are extensive.
+
+       Point light sources are exported as small spheres. There is
+       no need to limit the intensity of a light source to 1.0, you
+       may go as high as you wish.
+
+       Radiance only allows for true spheres, cones and cylinders.
+       This precludes a very large range of transformations (it
+       only allows for uniform scaling in the radial direction). To
+       overcome this difficulty, Sced exports any non-true object
+       as a list of polygons. Obviously this impacts on the quality
+       of the picture. You should make extensive use of the _D_e_n_s_e
+       _W_i_r_e_f_r_a_m_e command to improve the appearance of these
+       objects.  They will be exported at the same density as they
+       appear on screen.
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 54 -
+
+
+
+       The simple surface attributes are exported as a plastic
+       surface, so many of the parameters have no effect. To get
+       anything but the most simple effects you will need to make
+       extensive use of your own modifiers and renderer specific
+       definitions.
+
+       Radiance does not have CSG definition within its input
+       language, and instancing is prohibited because of the
+       limited range of transformations available. Hence Sced
+       exports all CSG object instances as individual lists of
+       polygons. This has two effects. Firstly, the exported file
+       becomes very large. Secondly, the representation is only as
+       accurate as the wireframe displayed on screen by Sced. Once
+       again you should make extensive use of the _D_e_n_s_e _W_i_r_e_f_r_a_m_e
+       functions to improve the appearance of CSG objects.
+
+       Planes are exported to Radiance as a 10x10 square. Relating
+       this to the plane representation used by Sced, the polygon
+       is the same size as the extremities of the cross drawn.
+
+       When you export a radiance file, an extra dialog is used to
+       enter things like the interior/exterior option, the view
+       volume and assorted other things.  These options are
+       exported to a rad (.rif) input file. The geometry and
+       modifiers are exported to a .rad file, ready for use with
+       oconv. I recommend setting your previewer to "rad" with
+       options "-o x11" to get an interactive preview using rview.
+
+       11.4  _R_e_n_d_e_r_M_a_n
+
+       Renderman is an excellent language to export to. I don't
+       think I understand area lights correctly, so they will
+       probably not work as expected.
+
+       The color of an object is always exported. So you should set
+       the red, green and blue values in the simple attributes box
+       every time you want attributes, even if those attributes are
+       target specific.
+
+       Planes are exported as 10x10 squares, as with Radiance.
+
+       Polygons are exported as the simple polygon type, which
+       doesn't support concave polygons. I couldn't get the other
+       method (using GeneralPolygon), to work.
+
+       When exporting, you are prompted for the name of the image
+       file to render.  This defaults to the base filename with
+       .tif added.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 55 -
+
+
+
+       12.  _A_C_K_N_O_W_L_E_D_G_E_M_E_N_T_S
+
+       I am required to state the following (Pixar's copyright
+       rules):
+
+            The RenderMan Interface Procedures and RIB Protocol
+            are:
+            Copyright 1988, 1989, Pixar.
+            All rights reserved.
+            RenderMan is a registered trademark of Pixar
+
+       Thanks also to all the people who helped out with comments
+       and suggestions and debugging.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 56 -
+
+
+
+       _A_P_P_E_N_D_I_X__A_:__T_e_x_t__E_d_i_t_i_n_g__C_o_m_m_a_n_d_s
+
+       The following list of commands is taken from a description
+       of the Athena Text widget. Note that the all the text
+       widgets in Sced (anything you type text into) support these
+       functions. You may also select from and copy into these text
+       windows, just as you would an xterm (button 1 select, button
+       2 paste, button 3 continue selection).
+
+       The commands are:
+       Ctrl-A: Beginning of line.
+       Ctrl-B: Backward character.
+       Ctrl-D: Delete next character.
+       Ctrl-E: End of line.
+       Ctrl-F: Forward character.
+       Ctrl-G: Reset the multiplier.
+       Ctrl-H: Delete previous character.
+       Ctrl-J: Newline and indent.
+       Ctrl-K: Delete to end of line, putting it in buffer 2.
+       Ctrl-L: Redraw display.
+       Ctrl-M: Newline.
+       Ctrl-N: Next line.
+       Ctrl-O: Newline and back up.
+       Ctrl-P: Previous line.
+       Ctrl-R: Search backward (a dialog is popped up asking for
+       the string to search for).
+       Ctrl-S: Search forward.
+       Ctrl-T: Transpose characters. The characters on either side
+       of the cursor are swapped.
+       Ctrl-U: Multiply the next action by 4.
+       Ctrl-V: Next page.
+       Ctrl-W: Delete the selection and put it in buffer 2 (not the
+       selection buffer).
+       Ctrl-Y: Insert the contents of buffer 2.
+       Ctrl-Z: Scroll up one line.
+       Alt-B: Backward word.
+       Alt-F: Forward word.
+       Alt-I: Insert file (a pop up dialog requests the name).
+       Alt-K: Delete to end of paragraph, stuffing it in buffer 2.
+       Alt-Q: Form paragraph (this formats a paragraph).
+       Alt-V: Previous page.
+       Alt-Y: Insert the selection.
+       Alt-Z: Scroll down one line.
+       Alt-d: (case sensitive) Delete next word.
+       Alt-D: (case sensitive) Delete next word, stuffing it in
+       buffer 2.
+       Alt-Delete:
+       Alt-Backspace:
+       Alt-h: (case sensitive) Delete previous word.
+       Shift-Alt-Delete:
+       Shift-Alt-Backspace:
+
+
+
+
+
+
+
+
+
+
+
+                                  - 57 -
+
+
+
+       Alt-H: (case sensitive) Delete previous word, stuffing it in
+       buffer 2.
+       Alt-<: Beginning of file.
+       Alt->: End of file.
+       Alt-]: Forward paragraph.
+       Alt-[: Back paragraph.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 58 -
+
+
+
+                                _R_E_F_E_R_E_N_C_E_S
+
+
+
+        1. Ken Shoemake
+           Arcball: A User Interface For Specifying Three
+           Dimensional Orientation Using a Mouse
+           _U_s_e_r _I_n_t_e_r_f_a_c_e '_9_2 , 1992, pp 151-156.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                 CONTENTS
+
+
+        1.  INTRODUCTION.......................................   1
+
+        2.  PRELIMINARIES......................................   2
+            2.1   Regions Of The Window........................   2
+            2.2   Command Button Functions.....................   2
+            2.3   Selection....................................   3
+            2.4   A Word on Text Entry.........................   4
+            2.5   Changed Scene................................   5
+            2.6   Cancel.......................................   5
+            2.7   Colors.......................................   5
+
+        3.  BASIC FUNCTIONS....................................   6
+            3.1   File Functions...............................   6
+            3.2   CSG Window...................................   7
+            3.3   Wireframe....................................   7
+            3.4   Object Functions.............................   8
+            3.5   Light Manipulation Functions.................  13
+            3.6   View Manipulation Functions..................  14
+            3.7   Window Manipulation Functions................  17
+            3.8   Layer Functions..............................  18
+            3.9   Target.......................................  19
+            3.10  Camera.......................................  19
+            3.11  Preview......................................  19
+            3.12  Clear........................................  20
+            3.13  Maintain.....................................  20
+
+        4.  EDIT INTERFACE.....................................  21
+            4.1   Overview.....................................  21
+            4.2   Position.....................................  24
+            4.3   Scaling......................................  25
+            4.4   Rotation.....................................  25
+            4.5   Alignment....................................  26
+            4.6   Default Constraints..........................  26
+            4.7   Controlling the Direction of Motion..........  27
+            4.8   Maintenance..................................  27
+            4.9   Forced Scaling Constraints...................  28
+            4.10  The Dialog Box...............................  28
+
+        5.  THE CSG INTERFACE..................................  32
+            5.1   CSG Window Functions.........................  32
+            5.2   Modify Existing..............................  33
+            5.3   Copy Existing................................  33
+            5.4   Save OFF.....................................  33
+            5.5   Delete Existing..............................  34
+            5.6   Close........................................  34
+            5.7   Tree Menu Functions..........................  34
+            5.8   Display or Hide..............................  35
+            5.9   Move.........................................  35
+
+
+
+                                  - i -
+
+
+
+
+
+
+
+
+
+
+
+            5.10  Attach.......................................  36
+            5.11  Complete.....................................  36
+            5.12  Evaluate.....................................  37
+            5.13  Preview......................................  38
+            5.14  ReOrder......................................  38
+            5.15  Break........................................  38
+            5.16  Copy.........................................  38
+            5.17  Delete.......................................  39
+
+        6.  SCHEME COMMAND LINE INTERFACE......................  40
+
+        7.  COMMAND LINE OPTIONS...............................  41
+
+        8.  DEFAULTS FILE......................................  42
+            8.1   Format.......................................  42
+
+        9.  X RESOURCES........................................  45
+
+       10.  EXTERNAL FILE FORMAT...............................  49
+
+       11.  RENDERER SPECIFIC NOTES............................  53
+            11.1  POVRay.......................................  53
+            11.2  Rayshade.....................................  53
+            11.3  Radiance.....................................  53
+            11.4  RenderMan....................................  54
+
+       12.  ACKNOWLEDGEMENTS...................................  55
+            APPENDIX A: Text Editing Commands..................  56
+
+       REFERENCES..............................................  58
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - ii -
+
+
+
+

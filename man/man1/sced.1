@@ -1,0 +1,48 @@
+.TH SCED 1
+.SH NAME
+sced \- a constraint based scene modeller
+.SH SYNOPSIS
+.B sced
+.OP -F filename []
+.OP -D defaults []
+.OP -I WidthxHeight []
+.OP "Xtoolkit options" "" []
+.SH DESCRIPTION
+.I Sced
+is a modeller useful for designing and previewing scenes for later rendering.
+It supports the creation and editing of simple objects. Lights and cameras
+can be created and edited. Objects are created by instancing a basic object
+type. New types may be created through Constructive Solid Geometry (CSG)
+or by loading an externally defined wireframe.
+.PP
+The program provides an iteractive interface where appropriate. In particular,
+objects are placed and edited with the aid of interactive constraints.
+The constraints allow for the rapid arrangement of objects in relation to
+other objects in the scene, or arbitrary points. An interactive interface
+is also provided for dynamically adjusting the view of the scene
+presented by the program.
+.PP
+Sced currently exports scenes to POVray, Rayshade, Radiance, RenderMan,
+Genray and Genscan.
+.PP
+For full documentation see the user's guide distributed with the program.
+.SH OPTIONS
+.IP "-F filename"
+Load the specified filename on startup.
+.IP "-D defaults"
+Use default values found in the given file. If this option is not present
+the program will look for a file called .scenerc in the user's home
+directory. Failing this, internal defaults will be used. The format for the
+defaults file is described in the User's Guide.
+.IP "-I WidthxHeight"
+Use an editing window of the given size. This does not effect the size of
+the programs window (use -geom), rather it determines the size of the
+scrollable window in which the scene appears.
+.SH BUGS
+Tell me when you find them.
+.SH "SEE ALSO"
+.I Sced User's Guide,
+genray(1),
+.I POVRay User's Guide, Rayshade User's Guide
+.SH AUTHOR
+Stephen Chenney : stephen@cs.su.oz.au

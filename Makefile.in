@@ -1,0 +1,242 @@
+SHELL=/bin/sh
+
+.SUFFIXES:
+.SUFFIXES: .c .o
+
+srcdir=@srcdir@
+
+C_DIR=$(srcdir)/c
+ELK_DIR=$(srcdir)/elk
+H_DIR=$(srcdir)/h
+
+# Uncomment this line if you want DEBUG support compiled in: normally off
+DEBUG=-DSCED_DEBUG
+
+TARGET=sceda
+
+# Set CC and CPP
+CC=@CC@
+CPP=@CPP@
+
+#	Use the following defs for flex.
+LEX=@LEX@
+LEXLIB=@LEXLIB@
+USE_FLEX=@USE_FLEX@
+
+# Library bulding functions.
+AR=ar
+RANLIB=@RANLIB@
+
+# This command is used to re-make the ctags file
+CTAGS=ctags -tvS
+# This is the tags file
+CTAGSFILE=./tags
+
+# Put the location of you X header files here, if necessary.
+# eg:
+# XINCLUDE=-I/usr/openwin/include
+XINCLUDE=@X_CFLAGS@
+
+#
+# Define where to find ELK
+#
+ELKINCLUDE=@ELK_INCLUDES@
+ELKLIBS=@ELK_LIBS@
+
+#
+# uncomment this line to use the Electric Fence memory checker
+#
+#EFENCE=efence
+
+
+# Add any extra include directories to the end of this line, using -Idir
+INCLUDE=-I$(srcdir)/h $(XINCLUDE) $(ELKINCLUDE)
+
+# Add any extra C flags, such as -g for debug, here.
+OTHER_FLAGS= $(DEBUG)
+
+CFLAGS=$(OTHER_FLAGS) -DFLEX=$(USE_FLEX) @CFLAGS@
+ALL_CFLAGS=$(INCLUDE) $(CFLAGS)
+
+# Add any extra libraries here.
+LIBS=@X_PRE_LIBS@ -lXaw -lXmu -lXext -lXt -lX11 @X_EXTRA_LIBS@ $(LEXLIB) $(ELKLIBS) -lm @LIBS@ $(EFENCE)
+
+# Put the location of your X library files here, if necessary.
+# eg:
+# XLIBDIR=-L/usr/openwin/lib
+XLIBDIR=@X_LIBS@
+
+LDFLAGS=$(OPTIMISE) $(XLIBDIR) @LDFLAGS@
+
+
+SRC=$(C_DIR)/SimpleWire.c $(C_DIR)/Vectorlib.c $(C_DIR)/View.c \
+	$(C_DIR)/align.c $(C_DIR)/animate.c \
+	$(C_DIR)/attributes.c \
+	$(C_DIR)/base_objects.c $(C_DIR)/bounds.c $(C_DIR)/camera.c \
+	$(C_DIR)/constraint.c $(C_DIR)/constraint_box.c \
+	$(C_DIR)/conversions.c $(C_DIR)/copy_obj.c \
+	$(C_DIR)/csg_combine.c \
+	$(C_DIR)/csg_edit.c $(C_DIR)/csg_events.c \
+	$(C_DIR)/csg_gen_wire.c $(C_DIR)/csg_intersect.c \
+	$(C_DIR)/csg_reference.c $(C_DIR)/csg_select.c \
+	$(C_DIR)/csg_split.c \
+	$(C_DIR)/csg_tree.c $(C_DIR)/csg_view.c $(C_DIR)/csg_wire.c \
+	$(C_DIR)/defaults.c $(C_DIR)/delete.c $(C_DIR)/dense_wireframe.c \
+	$(C_DIR)/dfs.c $(C_DIR)/draw.c $(C_DIR)/edit.c $(C_DIR)/edit_extras.c \
+	$(C_DIR)/edit_shell.c $(C_DIR)/edit_menu.c \
+	$(C_DIR)/edit_undo.c $(C_DIR)/events.c \
+	$(C_DIR)/export.c $(C_DIR)/gen_wireframe.c \
+	$(C_DIR)/genray.c $(C_DIR)/genscan.c \
+	$(C_DIR)/hash.c \
+	$(C_DIR)/instance_list.c $(C_DIR)/instances.c \
+	$(C_DIR)/keyframe.c \
+	$(C_DIR)/layers.c $(C_DIR)/light.c $(C_DIR)/load.c \
+	$(C_DIR)/load_internal.c $(C_DIR)/load_lex.l \
+	$(C_DIR)/load_simple.c $(C_DIR)/main_view.c \
+	$(C_DIR)/maintain.c $(C_DIR)/misc.c \
+	$(C_DIR)/my_misc.c $(C_DIR)/names.c \
+	$(C_DIR)/new_object.c $(C_DIR)/new_view.c \
+	$(C_DIR)/off.c $(C_DIR)/placement.c \
+	$(C_DIR)/povray.c $(C_DIR)/preview.c $(print.c) \
+	$(C_DIR)/quit.c \
+	$(C_DIR)/radiance.c $(C_DIR)/rayshade.c $(C_DIR)/renderman.c \
+	$(C_DIR)/rotate.c $(C_DIR)/save.c \
+	$(C_DIR)/scale.c $(C_DIR)/sced.c \
+	$(C_DIR)/select_point.c $(C_DIR)/selection.c \
+	$(C_DIR)/spline.c \
+	$(C_DIR)/utils.c \
+	$(C_DIR)/view_recall.c $(C_DIR)/viewport.c \
+	$(C_DIR)/wireframe.c $(C_DIR)/zoom.c
+
+HEADERS=$(H_DIR)/SelFile.h $(H_DIR)/SimpleWire.h $(H_DIR)/SimpleWireP.h \
+		$(H_DIR)/Vector.h $(H_DIR)/View.h $(H_DIR)/ViewP.h \
+		$(H_DIR)/base_objects.h $(H_DIR)/config.h $(H_DIR)/constraint.h \
+		$(H_DIR)/csg.h $(H_DIR)/csg_wire.h $(H_DIR)/debug.h $(H_DIR)/defs.h \
+		$(H_DIR)/edit.h $(H_DIR)/enum.h $(H_DIR)/events.h $(H_DIR)/extern.h \
+		$(H_DIR)/gen_wireframe.h $(H_DIR)/hash.h $(H_DIR)/instance_list.h \
+		$(H_DIR)/layers.h $(H_DIR)/light.h $(H_DIR)/load.h \
+		$(H_DIR)/macros.h $(H_DIR)/proto.h $(H_DIR)/sced.h \
+		$(H_DIR)/select_point.h $(H_DIR)/types.h
+
+
+OBJS=$(C_DIR)/SimpleWire.o $(C_DIR)/Vectorlib.o $(C_DIR)/View.o \
+	 $(C_DIR)/align.o $(C_DIR)/animate.o \
+	 $(C_DIR)/attributes.o \
+	 $(C_DIR)/base_objects.o $(C_DIR)/bounds.o $(C_DIR)/camera.o \
+	 $(C_DIR)/constraint.o $(C_DIR)/constraint_box.o \
+	 $(C_DIR)/conversions.o $(C_DIR)/copy_obj.o \
+	 $(C_DIR)/csg_combine.o $(C_DIR)/csg_edit.o \
+	 $(C_DIR)/csg_events.o \
+	 $(C_DIR)/csg_gen_wire.o $(C_DIR)/csg_intersect.o \
+	 $(C_DIR)/csg_reference.o $(C_DIR)/csg_select.o \
+	 $(C_DIR)/csg_split.o $(C_DIR)/csg_tree.o $(C_DIR)/csg_view.o \
+	 $(C_DIR)/csg_wire.o \
+	 $(C_DIR)/defaults.o $(C_DIR)/delete.o $(C_DIR)/dense_wireframe.o \
+	 $(C_DIR)/dfs.o $(C_DIR)/draw.o $(C_DIR)/edit.o $(C_DIR)/edit_extras.o \
+	 $(C_DIR)/edit_shell.o $(C_DIR)/edit_menu.o $(C_DIR)/edit_undo.o \
+	 $(C_DIR)/events.o \
+	 $(C_DIR)/export.o $(C_DIR)/gen_wireframe.o \
+	 $(C_DIR)/genray.o $(C_DIR)/genscan.o \
+	 $(C_DIR)/hash.o \
+	 $(C_DIR)/instance_list.o $(C_DIR)/instances.o \
+	 $(C_DIR)/keyframe.o $(C_DIR)/layers.o \
+	 $(C_DIR)/light.o $(C_DIR)/load.o \
+	 $(C_DIR)/load_internal.o $(C_DIR)/load_lex.o \
+	 $(C_DIR)/load_simple.o $(C_DIR)/main_view.o \
+	 $(C_DIR)/maintain.o $(C_DIR)/misc.o $(C_DIR)/my_misc.o \
+	 $(C_DIR)/names.o \
+	 $(C_DIR)/new_object.o $(C_DIR)/new_view.o \
+	 $(C_DIR)/off.o $(C_DIR)/placement.o \
+	 $(C_DIR)/povray.o $(C_DIR)/preview.o $(C_DIR)/print.o \
+	 $(C_DIR)/quit.o \
+	 $(C_DIR)/radiance.o $(C_DIR)/rayshade.o $(C_DIR)/renderman.o \
+	 $(C_DIR)/rotate.o $(C_DIR)/save.o $(C_DIR)/sced.o \
+	 $(C_DIR)/scale.o $(C_DIR)/select_point.o $(C_DIR)/selection.o \
+	 $(C_DIR)/spline.o $(C_DIR)/utils.o \
+	 $(C_DIR)/view_recall.o $(C_DIR)/viewport.o \
+	 $(C_DIR)/wireframe.o $(C_DIR)/zoom.o
+
+# Auxillary files, used for make realclean
+AUX=$(H_DIR)/config.h Makefile config.status config.log config.cache \
+	 $(TARGET) tags $(H_DIR)/tags $(C_DIR)/tags
+
+SEL_DIR=$(srcdir)/SelFile
+SEL_SRC=$(SEL_DIR)/Dir.c $(SEL_DIR)/Draw.c $(SEL_DIR)/Path.c \
+		$(SEL_DIR)/SelFile.c
+SEL_OBJS=$(SEL_DIR)/Dir.o $(SEL_DIR)/Draw.o $(SEL_DIR)/Path.o \
+		$(SEL_DIR)/SelFile.o
+SEL_LIB=$(SEL_DIR)/libSelFile.a
+
+ELK_SRC=\
+	 $(ELK_DIR)/callbacks.c\
+	 $(ELK_DIR)/evalstr.c\
+	 $(ELK_DIR)/init.c \
+	 $(ELK_DIR)/object3d.c \
+	 $(ELK_DIR)/csg.c \
+	 $(ELK_DIR)/view.c
+ELK_OBJS=\
+	 $(ELK_DIR)/callbacks.o\
+	 $(ELK_DIR)/evalstr.o\
+	 $(ELK_DIR)/init.o\
+	 $(ELK_DIR)/view.o \
+	 $(ELK_DIR)/object3d.o \
+	 $(ELK_DIR)/csg.o
+#
+# The configure program will set @USE_ELK@ to either YES or NO.
+# and thus this next make variable will become either ELK_LIB_YES
+# or ELK_LIB_NO. 'sced' will only try to link with ELK_LIB_YES.
+#
+ELK_LIB_@USE_ELK@=$(ELK_DIR)/libElk.a
+
+
+all: $(TARGET)
+
+checker:
+	make CC=checkergcc all
+
+$(TARGET): $(OBJS) $(SEL_LIB) $(ELK_LIB_YES) Makefile
+	$(CC) $(LDFLAGS) -o $(TARGET) $(OBJS) $(SEL_LIB) $(ELK_LIB_YES) $(XLIBDIR) $(LIBS)
+
+purify: $(OBJS) $(SEL_LIB) $(ELK_LIB_YES) Makefile
+	purify $(CC) $(LDFLAGS) -o $(TARGET) $(OBJS) $(SEL_LIB) $(ELK_LIB_YES) $(LIBS)
+
+$(ELK_DIR)/libElk.a: $(ELK_OBJS)
+	$(AR) rc $@ $(ELK_OBJS)
+	$(RANLIB) $@
+
+$(SEL_LIB): $(SEL_OBJS)
+	$(AR) rc $(SEL_LIB) $(SEL_OBJS)
+	$(RANLIB) $(SEL_LIB)
+
+$(C_DIR)/load_lex.o: $(C_DIR)/load_lex.l
+	$(LEX) -t $(C_DIR)/load_lex.l > $(C_DIR)/load_lex.c
+	$(CC) $(ALL_CFLAGS) -c -o $(C_DIR)/load_lex.o $(C_DIR)/load_lex.c
+	rm $(C_DIR)/load_lex.c
+
+.c.o :
+	$(CC) -c $(ALL_CFLAGS) -o $@ $<
+
+depend:
+	makedepend -- $(ALL_CFLAGS) -- $(SRC)
+	sed 's/^[a-zA-Z_]*\.o:/$$(C_DIR)\/&/' Makefile > Makefile.new
+	mv Makefile.new Makefile
+	
+clean:
+	rm -f $(OBJS) $(SEL_OBJS) $(SEL_LIB)
+
+# This is used to clean files up enough to be able to patch properly
+realclean:
+	rm -f $(OBJS) $(SEL_OBJS) $(SEL_LIB) $(AUX)
+
+
+# This makes the tags file: I find it useful
+tags: $(SRC) $(HEADERS)
+	rm -f $(C_DIR)/$(CTAGSFILE) $(H_DIR)/$(CTAGSFILE)
+	(cd $(C_DIR); $(CTAGS) *.c ../$(H_DIR)/*.h)
+	(cd $(H_DIR); $(CTAGS) *.h ../$(C_DIR)/*.c)
+
+$(SEL_DIR)/Dir.o : $(srcdir)/h/config.h
+$(SEL_DIR)/Draw.o : $(srcdir)/h/config.h
+$(SEL_DIR)/Path.o : $(srcdir)/h/config.h
+$(SEL_DIR)/SelFile.o : $(srcdir)/h/config.h
+

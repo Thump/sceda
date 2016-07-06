@@ -1,0 +1,36 @@
+
+These are some tutorials to help accustom you to Sced. They
+go into quite gory detail, but suggest some useful ways of using the
+interface.
+
+DO THEM IN ORDER. Don't try the CSG one first because you like CSG,
+because it depends on things said in the others.
+
+The advised order is:
+starting.tut
+block_world.tut
+csg_mug.tut
+
+The scene files that go with these are in scenes.tar.gz. Your scene
+might look different, because there's a fair bit of freeform involved.
+
+Cheers,
+Steve.
+stephen@cs.su.oz.au
+
+
+GLOSSARY:
+
+origin: Any origin (where some axes meet)
+Origin: the particular Origin for that object (green circle).
+reference: A point chosen by reference (button 1).
+Scaling Point: The scaling point for a particular object (red circle).
+Position constraint: A constraint under the Position label, used for
+    positioning the Origin.
+Scale/ing constraint: A constraint under the Scale label, used for scaling
+    the object through the Reference Point.
+Rotate constraint: (or axis) A constraint under the Rotate label, for
+    constraining interactive rotation and defining allignment.
+
+Mail me if you want more added. Most things should be defined in the guide
+somewhere (where this glossary should appear :-))

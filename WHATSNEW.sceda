@@ -1,0 +1,30 @@
+
+                         Sceda: What's New
+
+
+------------
+
+October 21, 1995: sceda 0.81
+
+  This is the first public release of sceda.  The changes from the
+previous, semi-private release are:
+
+ - Scene clearing and resetting via the 'Clear' button works now.
+ - Objects can be cloned back one keyframe.
+ - Loading scenes with multiple views works now.
+ - Merging scenes works, with objects being renamed dynamically and
+   keyframe sequences being interleaved.
+ - Loading scenes over other scenes works now.
+ - Added an online help screen.
+ - Keyframe deleting via 'D' works now.
+ - Lots of new <a href="help.txt">keyboard accelerators</a>.
+ - Fixed keyboard translation problems.
+ - Miscellaneous bugs.
+
+------------
+
+July 12, 1995: sceda 0.81
+
+  Semi-private release of the code.
+
+------------

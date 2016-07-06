@@ -1,0 +1,821 @@
+-----------------------------
+
+ October 21/95 sceda 0.81
+  - Fixed yet another wee problem with the keyboard translations.  But
+    NOW I'm SURE that everything is PERFECT...
+
+  - Packaging source/patches for a public release, redoing the web pages
+    too.
+
+-----------------------------
+
+ October 19/95 sceda 0.81
+  - Fixed up a bug with the way buttons on the main window were being
+    enabled: edit was reenabled when it should have been.
+
+  - Fixed up a bug when a single frame animation was being exported.
+    I put an explicit check in which prevents any exporting of 1 frame
+    animations.  Until I can clean up the way animations are generated,
+    this will have to do, though it's kinda messy.
+
+-----------------------------
+
+ October 16/95 sceda 0.81
+  - Found a problem with edit_translations and main_translations being
+    loaded in the wrong order after various edit operations.  Mostly
+    fixed now.
+
+  - Modified all the keyboard accelerators so that the sensitivity of
+    the appropriate set of buttons is checked before the action is 
+    performed.  Steve set up a certain pattern of sensitivity to prevent
+    screwups from occuring and to preserve data sanity.  By allowing
+    these operations regardless, bad things could happen.
+
+    Unfortunately, our 'button granularity' is pretty low: because of the
+    way button widgets are declared and stored, I can't determine the 
+    sensitivity of the 'Object/New Object' button.  I can only check to
+    see whether all the main_view buttons are enabled or not.  At the 
+    moment this isn't a problem, since the main_view buttons are always
+    {de}sensitized in bulk, but if this should change, my code will likely
+    break.
+
+  - I added the 'q' key to close the csg window.  Not exactly equivalent
+    functionality (in main_view, 'q' does a conditional quit) but what
+    hell, I like it.
+
+  - Some other minor hiccups in the keyboard accelerators also cleaned up.
+
+  - Changed the default value of USE_ROUNDED_BUTTONS to be 1.  Hey, I
+    *like* round buttons...
+
+  - Found a wee bug because of the rounded buttons: renderman.c needs
+    to #include <X11/Xaw/Command.h>
+
+  - Changed the X resource class name from "Sced" to "Sceda".  Changed
+    the default resources to follow this convention also.
+
+  - Fixed the problem with the Animate menu button not being disabled
+    with the rest.
+
+  - Put a conditional on all the keyframe and animation commands, so that
+    they won't be run when the main_view buttons are disabled.
+
+  - Slightly modified the File/Copyright notice.
+
+  - Added a bunch of help text, accessible under File/Help or via the
+    F1 key.  Zounds!
+
+  - Figured out the problem with Meta-C: I wasn't printing out the right
+    string in the function.  (sigh)  All is now well.
+
+  - Cleaned up the keyboard translations, so things are more consistent.
+
+  - Changed the order of the changed_scene modifiers in keyframe.c: they're
+    now more intelligent about when things have really changed.
+
+  - Reordered some debugging messages in keyframe.c, so they won't be
+    unduly clipped by insensitive buttons.  Goddamn those insensitive
+    buttons anyway.
+
+  - My goodness, perhaps a public release is not far off...
+
+-----------------------------
+
+ October 12/95 sceda 0.81
+  - 'n' now pops up the new object menu.
+
+  - Fixed some bugs with cloning new keyframes: I was calling Update_
+    from_KeyFrame() too often and screwing up my edit list.
+
+  - Cloning forward and backward now erases other existing objects
+    of the same name in the target keyframes.  However, in doing 
+    this I have done something, the result of which is that I can no
+    longer clone objects to all following keyframes.
+
+-----------------------------
+
+ October 10/95 sceda 0.81
+  - Reorganized CHANGES.sceda file, new stuff now at the top.  (Let's
+    hear it for perl!)
+
+  - Altering the keyframe sequence now twigs the changed_scene boolean
+    variable.
+
+  - You can now propagate objects back one scene with Alt-c.  There are
+    problems, though: I'm out of 'c' keys, so I have no key to make a
+    function to propagate an object back through all keyframes.
+
+    More importantly, though, I do no object-name checking when I propagate
+    forward: what happens if you propagate object 'A' into a keyframe
+    that already has one?  You can't leave it named the same thing, and 
+    it doesn't make sense to rename the new one, since that will break its
+    continuity with the preceding objects.  I think the right thing is to
+    delete the existing one and replace it.  Gotta think about it awhile,
+    though.
+
+-----------------------------
+
+ October 9/95 sceda 0.81
+  - Fixed a bug with the 'e' key starting edit sessions: swapped the 
+    way the edit and main key translations were loaded.  'e' will now
+    both start and stop edit sessions, a` la the 'v' key for viewpoint
+    changes.
+
+  - 'Q' quits unconditionally, 'q' quits with option to save.
+
+  - Have to add some code to detect when changes are needed to be saved
+    for the keyframe/animation code.
+
+  - Also gotta make a way to propagate objects backward.
+
+-----------------------------
+
+ October 1/95 sceda 0.81
+  - Fixed a problem with cloning new keyframes, caused by the changes made
+    to get merged keyframes sequences to interlace properly.
+
+  - Added an 'l' hotkey, to change the lookat point.  Does the same as
+    View/Lookat.
+
+  - Added a 'Q' hotkey, to quit.  Does the same as File/Quit.
+
+-----------------------------
+
+ September 26/95 sceda 0.81
+  - Okay, so interlaced merges works, and a bug with multiple merges (or
+    single merges with multiple objects) now works.  However...
+
+  - Doing merges in this manner creates a problem: you have a sequence of
+    a cube in 1:1 and 2:2 (that is, keyframe1:frame1 and keyframe2:
+    frame2) and you merge in a cone that has 1:1 and 2:3.  The two are
+    merged, and you now have a sequence of 3 keyframes, at frame 1, 2 and
+    3.  However, the cone is only present in kf 1 and 3, so when it's 
+    animated, it disappears (because it does not appear in a contiguous
+    keyframe sequence).
+
+    What should happen in this case is that all those objects in the
+    keyframes on both sides of a keyframe that is being added as part of
+    a merge should also be added to the new keyframe in the appropriate
+    tweened positions.  This is possible, but would mean some rework of 
+    the animation code that I don't really want undertake prior to 1.0.
+
+    I suppose another workaround is to remove the restriction that objects
+    are only animated across sequential keyframes if they're present in
+    both.  If an object is in kf 1, 3 and 5, but not in 2 and 4, then the
+    object should be animated across all 5 keyframes without regard for
+    the gaps.  This is certainly possible, technically: it wouldn't even
+    be that difficult.  But how does an animator indicate that an object 
+    should disappear out of a sequence then?  I suppose it could be a
+    an object attribute: as an attribute of the object in the last keyframe
+    in which you want it present, you could tag it GONE, or something.  
+    But that's clumsy and unintuitive.  (sigh)
+
+-----------------------------
+
+ September 24/95 sceda 0.81
+  - Fixed up resets to properly clear all keyframes.  This also gets
+    Loads() to work: loading a sequence when you're already working on 
+    one will destroy the existing one and load the new one.
+
+  - Keyframe deletes are now much faster: it doesn't show each element
+    being deleted.
+
+  - Merges work when the new sequence has more keyframes than the existing
+    one.
+
+  - What does not work, however, is having interlaced keyframes.  When
+    merging two keyframe sequences with offset frame numbers, such as
+    when one sequence has frames at 1,3,5 and the other one is at 1,2,4, 
+    the resulting sequence should have 5 frames at 1,2,3,4,5.
+
+-----------------------------
+
+ September 6/95 sceda 0.81
+  - Fixed up a problem with viewport loading in the modified Load_View()
+    function.
+
+  - Began deleting all objects in a keyframe before I deleted it, only
+    now I'm having memory problems: an arbitrary (~5) number of keyframe
+    insert and deletes later, the program crashes.  (sigh)
+
+  - Ping!  Figured it out: a nasty wee bug in Copy_InstanceList(),
+    where I wasn't nulling the prev pointer on the first element of
+    a new list of objects.
+
+-----------------------------
+
+ September 5/95 sceda 0.81
+  - Wahoo!  Got merges to work right!  When different scenes are merged
+    together that have objects with the same names, the names for the
+    merged objects are changed.  Multiple keyframes are merged right,
+    and a merged-object's new name is consistent across all the merged
+    keyframes.
+
+-----------------------------
+
+ August 28/95 sceda 0.81
+  - Been working on merging scene files intelligently, mostly concentrating
+    on resolving objects with names already used in pre-existing objects.
+    I've added a mapping structure that just maintains a link list of
+    records which map from an old name to a new name.  When a merged scene
+    has objects with dependencies on the axis, things break, since the axis
+    is not imported: I need a way to recognize when this is happening and
+    replace the referred object with the main_window.axes object.
+
+-----------------------------
+
+  August 20/95 sceda 0.81
+  - Fixed the problem with multiple views in the keyframes: a small
+    tweak in Update_from_Keyframe().
+
+  - There's a problem with the way I'm cloning objects into a single
+    keyframe: I don't properly clean up the dependents, and objects
+    that are dependent on the cloned object's parent look like they're
+    dependent on the object.  I'm not going to bother cleaning this
+    up: Steve is adding a system copy in 1.0.
+
+-----------------------------
+
+  August 11/95 sceda 0.81
+  - Still having serious problems with constraints: it sort of works.
+    I think I'm going to leave this 'til I port to 1.0.
+
+  - Redid the cross-keyframe deleting: seems to be a bit more reliable.  
+
+  - I want to: fix the problems with multiple views when reloading a
+    scene, clean up keyframe deleting, loading into an existing keyframe,
+
+-----------------------------
+
+  August 10/95 sceda 0.81
+  - (vacation taking, knee blowing, apartment moving, cat dropping,)
+
+  - Added p as a panning key.
+
+-----------------------------
+
+  July 13/95 sceda 0.81
+  - Final diffing and source tarring.
+
+  - Officially renamed to sceda (scene editor/animator).  Got tired
+    of writing 'the patched sced', 'the version of sced with patches',
+    'pistachio sced' everywhere.
+
+  - Made the web page available to the world, but only told a couple
+    folk about it.  I got more bugs to fix before a public release.
+
+-----------------------------
+
+  July 12/95 sced 0.81
+  - Setup the web page.
+
+-----------------------------
+
+  July 9/95 sced 0.81
+  - Most of the documentation is fixed, but now there's a problem with
+    the tower.scn: when the instance list used for constraining the 
+    world is used, it breaks on Free_InstanceList().  Don't know why.
+    Grrrrr...
+
+-----------------------------
+
+  July 7/95 sced 0.81
+  - I've been playing with it a bit: there's a problem with rotations
+    and the Constrain_World() function: the origin is being shifted,
+    which screws up the rotation.  I'm not sure why...
+
+  - I'm working to package things up to release for beta testing.  There's
+    lots of bugs left, including the above problem with origins, problems
+    with constraints and other things.  (sigh)
+
+-----------------------------
+
+  June 24/95 sced 0.81
+  - As part of that last, I got object deletion to work properly: you can
+    select a set of objects and (via meta-d) delete them from all subsequent
+    keyframes.  This removes any existing dependencies on these objects.
+
+  - Added a Zero_All (meta-z), Zero_Next (ctrl-z) and Pump_All (meta-p).
+    Zero_All zeroes all the inter-keyframe intervals: effectively, it 
+    makes the frame numbers equal their respective keyframe numbers.
+    Zero_Next zeroes out only the next keyframe interval.  Pump_All 
+    forces all keyframe intervals to be PUMP, where PUMP is defined in 
+    config.h.
+
+  - Woops, tell a lie: I changed the Pump_All() to be meta-f, and have
+    added an Clone_Attribute() function on meta-p.  Clone_Attribute does
+    what you think it would: takes the attributes of the current selected
+    objects and clones them onto like-named objects in all subsequent 
+    keyframes.
+
+  - 'Kay, I went through and cleaned up the key translations quite a 
+    bit.  I separated out the animation actions into their own map 
+    (anim_translations), and setup two other maps (main_translations
+    and csg_translations) for main and csg window specific accelerators.
+    The accelerators currently defined are 
+      meta-e: which does the same as selecting object:edit
+      meta-v: the first time meta-v is selected, it is the same as 
+              view:viewpoint; the next time meta-v is pressed, it
+              is the same as Apply.  This allows you to easily change
+              the viewport.
+      meta-r: same as window:recall
+      up/down: this zooms the view in or out by 1 percent
+      shift up/shift down: this zooms the view in or out by 25 percent
+
+  - There is a synchronize views function, meta-y (think sYnchronize...)
+    This makes the view in all subsequent keyframes be the same as 
+    the current one.
+
+-----------------------------
+
+  June 23/95 sced 0.81
+  - Well, maybe not constrain world, quite yet...  I added object 
+    propagation via meta-k.  This takes the set of currently selected 
+    objects and copies them forward to all following keyframes.  It 
+    removes any existing objects that have the same name, effectively
+    overwriting them.  It preserves dependencies among the propagated 
+    objects, but breaks any dependencies the old (deleted) objects 
+    had, as well as breaking any dependencies any other objects had 
+    with the deleted objects.  (This last could be fixed, but it'd be
+    tricky, and I don't want to tackle it now, as I don't think it would
+    be too useful.  It would mean a slight rewrite of Update_Features() 
+    and Update_Dependencies().)
+
+-----------------------------
+
+  June 22/95 sced 0.81
+  - Fixed up more bugs with the seqstart() and PumpDown_Next() routines.
+    Things seem to be almost working: multiple objects-single sequences
+    and single object-multiple sequences both work, as does joining
+    two sequences by eliminating the intervening empty keyframe.  Weee!
+
+  - Next: make up some proper test cases, and then go to work on 
+    Constrain_World().
+
+-----------------------------
+
+  June 21/95 sced 0.81
+  - Figured out the problem: I was thinking some arrays in the splining
+    functions were 1-based, rather than 0.  Oh, Denis, you foolish monkey...
+
+  - In the process of tracking that down, I put in (trivial) support for
+    Electric Fence and Checker, both being two malloc debugging programs.
+    Electric Fence was what actually caught the error: Checker produces
+    rather too much output to be useful.
+
+-----------------------------
+
+  June 18/95 sced 0.81
+  - Removed the multiple spline sequences.  Didn't speed up things a 
+    whole lot, but I'll deal with that later.
+
+  - Fixed problems with sequencing: things mostly work, except for this
+    annoying floating point exception on some QUnit calls.
+
+-----------------------------
+
+  June 17/95 sced 0.81
+  - Figured out why new objects weren't appearing: the sequence and 
+    sequence frame number were not being set correctly.  So now objects
+    appear, but the scaling on them is a bit screwed.  Plus, it's too
+    slow: I'm gonna go back to a single sequence in the splined values,
+    rather than the multiple sequences I have now.
+
+-----------------------------
+
+  June 16/95 sced 0.81
+  - Fixed some stuff up: objects still won't appear, though they do
+    disappear correctly.
+
+-----------------------------
+
+  June 15/95 sced 0.81
+  - Trying to get things going again.  The sequences are mostly working, 
+    after some bug fixes to my changes, as well as some changes to the 
+    spline code.  But objects aren't reappearing...  :(
+
+-----------------------------
+
+  June 11/95 sced 0.81
+  - Made a big change to allow objects to pop in and out of the animation:
+    an object can be present in kf1 to kf4, not exist in kf5 and kf6,
+    and then reappear in kf7 through 10.  Or so the theory goes...
+
+    An object will only exist in the interpolated frames if it exists in
+    the bookended keyframes for those interpolated frames.  This mean 
+    (using the above example) that the object would stop existing 
+    immediately after keyframe 4.  This is because I'm using an inter-
+    polating spline, rather than an extrapolating one.
+
+  - And now things are broken in a very big way...
+
+-----------------------------
+
+  June 8/95 sced 0.81
+  - Made things slightly more memory friendly.  I really should write a
+    routine that will completely free instance lists.
+
+  - Split keyframe.c into keyframe.c, animate.c and my_misc.c.
+
+-----------------------------
+
+  June 7/95 sced 0.81
+  - Added constrained animation: all constraints on objects are obeyed,
+    even for splined frames.  There's at least a small bug with this:
+    one of the scenes has a cone slightly preceeding where it really
+    should be.  Kind of annoying, but not big enough to worry about.
+
+  - I changed my mind: it fucks up when constraints change, so I've 
+    taken the Constrain_World() out.
+
+-----------------------------
+
+  June 4/95 sced 0.81
+  - Removed one of the lines put into the animation script file, to make
+    it easier to parallelize.
+
+  - Added a within-scene cloning ability, via alt-c.
+
+-----------------------------
+
+  June 3/95 sced 0.8
+  - Patched to version 0.81
+
+  - Fixed the problem with o_rot and o_scale not being updated when an
+    object is copied.
+
+-----------------------------
+
+  June 1/95 sced 0.8
+  - You can now delete keyframes with alt-tab.
+
+  - I changed the tension of the spline to a constant, and put that
+    constant in h/config.h.  This really should be made an object 
+    attribute.
+
+  - Fixed a problem with the way new keyframes were added to the linked
+    list when it wasn't the last one being cloned.
+
+  - Added another post-processing step to the spline output: this forces
+    the value of a parameter for all frames that occur between two 
+    keyframes which have the same value for that parameter to be the same
+    as the value at the two keyframes.  Got that?  Fr'zample: at kf1, a
+    ball is at A.  At kf2, the ball is at B.  At kf3, the ball is still
+    at B.  Then in kf4, the ball is at C.  Before, when this was animated
+    the ball would move from A to B, then move a bit further, then move
+    back to B and on to C.  This is wrong.
+
+    Now, the ball moves from A to B, stays at B and then moves to C.
+    Looks better.
+
+-----------------------------
+
+  May 31/95 sced 0.8
+  - 'Kay, the first of them is fixed: you can now generate a series of 
+    keyframes, save them and then reload them.  If you create a scene
+    that has only one frame, that one scene will be saved just like
+    in normal sced, with the exception of the Ani_Rotate and Ani_Scale
+    values.  I'm not real happy that the new file format is not 100%
+    compatible with the old sced, but hey, fuck the old sced, that's
+    what -I- say...
+
+-----------------------------
+
+  May 29/95 sced 0.8
+  - When objects are saved, their rotation and scaling are also saved.
+    Old scene files can still be read, but the rotation and scaling of
+    any rotated and/or scaled objects will be fucked up, preventing 
+    them from being animated properly.  I'm not happy with this: I'm
+    going to try to fix this myself (perhaps by causing each such object
+    to become it's own base class?), or maybe just ask Steve to start 
+    saving rotation and scaling with each object in normal sced.  We'll
+    see.
+
+  - Actually started using sced over the last couple days to develop
+    a serious animation.  After playing with it a while, the big shortcomings
+    I see are: can't save, can't delete keyframes, can't propagate objects.
+    All of these will be fixed shortly.
+
+-----------------------------
+
+  May 26/95 sced 0.8
+  - Fixed up a bug in the major and minor alignment routines.
+
+-----------------------------
+
+  May 24/95 sced 0.8
+  - Rewrote the animation exporting routine so it queries the base name
+    of the animation, and also generates a script file of the commands
+    necessary for rendering all the scenes.  Now all I need is to add
+    the commands that will create the mpeg and mpeg generation will be
+    entirely automated.
+
+-----------------------------
+
+  May 23/95 sced 0.8
+  - Pulled the latest source (as of 22May95) and patched to it.
+
+  - Finally got rid of those weird messages related to the functions
+    I was binding to keys: just had to change the arguments they were
+    taking.
+
+  - Copped some code out of Renderman_Get_Filename() and put together
+    a generic routine that pops up and queries for a string.  This is
+    for use by the export routines.
+
+-----------------------------
+
+  May 21/95 sced 0.8
+  - Okay, tell a lie, I did some more work on splining the zooms: they 
+    work now.  I did them same as I did rotation and scaling: I keep
+    track of a separate parameter and it's updated in the Update_from()
+    and Update_to() functions.
+  - Fixed up a small problem with copying attributes for objects:
+    I wasn't doing it.
+  - Got the exporting working: you can now define a bunch of keyframes
+    and then export the lot as POVray scene files.  For some reason I
+    can't export RenderMan files (it keeps dying with a floating point
+    exception) and I have no other renderer to test with, so I haven't
+    played with anything else too much.
+
+-----------------------------
+
+  May 20/95 sced 0.8
+  - Changed the viewport splining to include a bunch of other stuff:
+    basically everything except scr_width, scr_height and magnify.  
+    Everything seems to work fine, with the exception of zooming.  This
+    is because the magnification is currently held as a value of the 
+    view widget: I'm gonna have to start tracking this through a separate
+    variable, but it might get tricky with sequential zooms.  I dunno.
+    I'll prolly leave this 'til later.
+
+  - I've pretty much finished all the splining I want for the moment.
+    I think I'll work on exporting scenes.
+
+-----------------------------
+
+  May 2/95 sced 0.8
+  - Changed the SCED_DEBUG to default on: I'm tired of having it off.
+
+  - Added code to spline viewports: added a function called from the
+    animate() routine, as well as an addition to the Viewport structure.
+
+  - The viewpoint animation mostly works: seems to be a bit unstable 
+    when the change is large.  Gonna have to play with it.  Whoops, I 
+    see a problem: I'm only splining the world_to_view matrix, but the
+    eye_distance is also being used.  Gonna have to spline that to.
+    Tomorrow.
+
+-----------------------------
+
+  May 1/95 sced 0.8
+  - Yup: after a bit of tweaking, forced scaling works.  Things have changed 
+    a fair bit though, and I should go through and check that everything 
+    still works like it should.
+
+  - There was a problem with normal scaling that had to be worked out:
+    a humungous comment in scale.c (~ line 200) explains it.  Things look
+    to be working fairly well.
+
+  - Fixed problem where hitting previous keyframe when you were on the first
+    keyframe nulled your edit list.
+
+  - Lost the previous virgin source when downloading the latest: I hand 
+    patched in the changes Steve said he was making.  I've diffed my changes
+    against the latest sources, removed all the changes I don't recognize
+    (ie. the changes that are in the new source) and used that as the new
+    patch.  Everything looks ok.
+
+  - Just noticed a problem with pumping up and down a single kf interval:
+    sometimes the total number of frames goes out of whack.  I'll fix
+    that and then get animated viewpoints to work.
+
+-----------------------------
+
+  April 30/95 sced 0.8
+  - Been chasing a tricky little bug in propagating the constraints for 
+    copied objects.  As a result, I think I actually understand how the
+    constraints are being done, and why I had to add 3 when copying 
+    boolean arrays for the active origin, scale and rotate constraints.
+    There's a more complete explanation in copy_obj.c
+
+  - The above problem came up as I was changing both scale and rotate to
+    be undoable.  Pretty sure I got rotation undos working, but got 
+    sidetracked when testing the scaling undo.  I'll check it tomorrow.
+    (Oh, and the answer to my question is that there is an array
+    (linked list?) of elements that handle the undos for a single object,
+    and all the dependent objects are simply forced (via their constraints
+    into their previous position.)
+
+-----------------------------
+
+  April 24/95 sced 0.8
+  - Added the code for catching rotations arising from a minor axis 
+    alignment.  In doing this, I bumped across an oddity in align.c: I
+    let Steve know about this.  With (what I think is) a fix for that, 
+    things work quite nicely.
+
+  - In tracking that bug, I found some code that was computing the 
+    major and minor alignment quaternions, so I just grab and save those
+    values.  This meant adding a parameter to Major_Align_Matrix()
+    and Minor_Align_Matrix().
+
+  - Also added dependent rotation quaternion saving: when a object is
+    rotated because it has a dependency on an object that is being rotated,
+    the resulting quaternion is saved for the dependent object also.  I
+    am really leery of how undo affects this: I know the EditInfoPtr
+    structure saves the backout information for undoing actions to an
+    object, but surely it doesn't contain the backout information for all
+    the dependent objects too, does it?  Dunno, gonna have to look into
+    that.
+
+-----------------------------
+
+  April 23/95 sced 0.8
+  - Fixed the problem with the axis alignment: when one of the aligning
+    points is the axis, the object pointed to by the FeaturePtr for 
+    the aligned object didn't have a label, because the axis was never
+    given one.  I added a label for the axis, and changed 
+    ObjectInstance_From_Label() to check if the looked for label is the
+    window axis if it can't be found in the list of normal objects.
+
+  - Eep: fixed a problem with QMul(): some signs were wrong.
+
+  - Whoopee!  I got the rotations to spline proper like.  Turns out my
+    Quat_To_Matrix() was screwed up.  Steve's works great: the scaling
+    problems I'd been seeing were because I wasn't normalizing the splined
+    quaternions.  Plus, the final transform matrix has to result from
+    the rotation*scale, not the other way around, else some of the scales
+    start going off.
+
+  - Also took care of the rotations that arise from major axis alignments:
+    a couple simple computations serve up the quaternion.  Gotta put
+    a check for when there is almost no motion, cus the dot product crashes.
+
+  - Now that I have a reasonably stable splined rotation, I should redo
+    the way I keep track of the values: the o_work_rot should be part of
+    the EditInfoPtr, and should have some capability for backing out
+    via the Undo button on the edit shell.
+
+  - Added R2D in config.h and config.h.in: for changing values from radians
+    to degree.  Defined as just the inverse of D2R.
+
+-----------------------------
+
+
+  April 22/95 sced 0.8
+  - Pulled down the latest version of Steve's code and patched to it.  
+    Maybe this will help with the major axis alignment.
+
+  - Added debug.h to the Makefile list of headers
+
+  - Added the CTAGS variable and a 'tags' make target to generate a tags
+    file for all the $(HEADERS) and $(SRC).  It then links this tags file 
+    into the $(C_DIR) and $(H_DIR) directories.
+
+  - Added a 'make realclean' target, so that the directories can be 
+    cleaned up enough to allow patching.
+
+-----------------------------
+
+  April 21/95 sced 0.8
+  - There's a problem when (at least) the major axis is aligned on a line:
+    although the f_spec_type is axis_feature (which should mean there are
+    two elements in the constraint array, the second element points to an
+    object whose string label is null.  When ObjectInstance_From_Label()
+    is called on this, it crashes.  Not sure yet why this is the case.
+
+-----------------------------
+
+  April 19/95 sced 0.8
+  - Changed things around to use quaternions when splining the rotation.
+    Generally speaking things are better: rotation of an object around
+    multiple axes works mostly well now.  I'm still having a problem
+    with a 2 frame animation with one object right side up and the other
+    upside down when it was moved upside down with a free hand rotation
+    (ie. no rotation constraints).  Problem is, now there are so many
+    layers between the rotation angle and the final matrix that it's 
+    hard to debug.
+
+  - Changed the DEBUG flag to SCED_DEBUG to avoid a conflict with X.
+
+  - Added my quaternion to matrix function: the one in normal sced seems
+    to be doing some scaling.  Mine doesn't scale, but I'm having other
+    troubles...
+
+  - Changed the objectinstance structure to include a quaternion, and
+    had to rearrange the include files, shifting the definition of 
+    quaternion over to Vector.h.
+
+  - Added some more debug defines.
+
+  - I'm getting a semi-random floating point exception for some
+    rotation combinations: not sure where it's coming from.
+
+-----------------------------
+
+  April 18/95 sced 0.8
+  - Fixed the problem with multiple objects: turns out you don't copy a
+    FeatureData if the f_type is null_feature.
+
+  - Slightly changed the debug() macro.
+
+  - Fixed the o_parent pointer to properly update the number of children
+    in the base_object array.
+
+  - Hmmm, turns out that rotations aren't as easy as just splining the 
+    angle: according to Foley/van Dam you won't get good values doing it
+    that way, which fits with what I'm seeing.  They talk about quaternions,
+    so I'll fiddle with them tomorrow.
+
+-----------------------------
+
+
+  April 17/95 sced 0.8
+  - Added the option of a DEBUG define and debug() commands.  These are
+    described in debug.h.  I'm adding these because I'm totally crappy
+    wrt using real debuggers, preferring to use fprintf: this allows
+    me to sprinkle in fprintfs without slowing down the code a lot.  All
+    of the changes made with this can be compiled out by undefining DEBUG
+    at compile time (this is the default).
+
+  - If DEBUG was defined at compile time, the following line will be seen
+    in the File/Copyright item as:
+
+		Debug version compiled " __DATE__ " " __TIME__
+
+    where __DATE__ and __TIME__ are replaced with the appropriate values
+    at compile time.
+
+-----------------------------
+
+  April 16/95 sced 0.8
+  - All the existing functionality has been moved to sced 0.8.  Some bugs
+    still exist, which I'll be working out.  In porting the changes, I've
+    cleaned them up heaps, as well as removing some bugs, in particular 
+    one that came from realigning an object's axes (I think).
+
+  - I did not, however, add any of the ambient or attribute load/saving
+    that I did before.  Too much work, not enough benefit.  Later, maybe...
+
+-----------------------------
+
+  April 14/95 sced 0.61
+  - I've been working on this for the last month and a half or so.
+    No logs, natch.  Changes are:
+
+    - keyframes: a keyframe can be cloned via the tab key: this clones
+      the current keyframe
+    - frames: the entire sequence of `real` frames can be pumped up with
+      Meta-Up arrow, pumped down with Meta-Down arrow.  The next frame
+      interval can be pumped up with Ctrl-Up arrow, and down with Ctrl-
+      Down arrow
+    - animations are started with Meta-a: all translation, rotation and
+      scaling of objects are wire-frame animated over the given number
+      of frames
+
+    It works moderately well: as proof-of-concept, I'm happy with it.
+    The integration of the splined rotation and scaling is quite flaky:
+    it works well with simple objects, but not ones with dependencies,
+    nor with object-axis changes.  Viewpoint is not splined, although it
+    can be specified per-keyframe.
+
+  - Gonna bundle it up and send it off to Stephen to see what he thinks.
+
+-----------------------------
+
+  Feb 27/95 sced 0.61
+  - added the ability to set an ambient light level on a per object
+    basis: this can be saved and loaded via the attribute widget, 
+    saved and loaded via the sced scene file, and will be exported
+    to POVray scene files.  I don't know the correct format for 
+    exporting it to the Rayshade or Genray.  How should this interact
+    with the scene ambient light level?  Right now it just overrides
+    it.
+
+-----------------------------
+
+  Feb 25/95 sced 0.61
+  - fixed a small problem with the loaded path of attributes
+
+-----------------------------
+
+  Feb 24/95 sced 0.61
+  - changed c/attributes.c so that you can load and save attributes
+
+  - changed c/attributes.c so that the buttons on the bottom are 
+    smaller
+
+  - added the AttrDirectory and AttributeDirectory option to the
+    config file: allows the setting of the directory to load and
+    save attributes from: the line in the .scenerc would read
+    either 'AttrDirectory <dir>' or 'AttributeDirectory <dir>',
+    without the quotes and with <dir> being the directory
+
+-----------------------------
+
+  Feb 19/95 sced 0.61
+  - altered c/povray.c so that exporting a povray file would export
+    the commented name of lights, too
+
+-----------------------------

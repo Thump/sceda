@@ -1,0 +1,432 @@
+                                   
+                     Sceda: Scene Editor/Animator
+                     ============================
+
+
+  This is the documentation (such as it is) for sceda, the scene
+editor/animator based on Stephen Chenney's sced.  It is divided into
+four parts:
+
+  - a simple tutorial, to demonstrate sceda's abilities,
+  - a discussion of some more complicated topics,
+  - an enumeration and description of all the keyboard commands
+  - some general notes on using sceda
+
+
+===========================================================================
+                                   
+                      Simple Animation Tutorial
+                      -------------------------
+
+
+  The following is a step-by-step guide through setting up and viewing
+a simple animation.
+
+  - Compile sceda (see INSTALL.sceda).
+
+  - Run ./sceda.  Look at the lower left hand corner of the window.
+
+    Note the animate menu: most basic animation functions are
+    available through this menu.  However, I rarely (read: never)
+    use this, preferring to use keyboard shortcuts.  So you can
+    use this to begin with, but I'd recommend learning and using
+    the keyboard accelerators.  Hit the 'F1' key (while the mouse
+    is in the View widget) to see a list of the shortcuts.
+
+    Note the 'KeyFrame 1 of 1': this is to tell you what keyframe
+    you're looking at, and how many in total there are.
+
+    Note the 'Frame 1 of 1': this is to tell you how many frames there 
+    are, and which frame the current keyframe corresponds to.
+
+  - Select the New Object menu, (or with the mouse in the View 
+    widget, use the 'n' keyboard shortcut) and choose a cone.
+
+  - The cone should appear at the origin in the window.  Pause at this
+    moment to marvel at what a fine job Steve has done with sced.
+
+  - With the mouse in the View widget (the big square with the cone
+    in it), hit the tab key.  (All keyboard accelerators only work
+    within this widget.)  The lower left hand of the screen should
+    now read 'KeyFrame 2 of 2', and 'Frame 2 of 2'.  You've just
+    created a new keyframe by cloning an existing one.  Whistle a
+    little tune of victory.
+
+  - Hit the left arrow key: the screen should now say 'KeyFrame 1 of 2'
+    and 'Frame 1 of 2'.  You won't see any difference in the screen,
+    though, because the two keyframes are identical.
+
+  - Hit the right arrow key: you should be back looking at the second
+    keyframe now.
+
+  - Select the edit menu and choose to edit the cone: it should be the
+    only item on the list.
+
+  - The cone should turn blue, as in normal sced, and the edit window
+    should pop up.
+
+  - Select the 'X-Y Plane' Position constraint, and move the cone to a 
+    different position, away from the origin.  Then hit the finish key.
+
+  - Now compare keyframe 1 and 2 using the left and right arrow keys:
+    keyframe 1 should have the cone still at the origin, keyframe 2 
+    should have the cone wherever you positioned it.  Woohoo!
+
+  - Leave yourself at keyframe 1, and hit the Meta-Up arrow key (the meta
+    key may be labeled Alt).  You should see the number of frames going
+    up: 'Frame 1 of 2' should change to 'Frame 1 of 3', 'Frame 1 of 4' 
+    and so.
+
+  - Switch to the second keyframe with the right arrow: the screen should
+    now indicate that you're on frame N of N, where N is equal to however
+    high a number you pumped the frames in the previous step.
+
+  - Hit Meta-Down arrow.  This reduces the number of frames.  Marvelous,
+    isn't it?
+
+  - Pump the number of frames to about 30 or 40 or so, using the Meta-Up
+    arrow.
+
+  - Move to the first keyframe, using the left or right arrow as needed.
+
+  - Hit the 'a' key.  This should begin an animation: sceda should pause
+    a moment while it thinks about splines and interpolations and such,
+    then sceda should show you a smooth, wireframe animation of your cone
+    moving from its position at the origin (keyframe 1) to where-ever
+    you moved it to in keyframe 2.  View this with astonishment, then
+    stand up and dance a little jig of celebration.
+
+  - This is good, but the motion is only linear.  Move to keyframe 2: hit 
+    the tab key again.  This will clone keyframe 2 into keyframe 3.  Select 
+    the cone, choose the Object/Edit menu.  Move the cone to a spot 
+    different than in keyframe 1 and 2.  Then select the finish button.
+
+  - Because you just cloned keyframe 3 from 2, there are no frames between
+    it: if you animate at this time, there will be no interpolation
+    between kf 2 and 3, and life will suck.  Fix this problem by pumping
+    up all the frames (using Meta Up arrow) 20 or 30 more times.
+
+  - Try another animation with 'a': the cone should move on a smooth
+    path beginning at the origin, moving through the position in keyframe
+    2 and ending at the position in keyframe 3.  Cool, huh?
+
+  - Right, so position splines are neat.  Sceda also does rotation splines:
+    switch to kf 2, edit the cone and change its rotation.  Animate again.
+    You should see the cone smoothly rotate as it changes position.
+
+  - Scaling works the same: on the second kf, scale the object, and then
+    animate again.  As before, the cone should smoothly change shape as
+    it rotates and moves.
+
+
+===========================================================================
+                                   
+                             Other Topics
+                             ------------
+
+
+Deleting Keyframes
+------------------
+
+  Keyframes can be deleted via the Meta-Tab key.  The frame interval
+immediately following the keyframe is also deleted.  If there is only
+one keyframe, it cannot be deleted.
+
+
+Exporting Animations
+--------------------
+
+  Now that we have an animation, we want to export the scene files, so
+we can render the frames.  This is done with the 'x' key, or Animate/Export.
+When you hit this, sceda will think a moment, then ask you for the base
+name of the animation.  For string <foo>, the output scene files will be
+called <foo>.in.#, where # is the (zero based) frame number, and the output
+file, if applicable, will be called <foo>.out.#.  Sceda will also ask you
+for a script file name: sceda will attempt to put all the commands necessary
+to render all the scenes into this file, so that all you'll have to do is
+run this to render them all.
+
+  Some gotchas:
+
+  - Make sure there is a light in your scene.  Sceda's Preview function
+    will put a light in if you don't have one, but this is not the case
+    for exported scenes.
+
+  - There is no need to set the camera for each frame: sceda will 
+    automatically set the camera to be the same as the viewport for all 
+    the frames.
+
+  - I've only really tried this with povray as the back-end renderer.
+    I don't know any reason why others won't work, but have no reason
+    to believe they will, either.  If one of the other renderers doesn't
+    work, please let me know, and I can work with you to fix it.
+
+  - There is no facility provided for compiling the images into a 
+    playable animation.  There is an MPEG I encoder at:
+
+    s2k-ftp.cs.berkeley.edu:/pub/multimedia/mpeg
+
+    and an MPEG II encoder at:
+
+    ftp.netcom.com:/pub/cf/cfogg/mpeg2
+
+    Alternatively, there is Dave's Targa Animator, which I imagine can
+    probably be found someplace on ftp.povray.org.
+
+
+Camera Splining
+---------------
+
+  If the camera position is changed from one keyframe to the
+next, the animations will smoothly spline the camera from one
+position to the next.  This works for look at points, view from
+points, zooms, pans, distances, and eye distance.  Look up vectors
+also work.  Mostly.
+
+
+Impermanent Objects
+-------------------
+
+  Objects are allowed to be present in a subset of the keyframes: this
+means a cube can be in keyframes 1 through 4, absent for keyframes 5
+through 8, and be present again for keyframes 9 and 10.  The object will
+only be present in an interpolated frame if it is present in the keyframes
+on either side of that frame.
+
+
+Interpolated Frame Constraints
+------------------------------
+
+  Objects will (mostly) obey all their constraints for interpolated frames.
+This feature is currently under development, and there are times where it
+breaks things.  Let me know if you have troubles with this.
+
+  Actually, tell a lie, this isn't currently enabled: there's a bug with
+the constraining.  Next release...
+
+
+Object Cloning: within keyframes
+--------------------------------
+
+  Cloning objects can be done by selecting a set of objects, and then
+hitting c.  This will cause a copy of the selected objects to
+be placed into the scene: they will appear directly overtop
+of the selected objects, so you won't be able to see them.
+To manipulate them, you'll have to select all the objects again,
+click on Object/Edit, and then choose them off the Edit menu.
+(Yeah, that's a bug.)
+
+  Cloning differs from simply copying: the dependencies and
+constraints of the objects cloned are resolved among themselves,
+if possible.  For example, say we have a cube, with a cone
+point-constrained so that its apex must lie on a corner of the cube.
+If the cube and cone are selected and copied via the Object/Copy
+function, you will end up with two cubes and two cones, but the
+two cones will both be dependent on the first cube.  The second,
+copied cube will have no dependents at all.
+
+  Cloning, on the other hand, will leave you with two cubes and
+two cones: one of the cones will be dependent on one of the cubes,
+and one of the cones will depend on the other.
+
+  The purpose of this is for when you spend a lot of time creating
+an object with complicated inter-dependencies, and don't want to
+have to do all the work over again to make another copy of it.
+
+
+Object Cloning: across keyframes
+--------------------------------
+
+  By selecting a set of objects and hitting C, a set of objects
+can be cloned to all subsequent keyframes.  If you have a sequence
+of 15 keyframes, and you add a cube named 'Cube_10' to keyframe 5,
+and then you select Cube_10 and hit C, Cube_10 will be copied into
+keyframes 6 through 15.  This is useful for adding objects to a
+series of existing keyframes.
+
+  When objects are cloned via 'c', within a keyframe, they end
+up with different names than the originals.  When they are cloned
+via 'C' to all following keyframes, they keep the same names as
+the originals.
+
+  If, in doing the above, keyframes 6 through 15 already have a cube
+named Cube_10, the existing Cube_10 will be overwritten by the cloned
+one.
+
+
+Object Deleting
+---------------
+
+  By selecting a set of objects and hitting the 'd' key, all instances
+of those objects will be deleted from the current and all subsequent
+keyframes.
+
+
+Attribute Propagation
+---------------------
+
+  Via the 'A' key (different than the 'a' key, used for wireframe
+animating), the attributes of all the selected objects will be
+copied to the instances of those objects in all subsequent keyframes.
+That is, if you have a series of keyframes with a cube and a cone,
+and you modify the appearance of them both in kf 1, by hitting
+the 'A' key you will propagate the attributes of the cone to all
+like-named cones in all subsequent keyframes, and similarly the
+attributes for the cube.
+
+
+Pumping Frames
+--------------
+
+  The number of frames between any two keyframes determines how many
+frames will be interpolated for that interval.  The more frames, the
+slower the motion in the animation.
+
+  There are a number of methods of manipulating these frame
+intervals.  If we are currently on a particular keyframe, then the
+'next keyframe interval' refers to the keyframe interval between the
+current keyframe and the next keyframe.  'All keyframe intervals'
+means all the keyframe intervals beginning at keyframe 1, the first
+keyframe.
+
+  Meta-Up   - increase all keyframe intervals by 1
+  Meta-Down - decreases all keyframe intervals by 0, until there is at
+              least one empty keyframe interval
+  Ctrl-Up   - increases the next keyframe interval by 1
+  Ctrl-Down - decreases the next keyframe interval by 1, unless it is 0
+  z         - zeroes out the next keyframe interval
+  Z         - zeroes out all keyframe intervals 
+  f         - forces all keyframe intervals to 20
+
+
+Synchronizing Views
+-------------------
+
+  By hitting the 'y' key (sYnchronize), the zoom, view from, look at, 
+distance, and eye distance values of subsequent keyframes are set equal
+to the current keyframe.
+
+
+Recalling Views
+---------------
+
+  View points can be changed on a per-keyframe basis, and can be saved to
+a global list of views.  By hitting the 'r' key, the list of saved views
+can viewed, and a view selected.  There is no keyboard shortcut for saving
+a view.
+
+===========================================================================
+                                   
+                             Keystrokes
+                             ----------
+
+  Here is a short table describing all the keystrokes.  I have seen 
+troubles with these keys on some platforms: in particular, the HP 712's
+arrow keys do not seem to translated into the correct keysyms.  (Actually,
+this may just be a problem with fvwm: it grabs arrow keypresses and uses
+them for its own nefarious purposes.)  If any of these keys fail to work 
+for you, you can edit the anim_translations string in c/events.c and 
+change them to something that does work.
+
+  The keys are named by keysyms, so Left, Right, Up and Down are the
+arrow keys, and Meta may be the same as Alt.  
+
+
+  The keystrokes are:
+
+
+    Animation
+    ---------
+        a        -    perform wireframe animation
+        x        -    export animation
+
+
+    Keyframes
+    ---------
+       Left      -    move to previous keyframe (non-wrapping)
+      Right      -    move to next keyframe (wrapping)
+       Tab       -    clone current keyframe
+    Meta Tab     -    destroy current keyframe
+    Meta Up      -    increase all keyframe intervals by 1
+    Ctrl Up      -    increase next keyframe interval by 1
+    Meta Down    -    decrease all keyframe intervals by 1
+    Ctrl Down    -    decrease next keyframe interval by 1
+        z        -    zero next keyframe interval
+        Z        -    zero all keyframe intervals
+        f        -    fill all keyframe intervals to 20
+        c        -    clone system to current keyframe
+        C        -    clone system to all following keyframes
+     Ctrl c      -    clone system to next keyframe
+     Meta c      -    clone system to previous keyframe
+        d        -    delete selected from current keyframe
+        D        -    delete selected from following keyframes
+        A        -    copy attributes of selected to following keyframes
+
+
+    General
+    -------
+        e        -    begin/end edit session on selected object
+        q        -    conditional quit (main) close CSG window (CSG)
+        Q        -    unconditional quit
+        F1       -    this help screen
+        n        -    new object
+
+
+    Viewport
+    --------
+        v        -    begin/end viewpoint change
+        p        -    begin/end pan
+        l        -    change lookat point
+        y        -    synchronize viewports of following keyframes to current
+        Up       -    zooms in by 1%
+       Down      -    zooms out by 1%
+    Shift Up     -    zooms in by 25%
+    Shift Down   -    zooms out by 25%
+        r        -    recalls saved viewport
+
+
+===========================================================================
+
+                             General Notes
+                             -------------
+
+  These are just some general notes, partly on the design of sceda,
+partly on how I use it.
+
+----------
+
+  Sceda relies on object name uniqueness: in order to track a given
+object across keyframes, the object must have the same name.
+
+----------
+
+  The steps I follow when creating an animation are:
+
+    1 Create the complex objects I'm going to be using, either 
+      by CSG or by constraints.
+
+    2 Working with a single keyframe, place the objects appropriately,
+      saving important views as I go.
+
+    3 Clone the single keyframe, and place the moving parts of the 
+      animation in the various positions for each keyframe, checking
+      the positions are correct by doing wireframe animations.
+
+    4 Working on single scenes again, adjust each object's attributes
+      until they look right via the Preview function.
+
+    5 Clone the attributes across the rest of the keyframes.
+
+    6 Export the animation and render it.
+
+    7 Compile the tga images into an mpeg via mpeg_encode or mpeg2encode.
+
+
+  By far, I find I spend most of my time on steps 1 and 2.
+
+----------
+
+  I've really only ever played with POVray rendering, so I'm not sure
+if rendering animations with any of the renderers will even work.  
+
+----------

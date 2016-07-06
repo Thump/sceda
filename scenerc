@@ -1,0 +1,60 @@
+# Defaults file for sced
+MainViewport
+	LookFrom	10 8 6
+	LookAt		0 0 0
+	LookUp		0 0 1
+	ViewDist	20
+	EyeDist		20
+	Magnify		100
+CSGViewport
+	LookFrom	10 8 6
+	LookAt		0 0 0
+	LookUp		0 0 1
+	ViewDist	20
+	EyeDist		20
+	Magnify		100
+Viewport
+	"X-Elevation"
+	LookFrom	1 0 0
+	LookAt		0 0 0
+	LookUp		0 0 1
+	ViewDist	50
+	EyeDist		1000
+	Magnify		40
+Viewport
+	"Y-Elevation"
+	LookFrom	0 1 0
+	LookAt		0 0 0
+	LookUp		0 0 1
+	ViewDist	50
+	EyeDist		1000
+	Magnify		40
+Viewport
+	"Plan"
+	LookFrom	0 0 1
+	LookAt		0 0 0
+	LookUp		0 1 0
+	ViewDist	50
+	EyeDist		1000
+	Magnify		40
+
+Rayshade	"rayshade" "-S 1"
+POVray		"xpovray" "+d +x +ft -L/usr/pgrad/stephen/lib/povray/include"
+Genray		"genray" ""
+Radiance	"rad" "-o x11"
+Genscan		"genscan" "-view \"xv -\""
+Renderman	"rendrib" "-samples 1 1 -v"
+
+Attributes
+	Color			1.0 1.0 1.0
+	Diffuse			0.8
+	Specular		0.2 20
+	Reflect			0.0
+	Refract			1.0
+	Transparency	0.0
+
+Directory "/usr/pgrad/stephen/sced/scenes"
+
+Compress
+Wireframe Full
+

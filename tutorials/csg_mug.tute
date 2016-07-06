@@ -1,0 +1,330 @@
+
+
+
+                                  - 1 -
+
+
+
+       1.  _C_S_G__M_U_G__T_U_T_O_R_I_A_L
+
+       This tutorial is intended to introduce the CSG interface. It
+       assumes knowledge of the editing interface provided by
+       starting.tut and block_world.tut.
+
+       The aim is to create a Mug, or Coffee cup, out of a few
+       cylinder and cropping cubes.
+
+       Be aware that saving does NOT save the objects in the CSG
+       window, only completed CSG objects. It really should save
+       such objects, but it's a fair bit of code to write and I'm
+       not interested at the moment (there are more important
+       things to do).
+
+         1.  Start it up.  We'll start by positioning the objects
+             in the Scene Window, then shifting them to the CSG
+             Window for combining. This allows the objects to be
+             saved in position. Constraints between objects which
+             are transferred to the CSG Window in one action are
+             kept intact, but other constraints are converted to
+             non-references. All this means is that CSG objects
+             should be designed and constrained in terms of their
+             constituent objects, not other objects in the scene.
+
+         2.  Create a cylinder, place it in the middle of the scene
+             and uniformly scale it to a reasonable size (about 3x
+             its initial size). That means use the Uniform scaling
+             constraint provided.
+
+         3.  Make its wireframe dense. Select the cylinder and
+             choose Dense Wire from the object menu.
+
+         4.  Create another cylinder. This one will be subtracted
+             from the first to create the cup bit. Edit it too. Put
+             the Origin at the center of the base. Use combined Y-Z
+             and Z-X planes to move it down so that there is the
+             appropriate base thickness between the 2 cylinders.
+             Change the view around to let you judge this
+             accurately.
+
+         5.  - Scale the second cylinder. We'll do this a smart
+             way. Use a line constraint across the top of the outer
+             cylinder, so that the Scaling Point snaps to the right
+             height and the radius can be adjusted to fit. So
+             choose Add Line from the Scale box, and select 2
+             points, one on the outer cylinder at the vertex
+             corresponding to the Scaling Point on the inner
+             cylinder, and the point diagonally opposite it, so the
+             line passes through the center of the top of the outer
+             cylinder and the inner cylinder will scale straight up
+
+
+
+
+
+
+
+
+
+
+
+                                  - 2 -
+
+
+
+             to meet it.
+
+         6.  Select the Scale constraint you just added. The inner
+             cylinder will snap up to the same level as the outer
+             one. The base stays where it is because the Origin is
+             at the base. Adjust the radius of the inner cylinder
+             by dragging the Scaling Point along the constraint
+             line until you are happy with it.
+
+         7.  Make the inner cylinder dense too.
+
+         8.  That's the basis for a mug. Select both cylinders and
+             click on the CSG Window button. Another window will
+             pop up, the CSG window. In the region at the bottom,
+             the Tree Window, there are 2 buttons, one for each
+             cylinder. Each has a menu attached to it. Have a look
+             but don't select anything. Well, actually, select
+             Display for each. The cylinders will appear in the
+             window above.
+
+         9.  You want to combine them by taking the inner one away
+             from the outer.  Choose Attach from the Cylinder_1
+             menu (the inner cylinder). A little rectangle will
+             follow the cursor around. Go to the Cylinder_0 menu,
+             and you'll see it now has the CSG operations on it and
+             Cancel. Choose Difference. The 2 nodes should now for
+             a tree, with a - as the internal node. The RIGHT node
+             is subtracted from the LEFT node. If you wish to
+             reverse the order, choose ReOrder from the menu on the
+             "-" node.
+
+        10.  Complete this part of the object. Choose Complete off
+             the "-" node.  You will be prompted for a name.
+             Instances will have a default name based on this. In
+             this case try MugBase.
+
+        11.  You will then be presented with a wireframe for the
+             object, and asked to choose a Scaling Point. Choose
+             the vertex that you want as the default scaling point.
+             You can always change it later, but you'll have to
+             change it for each instance individually.
+
+        12.  Now for the handle. Create a cylinder and a cube,
+             using New Object in the CSG Window (NOT the Scene
+             Window). the new objects appear down the bottom, but
+             aren't displayed.
+
+        13.  Display the cylinder and edit it. Same procedure for
+             editing any object. Rotate it 90degrees until it's
+             axis lines up with the X-axis.  Select the Minor Axis
+             Rotate constraint and use Temp Allign off the Major
+
+
+
+
+
+
+
+
+
+
+
+                                  - 3 -
+
+
+
+             menu to do this.
+
+        14.  - Scale it to a bigger radius. Add a Scaling Line
+             Scaling constraint which goes from the Scaling Point
+             through the center of that endcap. That is, choose the
+             center of the endcap as the point defining the line.
+             Use reference (button 1) points to specify the line.
+             Call it ConstRadius, because this will scale while
+             keeping it round. Scale it out to be about 2x its old
+             size.
+
+        15.  Copy the cylinder. Use Copy on its menu at the bottom
+             (there's no copy or delete on the Object menu for
+             CSG). The new one won't be displayed and when you
+             display it, it will appear on top of the original one,
+             so you won't be able to tell them apart. The best way
+             to solve this problem is to Un-Display the one you
+             don't want.
+
+        16.  Edit the new cylinder (or the old one, it doesn't
+             matter, as long as you know which is inside the
+             other). Make it a bit smaller than the other one -
+             with the difference between them sort of handle width.
+
+        17.  Display and edit the cube. There are a few ways to do
+             this but we'll use intersection. Position the cube so
+             that one side is on the Z-axis.  The best way is to
+             Add a Line Position constraint which corresponds to
+             the Z-axis. Then move the origin to the back face of
+             the Cube and select the constraint.
+
+        18.  Scale the cube to make it higher than the cylinders
+             and handle thickness.  Use the default constraints to
+             scale in the appropriate directions. The Origin will
+             stay where you put it. Finish when it looks right.
+             Make sure all the parts of the cylinders you want to
+             keep are inside the Cube.
+
+        19.  Build the tree. Attach the inner cylinder to the outer
+             one using Attach then Difference. Then attach the Cube
+             to the "-" node using an Intersection. The tree should
+             look like: (The names might be different).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  - 4 -
+
+
+
+                          n
+                         / \
+                        /   \
+                       -    Cube_0
+                      / \
+                     /   \
+                    /     \
+             Cylinder_2  Cylinder_2_4
+
+        20.  Complete it, and call it a Handle.
+
+        21.  To build the mug we attach a base to a handle. Go to
+             New Object (CSG), click on New CSG Object (now
+             available), and choose a base. Do it again to choose a
+             handle.
+
+        22.  Display both objects, and Edit the Handle. We want the
+             handle to attach on one side (obviously) but sticking
+             into the base so that the square ends are hidden
+             inside the wall. Use a Line Position constraint, with
+             the line being one of the vertical generators for the
+             inner cylinder. Preferable the one at the positive end
+             of the Y-Axis, since this will give the right
+             orientation. Notice that the Origin for the Handle is
+             where the origin of the CSG window was when the object
+             was created. This suits us just fine. Add the
+             constraint and select it. Finish for a moment.
+
+        23.  The handle looks a bit round, so we'll shear it a bit
+             to give it a sort of elliptical look.  It's not
+             terribly obvious how to set the Object Axes up to get
+             the shear you want, but here's a rough idea. You don't
+             want it to shear sideways, so leave one axis parallel
+             to the axis of the cylinders that make up the handle.
+             that's the Minor Axis. Change the Major axis to point
+             toward the top of the Z-Axis. Choose "Redefine 1" off
+             the Major menu and select the top of the Z-axis. This
+             will screw up the Minor axis again, so choose
+             "Redefine 2" off the Minor menu and select both
+             endpoints of the X-axis. You should have the Minor
+             axis where it started, parallel to the X-axis, and the
+             Major and Other axes leaning over.
+
+        24.  Use Major-Other Pl to scale it so that the amount of
+             shear looks like a handle. Don't worry that it's no
+             longer vertical - that can be fixed.
+
+        25.  Fix the vertical allignment. Change the Axes again.
+             Use "Redefine 2" Major to reallign the Major axis with
+             one of the edges you want vertical.  Use "Redefine 2"
+             Minor to allign Minor with one of the edges you want
+
+
+
+
+
+
+
+
+
+
+
+                                  - 5 -
+
+
+
+             horizontal. Then, use allignment constraints to get it
+             alligned the way you want.
+
+        26.  The handle should fit nicely. If it's too big or
+             small, use the scaling constraints to reshape it. Now
+             that the Axes are vertical and horizontal again you
+             won't shear it.
+
+        27.  Attach the handle to the base in a Union.
+
+        28.  Preview the mug, by choosing a good view, then
+             selecting Preview off the menu on the Union sign.
+             Select a raytracer and watch it happen.
+
+        29.  All that remains is to attach the handle to the base
+             with a Union, and complete it. Call it Mug, or
+             whatever you prefer, and select a default Scaling.
+
+        30.  Close the CSG window - CSG menu, Close option.
+
+        31.  Back in the scene window, before creating any
+             instances, save what you have as mug.base. The file is
+             now suitable for merging whenever you want a mug!
+
+        32.  And create an instance to have a look at it. Just go
+             New Object - New CSG Object and choose it.
+
+       From here the mug can be rendered or included in other
+       scenes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
